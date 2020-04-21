@@ -17,6 +17,15 @@ class CategoryController extends Controller
         return view('web.categories.categories');
     }
 
+    public function lista(){
+
+        $categories = Category::all();
+        $num = 1;
+
+        return view('admin.categories.index', compact('categories', 'num'));
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

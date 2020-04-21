@@ -24,9 +24,7 @@
 							<tr>
 								<th>#</th>
 								<th>Nombre</th>
-								<th>Cantidad</th>
 								<th>Categoria</th>
-								<th>Subcategoria</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -34,23 +32,11 @@
 							@foreach($products as $product)
 							<tr>
 								<td>{{ $num++ }}</td>
-								<td>
-									<span class="image-list">
-										@if(count($product->images)>0)
-										<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/products/'.$product->images[0]->image) }}' style='width: 150px; height: 150px;' ><br><b>{{ $product->name }}</b>"><img src="{{ asset('/admins/img/products/'.$product->images[0]->image) }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $product->name }}</a>
-										@else
-										<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/products/imagen.jpg') }}' style='width: 150px; height: 150px;' ><br><b>{{ $product->name }}</b>"><img src="{{ asset('/admins/img/products/imagen.jpg') }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $product->name }}</a>
-										@endif
-									</span>
-								</td>
-								<td>{{ $product->qty }}</td>
-								<td>{{ $product->subcategory->category->name }}</td>
-								<td>{{ $product->subcategory->name }}</td>
+								<td>{{ $product->name }}</td>
+								<td>{{ $product->category_id }}</td>
 								<td class="d-flex">
-									<a class="btn btn-info btn-circle btn-sm" href="{{ route('productos.edit', ['slug' => $product->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-									@if(count($product->payments)==0)
+									<a class="btn btn-info btn-circle btn-sm" href="{{-- {{ route('productos.edit', ['slug' => $product->slug]) }} --}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 									<button class="btn btn-danger btn-circle btn-sm" onclick="deleteProduct('{{ $product->slug }}')"><i class="fa fa-trash"></i></button>
-									@endif
 								</td>
 							</tr>
 							@endforeach
