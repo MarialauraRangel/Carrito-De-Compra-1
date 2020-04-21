@@ -20,7 +20,10 @@ Route::get('/registro/email', 'UserController@emailVerify');
 Route::get('/', 'WebController@index')->name('home');
 
 //Pedidos
-Route::get('/pedidos', 'OrderController@create')->name('pedido.create');
+Route::get('/carrito', 'WebController@cart')->name('carrito.index');
+Route::post('/carrito/agregar', 'WebController@addCart')->name('carrito.add');
+Route::post('/carrito/quitar', 'WebController@removeCart')->name('carrito.remove');
+
 Route::get('/pedido/{slug}', 'OrderController@show')->name('pedido.show');
 
 //Ventas

@@ -1,21 +1,20 @@
 @extends('layouts.web')
 
-@section('title', 'Carrito de Compra')
+@section('title', 'Carrito')
 
 @section('links')
-<link rel="stylesheet" href="{{ asset('/web/vendors/select2/select2.css') }}">
-<link rel="stylesheet" href="{{ asset('/web/vendors/select2/select2-bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.css') }}">
 @endsection
 
 @section('content')
 
-
 <div class="hero-wrap hero-bread" style="background-image: url('web/images/bg_2.jpg');">
+	<div class="overlay"></div>
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
 			<div class="col-md-9 ftco-animate text-center">
 				<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Carrito</span></p>
-				<h1 class="mb-0 bread">Mis Compras</h1>
+				<h1 class="mb-0 bread">Mi Carrito</h1>
 			</div>
 		</div>
 	</div>
@@ -31,54 +30,39 @@
 							<tr class="text-center">
 								<th>&nbsp;</th>
 								<th>&nbsp;</th>
-								<th>Tipo de Pizza</th>
+								<th>Producto</th>
 								<th>Precio</th>
 								<th>Cantidad</th>
 								<th>Total</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="text-center">
-								<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-								<td class="image-prod"><div class="img" style="background-image:url(web/images/product-3.jpg);"></div></td>
-
-								<td class="product-name">
-									<h3>Nombre</h3>
-									<p>Ingredientes, Ingrediente, Ingredientes</p>
+							@forelse ($products as $product)
+							<tr class="text-center cartProduct" slug="{{ $product['slug'] }}">
+								<td class="product-remove"><a slug="{{ $product['slug'] }}"><span class="ion-ios-close"></span></a></td>
+								<td class="image-prod">
+									@isset($product->images[0])
+									<div class="img" style="background-image:url({{ asset('/admins/img/products/'.$product->images[0]->image) }});"></div>
+									@else
+									<div class="img" style="background-image:url({{ asset('/admins/img/products/imagen.jpg') }});"></div>
+									@endisset
 								</td>
-
-								<td class="price">$4.90</td>
-
+								<td class="product-name">
+									<h3>{{ $product['name'] }}</h3>
+								</td>
+								<td class="price">{{ '$ '.number_format($product['price'], 2, ",", ".") }}</td>
 								<td class="quantity">
 									<div class="input-group mb-3">
-										<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+										<input type="text" name="qty" class="quantity qty form-control" value="{{ $product['qty'] }}" min="1" slug="{{ $product['slug'] }}" price="{{ $product['price'] }}">
 									</div>
 								</td>
-
-								<td class="total">$4.90</td>
-							</tr><!-- END TR-->
-
+								<td class="total" slug="{{ $product['slug'] }}">{{ '$ '.number_format($product['price']*$product['qty'], 2, ",", ".") }}</td>
+							</tr>
+							@empty
 							<tr class="text-center">
-								<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-								<td class="image-prod"><div class="img" style="background-image:url(web/images/product-4.jpg);"></div></td>
-
-								<td class="product-name">
-									<h3>Nombre</h3>
-									<p>Ingredientes, Ingrediente, Ingredientes</p>
-								</td>
-
-								<td class="price">$15.70</td>
-
-								<td class="quantity">
-									<div class="input-group mb-3">
-										<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-									</div>
-								</td>
-
-								<td class="total">$15.70</td>
-							</tr><!-- END TR-->
+								<td colspan="6">No hay productos agregados al carrito</td>
+							</tr>
+							@endforelse
 						</tbody>
 					</table>
 				</div>
@@ -108,5 +92,8 @@
 	</div>
 </section>
 
+@endsection
 
+@section('script')
+<script src="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
 @endsection
