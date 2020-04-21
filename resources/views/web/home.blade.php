@@ -19,7 +19,7 @@
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
 	            <div class="col-md-12 ftco-animate text-center">
-	              <h1 class="mb-2">Las Mejores &amp; Pizzas</h1>
+	              <h1 class="mb-2">Las Mejores Pizzas</h1>
 	              <h2 class="subheading mb-4">Para los mejores &amp; clientes</h2>
 	              <p><a href="#" class="btn btn-primary">Ver Más</a></p>
 	            </div>
