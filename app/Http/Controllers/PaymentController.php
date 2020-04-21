@@ -24,7 +24,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return view('web.checkout');
+        return view('web.payments.checkout');
     }
 
     /**

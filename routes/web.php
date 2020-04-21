@@ -29,6 +29,7 @@ Route::get('/pagos/registrar', 'PaymentController@create')->name('pago.create');
 //Productos
 Route::get('/productos', 'ProductController@index')->name('producto.index');
 Route::get('/productos/registrar', 'ProductController@create')->name('producto.create');
+Route::get('/productos/ver', 'ProductController@show')->name('producto.show');
 
 //Categorías
 Route::get('/categorias', 'CategoryController@index')->name('categoria.index');
