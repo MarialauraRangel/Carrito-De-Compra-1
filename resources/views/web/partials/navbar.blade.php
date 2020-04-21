@@ -8,8 +8,9 @@
 		<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Inicio</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Tienda</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Categorías</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Pizzas</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Mis Compras</a></li>
+				<li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 			</ul>
 		</div>
 	</div>

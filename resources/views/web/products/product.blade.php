@@ -29,7 +29,7 @@
 								<div class="icon"><span class="ion-ios-arrow-down"></span></div>
 								<select name="" id="" class="form-control">
 									<option value="">Pequeña</option>
-									<option value="">Mediana>/option>
+									<option value="">Mediana</option>
 									<option value="">Grande</option>
 									<option value="">Gigante</option>
 								</select>
