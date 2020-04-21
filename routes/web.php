@@ -14,5 +14,6 @@
 ///// WEB /////
 // Inicio
 Route::get('/', 'WebController@index')->name('home');
+Route::get('/carrito', 'CartController@index')->name('carrito.index');
 
 ///// ADMIN /////
