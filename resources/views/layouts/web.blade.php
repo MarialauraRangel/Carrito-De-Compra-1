@@ -7,12 +7,12 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')</title>
 
-	<meta name="description" content="Encuentra el repuesto que necesitas.">
+	{{-- <meta name="description" content="Encuentra el repuesto que necesitas.">
 	<meta property="og:title" content="Mister Fix" />
 	<meta property="og:description" content="Encuentra el repuesto que necesitas." />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://www.misterfix.pe" />
-	<meta property="og:image" content="https://www.misterfix.pe/admins/img/logo.png" />
+	<meta property="og:image" content="https://www.misterfix.pe/admins/img/logo.png" /> --}}
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">

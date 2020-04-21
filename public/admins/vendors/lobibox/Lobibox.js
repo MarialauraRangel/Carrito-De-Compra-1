@@ -1567,12 +1567,6 @@ var Lobibox = Lobibox || {};
                 error: 'fa fa-times-circle',
                 warning: 'fa fa-exclamation-circle',
                 info: 'fa fa-info-circle'
-            },
-            icon: {
-                success: 'icon-check-circle',
-                error: 'icon-times-circle',
-                warning: 'icon-exclamation-circle',
-                info: 'icon-info-circle'
             }
         }
     };

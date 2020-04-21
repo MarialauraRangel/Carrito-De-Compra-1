@@ -3,8 +3,7 @@
 @section('title', 'Carrito de Compra')
 
 @section('links')
-<link rel="stylesheet" href="{{ asset('/web/vendors/select2/select2.css') }}">
-<link rel="stylesheet" href="{{ asset('/web/vendors/select2/select2-bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.css') }}">
 @endsection
 
 @section('content')
@@ -103,15 +102,12 @@
                             <h3><a href="#">{{ $product->name }}</a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
-                                    <p class="price"><span>$120.00</span></p>
+                                    <p class="price"><span>$ {{ number_format($product->price, 2, ",", ".") }}</span></p>
                                 </div>
                             </div>
                             <div class="bottom-area d-flex px-3">
                                 <div class="m-auto d-flex">
-                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
-                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                    <a class="btn-cart-open d-flex justify-content-center align-items-center mx-1" title="{{ $product->name }}" img="{{ asset('/admins/img/products/'.$product->image) }}" price="{{ number_format($product->price, 2, '.', '') }}" description="{{ $product->description }}" slug="{{ $product->slug }}">
                                         <span><i class="ion-ios-cart"></i></span>
                                     </a>
                                 </div>
@@ -136,6 +132,43 @@
             </div>   		
         </div>
     </section>
+
+    <div class="modal fade" id="modal-cart" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title-cart"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="" class="w-100 img-fluid" id="img-cart">
+                        </div>
+                        <div class="col-12">
+                            <p id="price-cart"></p>
+                        </div>
+                        <div class="col-12">
+                            <p id="description-cart"></p>
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label">Cantidad</label>
+                            <input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-add-cart" slug="">Agregar Al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
+@endsection
+
+@section('script')
+<script src="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
 @endsection

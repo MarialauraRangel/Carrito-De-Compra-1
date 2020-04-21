@@ -10,6 +10,7 @@
 				<li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Inicio</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">Tienda</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">Categorías</a></li>
+				<li class="nav-item cta cta-colored"><a href="{{ route('carrito.index') }}" class="nav-link"><span class="icon-shopping_cart"></span>[<span class="count-cart">{{ $cart }}</span>]</a></li>
 				@guest
 				<li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Ingresar</a></li>
 				<li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Registrarse</a></li>

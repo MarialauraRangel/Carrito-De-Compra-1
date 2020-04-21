@@ -10252,7 +10252,7 @@
     background: #fff !important;
     -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    z-index: 1500;
+    z-index: 1000;
   }
   .ftco-navbar-light.scrolled .nav-item.active > a {
     color: #0f1d41 !important;

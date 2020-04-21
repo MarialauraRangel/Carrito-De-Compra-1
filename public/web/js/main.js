@@ -274,4 +274,116 @@ $(document).ready(function() {
 			"language": español
 		});
 	}
+
+	//touchspin para los campos numericos
+	if ($('.number').length) {
+		$(".number").TouchSpin({
+			min: 1,
+			max: 99999999999,
+			buttondown_class: 'btn btn-primary rounded',
+			buttonup_class: 'btn btn-primary rounded'
+		});
+	}
+
+	if ($('.qty').length) {
+		$(".qty").each(function(){
+			$(this).TouchSpin({
+				min: 1,
+				buttondown_class: 'btn btn-primary px-2 py-1 rounded',
+				buttonup_class: 'btn btn-primary px-2 py-1 rounded'
+			});
+		});
+	}
+});
+
+$('.btn-cart-open').click(function(event) {
+	$('#title-cart').text($(this).attr('title'));
+	$('#description-cart').text($(this).attr('description'));
+	$('#img-cart').attr('src', $(this).attr('img'));;
+	$('#price-cart').text("Precio: $ "+$(this).attr('price'));
+	$('#btn-add-cart').attr('slug', ($(this).attr('slug')));
+	$('input[name="qty"]').val(1);
+	$('#modal-cart').modal();
+});
+
+//Agregar producto del carrito
+$('#btn-add-cart').click(function(event) {
+	var qty=$('input[name="qty"]').val(), slug=$(this).attr('slug');;
+	$.ajax({
+		url: '/carrito/agregar',
+		type: 'POST',
+		dataType: 'html',
+		data: {qty: qty, slug: slug},
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	})
+	.done(function(result) {
+		var obj=JSON.parse(result);
+
+		if (obj.status) {
+			$(".count-cart").text(obj.cart.length);
+			$('#modal-cart').modal();
+			Lobibox.notify('success', {
+				title: 'Producto agregado',
+				sound: true,
+				msg: 'El producto a sido agregado al carrito exitosamente.'
+			});
+		} else {
+			Lobibox.notify('error', {
+				title: 'Error',
+				sound: true,
+				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
+			});
+		}
+	});
+});
+
+//Quitar producto del carrito
+$('.product-remove a').click(function() {
+	var slug=$(this).attr('slug');
+	$.ajax({
+		url: '/carrito/quitar',
+		type: 'POST',
+		dataType: 'html',
+		data: {slug: slug},
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	}).done(function(result) {
+		var obj=JSON.parse(result);
+
+		if (obj.status) {
+			$(".cartProduct[slug='"+slug+"']").remove();
+			var count=$(".count-cart").text();
+			count=count-1;
+			$(".count-cart").text(count);
+			Lobibox.notify('success', {
+				title: 'Producto eliminado',
+				sound: true,
+				msg: 'El producto a sido sacado del carrito exitosamente.'
+			});
+		} else {
+			Lobibox.notify('error', {
+				title: 'Error',
+				sound: true,
+				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
+			});
+		}
+	});
+});
+
+//Al cambiar la cantidad de un producto en el carrito cambia el total
+$('.qty').change(function() {
+	var slug=$(this).attr('slug'), price=$(this).attr('price'), qty=$(this).val();
+	var total=price*qty;
+	total=new Intl.NumberFormat("de-DE").format(total);
+	$('.total[slug="'+slug+'"]').text("$ "+total);
+});
+
+$('.qty').keyup(function() {
+	var slug=$(this).attr('slug'), price=$(this).attr('price'), qty=$(this).val();
+	var total=price*qty;
+	total=new Intl.NumberFormat("de-DE").format(total);
+	$('.total[slug="'+slug+'"]').text("$ "+total);
 });
