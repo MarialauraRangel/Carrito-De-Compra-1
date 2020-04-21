@@ -20,8 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('photo')->default('usuario.png');
             $table->string('slug')->unique();
             $table->string('dni')->nullable();
-            $table->bigInteger('country_id')->unsigned()->default(173);
-            $table->bigInteger('district_id')->unsigned()->nullable();
             $table->string('phone')->nullable();
             $table->enum('genrer', ["Masculino", "Femenino"])->nullable();
             $table->date('birthday')->nullable();

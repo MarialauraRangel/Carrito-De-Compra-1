@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class WebController extends Controller
@@ -12,6 +13,7 @@ class WebController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        return view('web.home');
+    	$products=Product::all();
+        return view('web.home', compact('products'));
     }
 }
