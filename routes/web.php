@@ -37,6 +37,7 @@ Route::get('/sistema', 'AdminController@index')->name('admin');
 //Productos
 Route::get('/productos', 'ProductController@index')->name('producto.index');
 Route::get('/productos/registrar', 'ProductController@create')->name('producto.create');
+Route::get('/productos/ver', 'ProductController@show')->name('producto.show');
 
 //Categorías
 Route::get('/categorias', 'CategoryController@index')->name('categoria.index');
