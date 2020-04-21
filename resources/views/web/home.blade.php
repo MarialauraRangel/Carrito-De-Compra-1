@@ -96,7 +96,7 @@
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
                         <a href="#" class="img-prod">
-                            <img class="img-fluid" src="{{ asset('/web/images/'.$product->image) }}" alt="{{ $product->name }}">
+                            <img class="img-fluid" src="{{ asset('/admins/img/products/'.$product->image) }}" alt="{{ $product->name }}">
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
@@ -119,6 +119,7 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </section>

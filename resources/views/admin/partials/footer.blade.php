@@ -1,0 +1,1 @@
+<footer class="footer">Todos los derecho reservados &copy; - MisterFix {{ date('Y') }} </footer>
