@@ -25,6 +25,7 @@ Route::get('/', 'WebController@index')->name('home');
 Route::get('/carrito', 'WebController@cart')->name('carrito.index');
 Route::post('/carrito/agregar', 'WebController@addCart')->name('carrito.add');
 Route::post('/carrito/quitar', 'WebController@removeCart')->name('carrito.remove');
+Route::post('/carrito/cantidad', 'WebController@qtyCart')->name('carrito.qty');
 Route::get('/pedido/{slug}', 'OrderController@show')->name('pedido.show');
 
 //Ventas
@@ -32,7 +33,7 @@ Route::get('/ventas', 'SaleController@index')->name('venta.index');
 
 //Pagos
 Route::get('/pagos', 'PaymentController@index')->name('pago.index');
-Route::get('/pagos/registrar', 'PaymentController@create')->name('pago.create');
+Route::get('/comprar', 'WebController@checkout')->name('pago.create');
 
 //Productos
 Route::get('/productos/ver', 'ProductController@show')->name('producto.show');

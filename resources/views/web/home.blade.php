@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Carrito de Compra')
+@section('title', 'Inicio')
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.css') }}">
@@ -18,7 +18,7 @@
 
                         <div class="col-md-12 ftco-animate text-center">
                             <h1 class="mb-2">Las Mejores Pizzas</h1>
-                            <h2 class="subheading mb-4">Para los mejores &amp; clientes</h2>
+                            <h2 class="subheading mb-4">Para los mejores clientes</h2>
                             <p><a href="#" class="btn btn-primary">Ver Más</a></p>
                         </div>
 
@@ -28,7 +28,7 @@
         </div>
     </section>
 
-    <section class="ftco-section">
+    <section class="ftco-section ftco-no-pb">
         <div class="container">
             <div class="row no-gutters ftco-services">
                 <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
@@ -38,7 +38,7 @@
                         </div>
                         <div class="media-body">
                             <h3 class="heading">Envíos a tiempo</h3>
-                            <span>Envíos hasta la comodidad de tu hogar</span>
+                            <span>Hasta la comodidad de tu hogar</span>
                         </div>
                     </div>      
                 </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="media-body">
                             <h3 class="heading">Ingredientes Frescos</h3>
-                            <span>Pizzas con los ingredientes necesarios</span>
+                            <span>Pizzas con los mejor necesarios</span>
                         </div>
                     </div>    
                 </div>
@@ -102,7 +102,7 @@
                             <h3><a href="#">{{ $product->name }}</a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
-                                    <p class="price"><span>$ {{ number_format($product->price, 2, ",", ".") }}</span></p>
+                                    <p class="price"><span>${{ number_format($product->price, 2, ",", ".") }}</span></p>
                                 </div>
                             </div>
                             <div class="bottom-area d-flex px-3">
@@ -155,12 +155,12 @@
                         </div>
                         <div class="form-group col-12">
                             <label class="col-form-label">Cantidad</label>
-                            <input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1">
+                            <input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="modal-qty" price="">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btn-add-cart" slug="">Agregar Al Carrito</button>
+                    <button type="button" class="btn btn-primary" id="btn-add-cart" slug=""><b id="price-add-cart"></b> Agregar Al Carrito</button>
                 </div>
             </div>
         </div>
