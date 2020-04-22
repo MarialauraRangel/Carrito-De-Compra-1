@@ -50,13 +50,13 @@
 								<td class="product-name">
 									<h3>{{ $product['name'] }}</h3>
 								</td>
-								<td class="price">{{ '$ '.number_format($product['price'], 2, ",", ".") }}</td>
+								<td class="price">{{ '$'.number_format($product['price'], 2, ",", ".") }}</td>
 								<td class="quantity">
 									<div class="input-group mb-3">
 										<input type="text" name="qty" class="quantity qty form-control" value="{{ $product['qty'] }}" min="1" slug="{{ $product['slug'] }}" price="{{ $product['price'] }}">
 									</div>
 								</td>
-								<td class="total" slug="{{ $product['slug'] }}">{{ '$ '.number_format($product['price']*$product['qty'], 2, ",", ".") }}</td>
+								<td class="total" slug="{{ $product['slug'] }}">{{ '$'.number_format($product['price']*$product['qty'], 2, ",", ".") }}</td>
 							</tr>
 							@empty
 							<tr class="text-center">
@@ -68,13 +68,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="row justify-content-end">
+		<div class="row">
 			<div class="col-lg-6 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
 					<h3>Total</h3>
 					<p class="d-flex">
 						<span>Subtotal</span>
-						<span>$20.60</span>
+						<span id="subtotal-cart">${{ number_format($total, 2, ",", ".") }}</span>
 					</p>
 					<p class="d-flex">
 						<span>Delivery</span>
@@ -83,7 +83,7 @@
 					<hr>
 					<p class="d-flex total-price">
 						<span>Total</span>
-						<span>$17.60</span>
+						<span id="total-cart">${{ number_format($total, 2, ",", ".") }}</span>
 					</p>
 				</div>
 				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Siguiente</a></p>

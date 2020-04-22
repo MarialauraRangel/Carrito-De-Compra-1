@@ -299,10 +299,13 @@ $(document).ready(function() {
 $('.btn-cart-open').click(function(event) {
 	$('#title-cart').text($(this).attr('title'));
 	$('#description-cart').text($(this).attr('description'));
-	$('#img-cart').attr('src', $(this).attr('img'));;
-	$('#price-cart').text("Precio: $ "+$(this).attr('price'));
+	$('#img-cart').attr('src', $(this).attr('img'));
+	var price=new Intl.NumberFormat("de-DE").format($(this).attr('price'));
+	$('#price-cart').text("Precio: $ "+price);
+	$('#price-add-cart').text("$ "+price);
 	$('#btn-add-cart').attr('slug', ($(this).attr('slug')));
 	$('input[name="qty"]').val(1);
+	$('input[name="qty"]').attr('price', $(this).attr('price'));
 	$('#modal-cart').modal();
 });
 
@@ -374,16 +377,70 @@ $('.product-remove a').click(function() {
 });
 
 //Al cambiar la cantidad de un producto en el carrito cambia el total
-$('.qty').change(function() {
-	var slug=$(this).attr('slug'), price=$(this).attr('price'), qty=$(this).val();
+$('#modal-qty').change(function() {
+	var price=$(this).attr('price'), qty=$(this).val();
 	var total=price*qty;
 	total=new Intl.NumberFormat("de-DE").format(total);
-	$('.total[slug="'+slug+'"]').text("$ "+total);
+	$('#price-add-cart').text("$ "+total);
+});
+
+$('#modal-qty').keyup(function() {
+	var price=$(this).attr('price'), qty=$(this).val();
+	var total=price*qty;
+	total=new Intl.NumberFormat("de-DE").format(total);
+	$('#price-add-cart').text("$ "+total);
+});
+
+//Al cambiar la cantidad de un producto en el carrito cambia el total
+$('.qty').change(function() {
+	var slug=$(this).attr('slug'), price=$(this).attr('price'), qty=$(this).val();
+	$.ajax({
+		url: '/carrito/cantidad',
+		type: 'POST',
+		dataType: 'html',
+		data: {qty: qty, slug: slug},
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	})
+	.done(function(result) {
+		var obj=JSON.parse(result);
+
+		if (obj.status) {
+			$('.total[slug="'+slug+'"]').text("$ "+obj.subtotal);
+		} else {
+			Lobibox.notify('error', {
+				title: 'Error',
+				sound: true,
+				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
+			});
+		}
+	});
 });
 
 $('.qty').keyup(function() {
 	var slug=$(this).attr('slug'), price=$(this).attr('price'), qty=$(this).val();
-	var total=price*qty;
-	total=new Intl.NumberFormat("de-DE").format(total);
-	$('.total[slug="'+slug+'"]').text("$ "+total);
+	$.ajax({
+		url: '/carrito/cantidad',
+		type: 'POST',
+		dataType: 'html',
+		data: {qty: qty, slug: slug},
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	})
+	.done(function(result) {
+		var obj=JSON.parse(result);
+
+		if (obj.status) {
+			$('.total[slug="'+slug+'"]').text("$ "+obj.subtotal);
+		} else {
+			Lobibox.notify('error', {
+				title: 'Error',
+				sound: true,
+				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
+			});
+		}
+	});
 });
+
