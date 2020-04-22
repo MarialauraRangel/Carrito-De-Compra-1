@@ -86,7 +86,7 @@
 						<span id="total-cart">${{ number_format($total, 2, ",", ".") }}</span>
 					</p>
 				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Siguiente</a></p>
+				<p><a href="{{ route('pago.create') }}" class="btn btn-primary py-3 px-4">Siguiente</a></p>
 			</div>
 		</div>
 	</div>

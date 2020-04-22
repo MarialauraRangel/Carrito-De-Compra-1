@@ -32,7 +32,7 @@ Route::get('/ventas', 'SaleController@index')->name('venta.index');
 
 //Pagos
 Route::get('/pagos', 'PaymentController@index')->name('pago.index');
-Route::get('/pagos/registrar', 'PaymentController@create')->name('pago.create');
+Route::get('/comprar', 'WebController@checkout')->name('pago.create');
 
 ///// ADMIN /////
 // Inicio

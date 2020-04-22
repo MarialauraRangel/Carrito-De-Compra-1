@@ -301,8 +301,8 @@ $('.btn-cart-open').click(function(event) {
 	$('#description-cart').text($(this).attr('description'));
 	$('#img-cart').attr('src', $(this).attr('img'));
 	var price=new Intl.NumberFormat("de-DE").format($(this).attr('price'));
-	$('#price-cart').text("Precio: $ "+price);
-	$('#price-add-cart').text("$ "+price);
+	$('#price-cart').text("Precio: $"+price);
+	$('#price-add-cart').text("$"+price);
 	$('#btn-add-cart').attr('slug', ($(this).attr('slug')));
 	$('input[name="qty"]').val(1);
 	$('input[name="qty"]').attr('price', $(this).attr('price'));
@@ -326,7 +326,7 @@ $('#btn-add-cart').click(function(event) {
 
 		if (obj.status) {
 			$(".count-cart").text(obj.cart.length);
-			$('#modal-cart').modal();
+			$('#modal-cart').modal('hide');
 			Lobibox.notify('success', {
 				title: 'Producto agregado',
 				sound: true,
@@ -381,14 +381,14 @@ $('#modal-qty').change(function() {
 	var price=$(this).attr('price'), qty=$(this).val();
 	var total=price*qty;
 	total=new Intl.NumberFormat("de-DE").format(total);
-	$('#price-add-cart').text("$ "+total);
+	$('#price-add-cart').text("$"+total);
 });
 
 $('#modal-qty').keyup(function() {
 	var price=$(this).attr('price'), qty=$(this).val();
 	var total=price*qty;
 	total=new Intl.NumberFormat("de-DE").format(total);
-	$('#price-add-cart').text("$ "+total);
+	$('#price-add-cart').text("$"+total);
 });
 
 //Al cambiar la cantidad de un producto en el carrito cambia el total
@@ -407,7 +407,16 @@ $('.qty').change(function() {
 		var obj=JSON.parse(result);
 
 		if (obj.status) {
-			$('.total[slug="'+slug+'"]').text("$ "+obj.subtotal);
+			$('.total[slug="'+slug+'"]').text("$"+obj.subtotal);
+			var total=0;
+			$(".qty").each(function(){
+				$(this).attr('price');
+				var price=$(this).attr('price'), qty=$(this).val();
+				var subtotal=price*qty;
+				total+=subtotal;
+			});
+			total=new Intl.NumberFormat("de-DE").format(total);
+			$('#subtotal-cart, #total-cart').text("$"+total);
 		} else {
 			Lobibox.notify('error', {
 				title: 'Error',
@@ -433,7 +442,16 @@ $('.qty').keyup(function() {
 		var obj=JSON.parse(result);
 
 		if (obj.status) {
-			$('.total[slug="'+slug+'"]').text("$ "+obj.subtotal);
+			$('.total[slug="'+slug+'"]').text("$"+obj.subtotal);
+			var total=0;
+			$(".qty").each(function(){
+				$(this).attr('price');
+				var price=$(this).attr('price'), qty=$(this).val();
+				var subtotal=price*qty;
+				total+=subtotal;
+			});
+			total=new Intl.NumberFormat("de-DE").format(total);
+			$('#subtotal-cart, #total-cart').text("$"+total);
 		} else {
 			Lobibox.notify('error', {
 				title: 'Error',
@@ -443,4 +461,3 @@ $('.qty').keyup(function() {
 		}
 	});
 });
-

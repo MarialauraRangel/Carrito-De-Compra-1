@@ -126,4 +126,20 @@ class WebController extends Controller
 
         return response()->json(['status' => false]);
     }
+
+    public function checkout(Request $request)
+    {
+        $total=0;
+        if ($request->session()->has('cart')) {
+            $cart=session('cart');
+            foreach ($cart as $cartProduct) {
+                $product=Product::where('slug', $cartProduct['slug'])->first();
+                $total+=$product->price*$cartProduct['qty'];
+            }
+
+        }
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+
+        return view('web.payments.checkout', compact('cart', 'total'));
+    }
 }
