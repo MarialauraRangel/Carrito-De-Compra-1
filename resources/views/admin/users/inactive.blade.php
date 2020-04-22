@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Usuarios')
-@section('page-title', 'Lista de Usuarios')
+@section('title', 'Lista de Usuarios Inactivos')
+@section('page-title', 'Lista de Usuarios Inactivos')
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendors/lobibox/Lobibox.min.css') }}">
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item">Usuarios</li>
+<li class="breadcrumb-item">Usuarios Inactivos</li>
 <li class="breadcrumb-item active">Lista</li>
 @endsection
 
@@ -19,7 +19,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">
-					<a class="btn btn-success btn-sm" href="{{ route('usuario.inactivos') }}">Inactivos</a>
+					<a class="btn btn-success btn-sm" href="{{ route('usuario.index') }}">Activos</a>
 					<table id="tabla" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
 						<thead>
 							<tr>
@@ -40,17 +40,11 @@
 									</span>
 								</td>
 								<td>{{ $user->email }}</td>
-								<td>
-									@if($user->state==1)
-									<span class="badge badge-success">Activo</span>
-									@else
-									<span class="badge badge-danger">Inactivo</span>
-									@endif
-								</td>
+								<td>{{  $user->state }}</td>
 								<td class="d-flex">
 									<a class="btn btn-success btn-circle btn-sm" href="{{ route('usuario.show', ['slug' => $user->slug]) }}"><i class="mdi mdi-account-card-details"></i></a>&nbsp;&nbsp;
 									<a class="btn btn-info btn-circle btn-sm" href="{{ route('usuario.edit', ['slug' => $user->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-									<button class="btn btn-danger btn-circle btn-sm" onclick="deactiveUser('{{ $user->slug }}')"><i class="fa fa-power-off"></i></button>&nbsp;&nbsp;
+									<button class="btn btn-primary btn-circle btn-sm" onclick="activeUser('{{ $user->slug }}')"><i class="fa fa-history"></i></button>
 								</td>
 							</tr>
 							@endforeach
@@ -62,29 +56,27 @@
 	</div>
 </div>
 
-
-<div class="modal fade" id="deactiveUser" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="activeUser" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres desactivar este usuario?</h5>
+				<h5 class="modal-title">¿Estás seguro de que quieres activar este usuario?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<form action="#" method="POST" id="formDeactiveUser">
+				<form action="#" method="POST" id="formActiveUser">
 					@csrf
 					@method('PUT')
-					<input type="hidden" value="2" name="state">
-					<button type="submit" class="btn btn-primary">Desactivar</button>
+					<input type="hidden" value="1" name="state">
+					<button type="submit" class="btn btn-primary">Activar</button>
 				</form>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
 	</div>
 </div>
-
 
 @endsection
 

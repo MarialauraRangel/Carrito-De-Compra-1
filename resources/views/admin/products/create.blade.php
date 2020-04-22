@@ -14,7 +14,7 @@
 <li class="breadcrumb-item"><a href="{{ route('productos.index') }}">Productos</a></li>
 <li class="breadcrumb-item active">Registro</li>
 @endsection
- 
+
 @section('content')
 
 <div class="row">
@@ -28,31 +28,26 @@
 				<form action="{{ route('productos.store') }}" method="POST" class="form" id="formProduct" enctype="multipart/form-data">
 					@csrf
 					<div class="row">
-						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label class="col-form-label">Tienda<b class="text-danger">*</b></label>
-							<select class="form-control multiselect" required name="store_id" id="store_id">
-								<option value="">Seleccione</option>
-								@foreach($stores as $store)
-								<option value="{{ $store->slug }}" @if(old('store_id')==$store->slug) selected @endif>{{ $store->name }}</option>
-								@endforeach
-							</select>
-						</div>
 						<div class="form-group col-lg-6 col-md-6 col-6">
 							<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
 							<input class="form-control" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ old('name') }}">
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Categoria<b class="text-danger">*</b></label>
-							<select class="form-control multiselect" required id="category" onchange="addSubcategories($(this).val());">
+							<select class="form-control multiselect" name="category_id" required id="category" onchange="addSubcategories($(this).val());">
 								<option value="">Seleccione</option>
 								@foreach($categories as $category)
 								<option value="{{ $category->slug }}">{{ $category->name }}</option>
 								@endforeach
 							</select>
 						</div>
-						<div class="form-group col-lg-3 col-md-3 col-12">
+						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Precio<b class="text-danger">*</b></label>
 							<input class="form-control price" type="text" name="price" required placeholder="Introduzca el precio" value="0.00">
+						</div>
+						<div class="form-group col-lg-6 col-md-6 col-12">
+							<label class="col-form-label">Descuento (%)</label>
+							<input class="form-control ofert" type="text" name="ofert" placeholder="Introduzca el descuento" value="0">
 						</div>
 						<div class="form-group col-lg-12 col-md-12 col-12">
 							<label class="col-form-label">Descripción<b class="text-danger">*</b></label>

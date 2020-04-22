@@ -53,6 +53,7 @@ Route::post('/productos', 'ProductController@store')->name('productos.store');
 Route::get('/productos/{slug}', 'ProductController@show')->name('productos.show');
 Route::get('/productos/{slug}/editar', 'ProductController@edit')->name('productos.edit');
 Route::put('/productos/{slug}', 'ProductController@update')->name('productos.update');
+Route::delete('/productos/eliminar/{slug}', 'ProductController@destroy')->name('productos.delete');
 
 
 //Categorías
@@ -70,6 +71,8 @@ Route::get('/ingredientes/registrar', 'IngredientController@create')->name('ingr
 
 //Tiendas
 Route::get('/tiendas', 'StoreController@index')->name('tienda.index');
+Route::put('/tiendas/activar/{slug}', 'StoreController@activate')->name('tienda.activate');
+Route::put('/tiendas/desactivar/{slug}', 'StoreController@desactivate')->name('tienda.desactivate');
 
 //Usuarios
 Route::get('/usuarios', 'UserController@index')->name('usuario.index');
@@ -80,6 +83,7 @@ Route::get('/usuarios/{slug}/editar', 'UserController@edit')->name('usuario.edit
 Route::put('/usuarios/{slug}', 'UserController@update')->name('usuario.update');
 Route::put('/usuarios/activar/{slug}', 'UserController@activate')->name('usuario.activate');
 Route::put('/usuarios/desactivar/{slug}', 'UserController@deactivate')->name('usuario.deactivate');
+Route::put('/usuarios/inactivos', 'UserController@inactive')->name('usuario.inactivos');
 Route::get('/perfil', 'UserController@profile')->name('usuario.profile');
 
 //Ventas

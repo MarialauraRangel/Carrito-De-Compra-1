@@ -39,7 +39,7 @@
 									<label class="col-form-label">Apellido<b class="text-danger">*</b></label>
 									<input class="form-control" type="text" name="lastname" required placeholder="Introduzca un apellido" value="{{ old('lastname') }}" id="lastname">
 								</div>
-							</div>
+							</div> 
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Correo Electrónico<b class="text-danger">*</b></label>

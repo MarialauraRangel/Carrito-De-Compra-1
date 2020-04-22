@@ -82,15 +82,15 @@
 								<ul class="feeds">
 									<li>
 										<div class="bg-light-info"><i class="fa fa-bell-o"></i></div> 
-									Control de almacenamiento de categorías(Productos)</li>
+									Control de Almacenamiento de Categorías (Productos)</li>
 									<li>
-										<div class="bg-light-success"><i class="ti-user"></i></div>Registro y control de Usuarios</li>
+										<div class="bg-light-success"><i class="ti-user"></i></div>Registro y Control de Usuarios</li>
 										<li>
 											<div class="bg-light-warning"><i class="ti-shopping-cart"></i></div> Registro y Control de Productos por Tienda.</li>
 											<li>
-												<div class="bg-light-danger"><i class="fa fa-home"></i></div> Visualización y control de tiendas.</li>
+												<div class="bg-light-danger"><i class="fa fa-home"></i></div> Visualización y Control de Tiendas.</li>
 												<li>
-													<div class="bg-light-inverse"><i class="fa fa-pencil"></i></div> Control de pedidos y ventas.</li>
+													<div class="bg-light-inverse"><i class="fa fa-pencil"></i></div> Control de Pedidos y Ventas.</li>
 												</ul>
 											</div>
 										</div>

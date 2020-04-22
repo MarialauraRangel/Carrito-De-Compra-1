@@ -17,6 +17,7 @@ class CreateStoresTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug')->unique();
+            $table->enum('state', [1, 2])->default(1);
             $table->timestamps();
         });
     }

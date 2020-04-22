@@ -20,9 +20,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $users=User::orderBy('id', 'DESC')->get();
+        $users=User::where('state', '1')->orderBy('id', 'DESC')->get();
         $num=1;
         return view('admin.users.index', compact('users', 'num'));
+    }
+
+    public function inactive() {
+        $users=User::where('state', '2')->orderBy('id', 'DESC')->get();
+        $num=1;
+        return view('admin.users.inactive', compact('users', 'num'));
     }
 
     /**
@@ -85,13 +91,10 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($slug) {
-        $user=User::where('slug', $slug)->firstOrFail();
-        echo json_encode([
-            'photo' => $user->photo,
-            'name' => $user->name,
-            'email' => $user->email,
-            'state' => userState($user->state)
-        ]);
+
+        $user = User::where('slug', $slug)->firstOrFail();
+        return view('admin.users.show', compact('user'));
+
     }
 
     /**
@@ -122,6 +125,30 @@ class UserController extends Controller
             return redirect()->route('usuario.edit', ['slug' => $slug])->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido editado exitosamente.']);
         } else {
             return redirect()->route('usuario.edit', ['slug' => $slug])->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
+    }
+
+    public function deactivate(Request $request, $slug) {
+
+        $user = User::where('slug', $slug)->firstOrFail();
+        $user->fill($request->all())->save();
+
+        if ($user) {
+            return redirect()->route('usuario.index')->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido desactivado exitosamente.']);
+        } else {
+            return redirect()->route('usuario.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
+    }
+
+    public function activate(Request $request, $slug) {
+
+        $user = User::where('slug', $slug)->firstOrFail();
+        $user->fill($request->all())->save();
+
+        if ($user) {
+            return redirect()->route('usuario.index')->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido activado exitosamente.']);
+        } else {
+            return redirect()->route('usuario.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 

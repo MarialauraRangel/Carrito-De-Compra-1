@@ -1,7 +1,7 @@
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
-        <div class="navbar-header">
-            <a class="navbar-brand col-12" href="{{ route('home') }}">
+        <div class="navbar-header d-flex justify-content-center">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 <b>
                     <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="dark-logo" width="100" />
                     <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="light-logo" width="100" />

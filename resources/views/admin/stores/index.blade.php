@@ -34,9 +34,13 @@
 								<td>{{ $store->name }}</td>
 								<td class="d-flex">
 									{{-- <a class="btn btn-primary btn-circle btn-sm" href="{{ route('tiendas.show', ['slug' => $store->slug]) }}"><i class="fa fa-briefcase"></i></a>&nbsp;&nbsp; --}}
-									<a class="btn btn-info btn-circle btn-sm" href="{{ route('tiendas.edit', ['slug' => $store->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+									<a class="btn btn-info btn-circle btn-sm" href="#{{-- {{ route('tiendas.edit', ['slug' => $store->slug]) }} --}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 									@if(Auth::user()->type==1)
-									<button class="btn btn-danger btn-circle btn-sm" onclick="deleteStore('{{ $store->slug }}')"><i class="fa fa-trash"></i></button>
+									@if($store->state==1)
+									<button class="btn btn-danger btn-circle btn-sm" onclick="desactivateStore('{{ $store->slug }}')"><i class="fa fa-power-off"></i></button>
+									@else
+									<button class="btn btn-success btn-circle btn-sm" onclick="activateStore('{{ $store->slug }}')"><i class="fa fa-history"></i></button>
+									@endif
 									@endif
 								</td>
 							</tr>
@@ -50,20 +54,44 @@
 </div>
 
 @if(Auth::user()->type==1)
-<div class="modal fade" id="deleteStore" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="modal fade" id="desactivateStore" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres eliminar esta tienda?</h5>
+				<h5 class="modal-title">¿Estás seguro de que quieres desactivar esta tienda?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<form action="#" method="POST" id="formDeleteStore">
+				<form action="#" method="POST" id="formDesactivateStore">
 					@csrf
-					@method('DELETE')
-					<button type="submit" class="btn btn-primary">Eliminar</button>
+					@method('PUT')
+					<input type="hidden" name="state" value="2">
+					<button type="submit" class="btn btn-primary">Desactivar</button>
+				</form>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="activateStore" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">¿Estás seguro de que quieres activar esta tienda?</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-footer">
+				<form action="#" method="POST" id="formActivateStore">
+					@csrf
+					@method('PUT')
+					<input type="hidden" name="state" value="1">
+					<button type="submit" class="btn btn-primary">Activar</button>
 				</form>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 			</div>

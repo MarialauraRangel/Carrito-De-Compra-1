@@ -14,7 +14,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $stores = Store::all();
+        $num = 1;
+        return view('admin.stores.index', compact('stores', 'num'));
     }
 
     /**
@@ -81,5 +83,29 @@ class StoreController extends Controller
     public function destroy(Store $store)
     {
         //
+    }
+
+    public function desactivate(Request $request, $slug) {
+
+        $store = Store::where('slug', $slug)->firstOrFail();
+        $store->fill($request->all())->save();
+
+        if ($store) {
+            return redirect()->route('tienda.index')->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La tienda ha sido desactivada exitosamente.']);
+        } else {
+            return redirect()->route('tienda.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
+    }
+
+    public function activate(Request $request, $slug) {
+
+        $store = Store::where('slug', $slug)->firstOrFail();
+        $store->fill($request->all())->save();
+
+        if ($store) {
+            return redirect()->route('tienda.index')->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La tienda ha sido activada exitosamente.']);
+        } else {
+            return redirect()->route('tienda.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
     }
 }
