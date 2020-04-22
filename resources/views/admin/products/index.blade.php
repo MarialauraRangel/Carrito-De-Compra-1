@@ -33,7 +33,7 @@
 							<tr>
 								<td>{{ $num++ }}</td>
 								<td>{{ $product->name }}</td>
-								<td>{{ $product->category_id }}</td>
+								<td>{{ $product->category->name }}</td>
 								<td class="d-flex">
 									<a class="btn btn-info btn-circle btn-sm" href="{{-- {{ route('productos.edit', ['slug' => $product->slug]) }} --}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 									<button class="btn btn-danger btn-circle btn-sm" onclick="deleteProduct('{{ $product->slug }}')"><i class="fa fa-trash"></i></button>

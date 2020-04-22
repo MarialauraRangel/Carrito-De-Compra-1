@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Store;
+use App\Category;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,7 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        $num=1;
+        $num = 1;
         return view('admin.products.index', compact('products', 'num'));
     }
 
@@ -26,7 +29,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $stores = Store::all();
+        $categories = Category::all();
+        return view('admin.products.create', compact('stores', 'categories'));
     }
 
     /**

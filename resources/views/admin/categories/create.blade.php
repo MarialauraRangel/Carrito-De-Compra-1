@@ -29,10 +29,6 @@
 							<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
 							<input class="form-control" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ old('name') }}">
 						</div>
-						<div class="form-group col-lg-12 col-md-12 col-12">
-							<label class="col-form-label">Imagen<b class="text-danger">*</b></label>
-							<input type="file" name="image" required accept="image/*" id="input-file-now" class="dropify" data-height="125" data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg web3" />
-						</div>
 						<div class="form-group col-12">
 							<div class="btn-group" role="group">
 								<button type="submit" class="btn btn-primary" action="category">Guardar</button>

@@ -32,6 +32,7 @@
 									<option value="">Mediana</option>
 									<option value="">Grande</option>
 									<option value="">Gigante</option>
+									<option value="">Súper Gigante</option>
 								</select>
 							</div>
 						</div>

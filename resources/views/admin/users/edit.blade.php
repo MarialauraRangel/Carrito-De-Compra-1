@@ -9,7 +9,7 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('usuarios.index') }}">Usuarios</a></li>
+<li class="breadcrumb-item"><a href="{{ route('usuario.index') }}">Usuarios</a></li>
 <li class="breadcrumb-item active">Editar</li>
 @endsection
 
@@ -23,7 +23,7 @@
 				@include('admin.partials.errors')
 
 				<h6 class="card-subtitle">Campos obligatorios (<b class="text-danger">*</b>)</h6>
-				<form action="{{ route('usuarios.update', ['slug' => $user->slug]) }}" method="POST" class="form" id="formUser" enctype="multipart/form-data">
+				<form action="{{ route('usuario.update', ['slug' => $user->slug]) }}" method="POST" class="form" id="formUser" enctype="multipart/form-data">
 					@method('PUT')
 					@csrf
 					<div class="row">
@@ -38,11 +38,11 @@
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Correo Electrónico</label>
-									<input class="form-control" type="text" disabled value="{{ $user->email }}">
+									<input class="form-control" type="text" name="email" value="{{ $user->email }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Teléfono</label>
-									<input class="form-control" type="text" disabled value="{{ $user->phone }}">
+									<input class="form-control" name="phone" type="text" value="{{ $user->phone }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Tipo<b class="text-danger">*</b></label>
@@ -53,7 +53,7 @@
 										<option value="3" @if($user->type==3) selected @endif>Normal</option>
 									</select>
 								</div>
-								<div class="form-group col-lg-12 col-md-12 col-12" id="storeField">
+{{-- 								<div class="form-group col-lg-12 col-md-12 col-12" id="storeField">
 									<label class="col-form-label">Tienda<b class="text-danger">*</b></label>
 									<select class="form-control" name="store_id" required>
 										<option value="">Seleccione</option>
@@ -65,14 +65,14 @@
 										@endisset
 										@endforeach
 									</select>
-								</div>
+								</div> --}}
 							</div>
 						</div>
 						
 						<div class="form-group col-12">
 							<div class="btn-group" role="group">
 								<button type="submit" class="btn btn-primary" action="user">Actualizar</button>
-								<a href="{{ route('usuarios.index') }}" class="btn btn-secondary">Volver</a>
+								<a href="{{ route('usuario.index') }}" class="btn btn-secondary">Volver</a>
 							</div>
 						</div>
 					</div>

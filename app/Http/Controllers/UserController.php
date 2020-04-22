@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Store;
-use App\StoreUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
+
 
 class UserController extends Controller
 {
@@ -43,7 +41,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserStoreRequest $request) {
+    public function store(Request $request) {
         $count=User::where('name', request('name'))->where('lastname', request('lastname'))->count();
         $slug=Str::slug(request('name')." ".request('lastname'), '-');
         if ($count>0) {
@@ -72,15 +70,11 @@ class UserController extends Controller
         }
 
         $user=User::create($data);
-        if (request('type')==2) {
-            $store=Store::where('slug', request('store_id'))->firstOrFail();
-            StoreUser::create(['user_id' => $user->id, 'store_id' => $store->id]);
-        }
 
         if ($user) {
-            return redirect()->route('usuarios.index')->with(['type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El usuario ha sido registrado exitosamente.']);
+            return redirect()->route('usuario.index')->with(['type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El usuario ha sido registrado exitosamente.']);
         } else {
-            return redirect()->route('usuarios.index')->with(['type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('usuario.index')->with(['type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
@@ -108,8 +102,8 @@ class UserController extends Controller
      */
     public function edit($slug) {
         $user=User::where('slug', $slug)->firstOrFail();
-        $stores=Store::all();
-        return view('admin.users.edit', compact("user", "stores"));
+        // $stores=Store::all();
+        return view('admin.users.edit', compact("user"));
     }
 
     /**
@@ -119,26 +113,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, $slug) {
-        $user=User::where('slug', $slug)->firstOrFail();
-        if (request('type')==2) {
-            $storeUserCount=StoreUser::where('user_id', $user->id)->count();
-            if ($storeUserCount>0) {
-                $storeUser=StoreUser::where('user_id', $user->id)->firstOrFail();
-                $storeUser->delete();
-            }
-            $store=Store::where('slug', request('store_id'))->firstOrFail();
-            StoreUser::create(['user_id' => $user->id, 'store_id' => $store->id]);
-        } else {
-            $storeUser=StoreUser::where('user_id', $user->id)->firstOrFail();
-            $storeUser->delete();
-        }
+    public function update(Request $request, $slug) {
+
+        $user = User::where('slug', $slug)->firstOrFail();
         $user->fill($request->all())->save();
 
         if ($user) {
-            return redirect()->route('usuarios.edit', ['slug' => $slug])->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido editado exitosamente.']);
+            return redirect()->route('usuario.edit', ['slug' => $slug])->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido editado exitosamente.']);
         } else {
-            return redirect()->route('usuarios.edit', ['slug' => $slug])->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('usuario.edit', ['slug' => $slug])->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
@@ -153,9 +136,9 @@ class UserController extends Controller
         $user->delete();
 
         if ($user) {
-            return redirect()->route('usuarios.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El usuario ha sido eliminado exitosamente.']);
+            return redirect()->route('usuario.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El usuario ha sido eliminado exitosamente.']);
         } else {
-            return redirect()->route('usuarios.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('usuario.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 

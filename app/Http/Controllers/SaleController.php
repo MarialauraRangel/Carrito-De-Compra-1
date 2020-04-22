@@ -14,7 +14,9 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        $sale = Sale::all();
+        $num = 1;
+        return view('admin.sales.index', compact('sale', 'num'));
     }
 
     /**

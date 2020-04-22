@@ -31,14 +31,9 @@
 							@foreach($categories as $category)
 							<tr>
 								<td>{{ $num++ }}</td>
-								<td>
-									<span class="image-list">
-										<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/categories/'.$category->image) }}' style='width: 150px; height: 150px;' ><br><b>{{ $category->name }}</b>"><img src="{{ asset('/admins/img/categories/'.$category->image) }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $category->name }}</a>
-									</span>
-								</td>
+								<td>{{ $category->name }}</td>
 								<td class="d-flex">
-									<a class="btn btn-primary btn-circle btn-sm" href="{{-- {{ route('categorias.show', ['slug' => $category->slug]) }} --}}"><i class="fa fa-briefcase"></i></a>&nbsp;&nbsp;
-									<a class="btn btn-info btn-circle btn-sm" href="{{-- {{ route('categorias.edit', ['slug' => $category->slug]) }} --}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+									<a class="btn btn-info btn-circle btn-sm" href="{{ route('categorias.edit', ['slug' => $category->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 									<button class="btn btn-danger btn-circle btn-sm" onclick="deleteCategory('{{ $category->slug }}')"><i class="fa fa-trash"></i></button>
 								</td>
 							</tr>

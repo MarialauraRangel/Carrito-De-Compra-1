@@ -42,22 +42,6 @@
 							<input class="form-control" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ old('name') }}">
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label class="col-form-label">Marca del Producto<b class="text-danger">*</b></label>
-							<select class="form-control multiselect" name="brand_id" id="brand_id" required>
-								<option value="">Seleccione</option>
-								@foreach($brandsProducts as $brand)
-								<option value="{{ $brand->slug }}">{{ $brand->name }}</option>
-								@endforeach
-							</select>
-						</div>
-						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label class="col-form-label">Marcas de Vehículos Para Usar<b class="text-danger">*</b></label>
-							<select class="form-control multiselect" name="brands_vehicles[]" required multiple>
-								<option value="all">Todas</option>
-								{!! selectMultiple(old('brands_vehicles'), $brands) !!}
-							</select>
-						</div>
-						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Categoria<b class="text-danger">*</b></label>
 							<select class="form-control multiselect" required id="category" onchange="addSubcategories($(this).val());">
 								<option value="">Seleccione</option>
@@ -66,22 +50,9 @@
 								@endforeach
 							</select>
 						</div>
-						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label class="col-form-label">Subcategoria<b class="text-danger">*</b></label>
-							<select class="form-control multiselect" name="subcategory_id" required id="multiselectSubcategories">
-							</select>
-						</div>
-						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label class="col-form-label">Cantidad<b class="text-danger">*</b></label>
-							<input class="form-control number" type="text" name="qty" required placeholder="Introduzca una cantidad" value="1">
-						</div>
 						<div class="form-group col-lg-3 col-md-3 col-12">
 							<label class="col-form-label">Precio<b class="text-danger">*</b></label>
 							<input class="form-control price" type="text" name="price" required placeholder="Introduzca el precio" value="0.00">
-						</div>
-						<div class="form-group col-lg-3 col-md-3 col-12">
-							<label class="col-form-label">Descuento (%)<b class="text-danger">*</b></label>
-							<input class="form-control ofert" type="text" name="ofert" required placeholder="Introduzca el descuento" value="0">
 						</div>
 						<div class="form-group col-lg-12 col-md-12 col-12">
 							<label class="col-form-label">Descripción<b class="text-danger">*</b></label>

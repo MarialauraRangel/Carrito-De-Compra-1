@@ -8,7 +8,7 @@
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('usuarios.index') }}">Usuarios</a></li>
+<li class="breadcrumb-item"><a href="{{ route('usuario.index') }}">Usuarios</a></li>
 <li class="breadcrumb-item active">Registro</li>
 @endsection
 
@@ -22,7 +22,7 @@
 				@include('admin.partials.errors')
 
 				<h6 class="card-subtitle">Campos obligatorios (<b class="text-danger">*</b>)</h6>
-				<form action="{{ route('usuarios.store') }}" method="POST" class="form" id="formUser" enctype="multipart/form-data">
+				<form action="{{ route('usuario.store') }}" method="POST" class="form" id="formUser" enctype="multipart/form-data">
 					@csrf
 					<div class="row">
 						<div class="form-group col-lg-6 col-md-6 col-12">
@@ -78,7 +78,7 @@
 						<div class="form-group col-12">
 							<div class="btn-group" role="group">
 								<button type="submit" class="btn btn-primary" action="user">Guardar</button>
-								<a href="{{ route('usuarios.index') }}" class="btn btn-secondary">Volver</a>
+								<a href="{{ route('usuario.index') }}" class="btn btn-secondary">Volver</a>
 							</div>
 						</div>
 					</div>

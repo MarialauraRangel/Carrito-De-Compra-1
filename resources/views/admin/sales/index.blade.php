@@ -32,17 +32,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($payments as $payment)
+							@foreach($sale as $payment)
 							<tr>
 								<td>{{ $num++ }}</td>
 								<td>
-									<span class="image-list">
-										@if(count($payment->products[0]->images)>0)
-										<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/products/'.$payment->products[0]->images[0]->image) }}' style='width: 150px; height: 150px;' ><br><b>{{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</b>"><img src="{{ asset('/admins/img/products/'.$payment->products[0]->images[0]->image) }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</a>
-										@else
-										<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/products/imagen.jpg') }}' style='width: 150px; height: 150px;' ><br><b>{{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</b>"><img src="{{ asset('/admins/img/products/imagen.jpg') }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</a>
-										@endif
-									</span>
+
+									<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/products/'.$payment->products[0]->images[0]->image) }}' style='width: 150px; height: 150px;' ><br><b>{{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</b>"><img src="{{ asset('/admins/img/products/'.$payment->products[0]->images[0]->image) }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</a>
+									<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/products/imagen.jpg') }}' style='width: 150px; height: 150px;' ><br><b>{{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</b>"><img src="{{ asset('/admins/img/products/imagen.jpg') }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</a>
+
 								</td>
 								<td>{!! saleShape($payment->shape) !!}</td>
 								<td>{{ "S/. ".number_format($payment->total, 2, ".", "") }}</td>
@@ -50,10 +47,8 @@
 								<td>{{ date("d-m-Y", strtotime($payment->created_at)) }}</td>
 								<td class="d-flex">
 									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('ventas.show', ['slug' => $payment->slug]) }}"><i class="fa fa-briefcase"></i></a>&nbsp;&nbsp;
-									@if($payment->state==2)
 									<a class="btn btn-success btn-circle btn-sm text-white" onclick="confirmPay('{{ $payment->slug }}')"><i class="fa fa-check"></i></a>&nbsp;&nbsp;
 									<a class="btn btn-danger btn-circle btn-sm text-white" onclick="refusePay('{{ $payment->slug }}')"><i class="fa fa-close"></i></a>
-									@endif
 								</td>
 							</tr>
 							@endforeach

@@ -1,15 +1,11 @@
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ route('home') }}">
+            <a class="navbar-brand col-12" href="{{ route('home') }}">
                 <b>
-                    <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="dark-logo" width="50" />
-                    <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="light-logo" width="50" />
+                    <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="dark-logo" width="100" />
+                    <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="light-logo" width="100" />
                 </b>
-                <span>
-                    <img src="{{ asset('/admins/img/nombreSistema.png') }}" alt="logo" class="dark-logo" width="100" />   
-                    <img src="{{ asset('/admins/img/nombreSistema.png') }}" class="light-logo" alt="logo" width="100" />
-                </span>
             </a>
         </div>
         <div class="navbar-collapse">
