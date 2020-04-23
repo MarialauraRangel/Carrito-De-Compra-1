@@ -13,18 +13,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('web.categories.categories');
-    }
-
-    public function lista(){
-
+    public function index(){
         $categories = Category::all();
         $num = 1;
-
         return view('admin.categories.index', compact('categories', 'num'));
-
     }
 
     /**

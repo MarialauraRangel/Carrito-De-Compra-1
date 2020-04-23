@@ -102,11 +102,14 @@
                             <h3><a href="#">{{ $product->name }}</a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
-                                    <p class="price"><span>${{ number_format($product->price, 2, ",", ".") }}</span></p>
+                                    <p class="price"><span>{{ number_format($product->price, 2, ",", ".") }} Bs</span></p>
                                 </div>
                             </div>
                             <div class="bottom-area d-flex px-3">
                                 <div class="m-auto d-flex">
+                                    <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
                                     <a class="btn-cart-open d-flex justify-content-center align-items-center mx-1" title="{{ $product->name }}" img="{{ asset('/admins/img/products/'.$product->image) }}" price="{{ number_format($product->price, 2, '.', '') }}" description="{{ $product->description }}" slug="{{ $product->slug }}">
                                         <span><i class="ion-ios-cart"></i></span>
                                     </a>

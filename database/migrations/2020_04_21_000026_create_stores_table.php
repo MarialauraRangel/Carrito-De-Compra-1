@@ -15,8 +15,12 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('image')->default('imagen.jpg');
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('address');
+            $table->string('phone-one');
+            $table->string('phone-two')->nullable();
             $table->enum('state', [1, 2])->default(1);
             $table->timestamps();
         });

@@ -12,7 +12,7 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-    		['id' => 1, 'name' => 'Pizza', 'slug' => 'pizza'],
+    		['id' => 1, 'name' => 'Pizzas', 'slug' => 'pizzas'],
     		['id' => 2, 'name' => 'Bebidas', 'slug' => 'bebidas']
     	];
     	DB::table('categories')->insert($categories);

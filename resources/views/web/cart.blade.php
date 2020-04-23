@@ -41,22 +41,18 @@
 							<tr class="text-center cartProduct" slug="{{ $product['slug'] }}">
 								<td class="product-remove"><a slug="{{ $product['slug'] }}"><span class="ion-ios-close"></span></a></td>
 								<td class="image-prod">
-									@isset($product->images[0])
-									<div class="img" style="background-image:url({{ asset('/admins/img/products/'.$product->images[0]->image) }});"></div>
-									@else
-									<div class="img" style="background-image:url({{ asset('/admins/img/products/imagen.jpg') }});"></div>
-									@endisset
+									<div class="img" style="background-image:url({{ asset('/admins/img/products/'.$product->image) }});"></div>
 								</td>
 								<td class="product-name">
 									<h3>{{ $product['name'] }}</h3>
 								</td>
-								<td class="price">{{ '$'.number_format($product['price'], 2, ",", ".") }}</td>
+								<td class="price">{{ number_format($product['price'], 2, ",", ".") }} Bs</td>
 								<td class="quantity">
 									<div class="input-group mb-3">
 										<input type="text" name="qty" class="quantity qty form-control" value="{{ $product['qty'] }}" min="1" slug="{{ $product['slug'] }}" price="{{ $product['price'] }}">
 									</div>
 								</td>
-								<td class="total" slug="{{ $product['slug'] }}">{{ '$'.number_format($product['price']*$product['qty'], 2, ",", ".") }}</td>
+								<td class="total" slug="{{ $product['slug'] }}">{{ number_format($product['price']*$product['qty'], 2, ",", ".") }} Bs</td>
 							</tr>
 							@empty
 							<tr class="text-center">
@@ -74,16 +70,16 @@
 					<h3>Total</h3>
 					<p class="d-flex">
 						<span>Subtotal</span>
-						<span id="subtotal-cart">${{ number_format($total, 2, ",", ".") }}</span>
+						<span id="subtotal-cart">{{ number_format($total, 2, ",", ".") }} Bs</span>
 					</p>
 					<p class="d-flex">
 						<span>Delivery</span>
-						<span>$0.00</span>
+						<span>0,00 Bs</span>
 					</p>
 					<hr>
 					<p class="d-flex total-price">
 						<span>Total</span>
-						<span id="total-cart">${{ number_format($total, 2, ",", ".") }}</span>
+						<span id="total-cart">{{ number_format($total, 2, ",", ".") }} Bs</span>
 					</p>
 				</div>
 				<p><a href="{{ route('pago.create') }}" class="btn btn-primary py-3 px-4">Siguiente</a></p>

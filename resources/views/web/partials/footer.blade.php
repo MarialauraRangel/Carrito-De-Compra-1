@@ -10,7 +10,7 @@
 		<div class="row mb-5">
 			<div class="col-md">
 				<div class="ftco-footer-widget mb-4">
-					<img src="{{ asset('/web/images/imagotipo.png') }}" width="160">
+					<img src="{{ asset('/admins/img/logo.png') }}" width="160">
 					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
 					<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
 						<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -63,7 +63,7 @@
 		<div class="row">
 			<div class="col-md-12 text-center">
 				<p>
-					Negocio &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Realizada por <a href="#" target="_blank">Otter Company</a>
+					Maesma Pizzería &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Realizada por <a href="#" target="_blank">Otter Company</a>
 				</p>
 			</div>
 		</div>

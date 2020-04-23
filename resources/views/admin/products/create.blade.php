@@ -6,7 +6,7 @@
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendors/multiselect/bootstrap.multiselect.css') }}">
 <link rel="stylesheet" href="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.css') }}">
-<link rel="stylesheet" href="{{ asset('/admins/vendors/uploader/jquery.dm-uploader.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/admins/vendors/dropify/css/dropify.min.css') }}">
 <link rel="stylesheet" href="{{ asset('/admins/vendors/uploader/styles.css') }}">
 @endsection
 
@@ -34,7 +34,7 @@
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Categoria<b class="text-danger">*</b></label>
-							<select class="form-control multiselect" name="category_id" required id="category" onchange="addSubcategories($(this).val());">
+							<select class="form-control multiselect" name="category_id" required id="category">
 								<option value="">Seleccione</option>
 								@foreach($categories as $category)
 								<option value="{{ $category->slug }}">{{ $category->name }}</option>
@@ -54,17 +54,8 @@
 							<textarea class="form-control" rows="4" name="description" required placeholder="Introduzca una descripción">{{ old('description') }}</textarea>
 						</div>
 						<div class="form-group col-12">
-							<label class="col-form-label">Imagenes (Opcional)</label>
-							<div id="drop-area" class="dm-uploader text-center py-4 px-2">
-								<p id="files" class="text-left py-0 dark-text"></p>
-								<h3 class="text-muted">Arrastra aquí tus imagenes</h3>
-								<div class="btn btn-primary btn-block">
-									<span>Selecciona las imagenes</span>
-									<input type="file" title="Selecciona un archivo" multiple>
-								</div>
-							</div>
-							<p id="response" class="text-left py-0"></p>
-							<input type="hidden" name="files" id="nameFiles" value="">
+							<label class="col-form-label">Imagen (Opcional)</label>
+							<input type="file" name="image" accept="image/*" id="input-file-now" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" />
 						</div>
 
 						<div class="form-group col-12">
@@ -85,7 +76,7 @@
 @section('script')
 <script src="{{ asset('/admins/vendors/multiselect/bootstrap-multiselect.js') }}"></script>
 <script src="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
-<script src="{{ asset('/admins/vendors/uploader/jquery.dm-uploader.min.js') }}"></script>
+<script src="{{ asset('/admins/vendors/dropify/js/dropify.min.js') }}"></script>
 <script src="{{ asset('/admins/vendors/validate/jquery.validate.js') }}"></script>
 <script src="{{ asset('/admins/vendors/validate/additional-methods.js') }}"></script>
 <script src="{{ asset('/admins/vendors/validate/messages_es.js') }}"></script>

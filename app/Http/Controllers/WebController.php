@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 
 class WebController extends Controller
@@ -16,6 +17,19 @@ class WebController extends Controller
     	$products=Product::all();
     	$cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
     	return view('web.home', compact('products', 'cart'));
+    }
+
+    public function menu(Request $request) {
+        $categories=Category::all();
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        return view('web.menu', compact('categories', 'cart'));
+    }
+
+    public function product(Request $request, $slug) {
+        $product=Product::where('slug', $slug)->firstOrFail();
+        $products=Product::where('id', '!=', $product->id)->limit(4)->get();
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        return view('web.product', compact('product', 'products', 'cart'));
     }
 
     public function cart(Request $request) {
@@ -35,7 +49,7 @@ class WebController extends Controller
         }
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
 
-        return view('web.orders.cart', compact("products", "cart", "total"));
+        return view('web.cart', compact("products", "cart", "total"));
     }
 
     public function addCart(Request $request) {
@@ -140,6 +154,11 @@ class WebController extends Controller
         }
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
 
-        return view('web.payments.checkout', compact('cart', 'total'));
+        return view('web.checkout', compact('cart', 'total'));
+    }
+
+    public function shopping(Request $request) {
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        return view('web.orders', compact('cart'));
     }
 }

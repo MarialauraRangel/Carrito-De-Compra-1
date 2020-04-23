@@ -301,8 +301,8 @@ $('.btn-cart-open').click(function(event) {
 	$('#description-cart').text($(this).attr('description'));
 	$('#img-cart').attr('src', $(this).attr('img'));
 	var price=new Intl.NumberFormat("de-DE").format($(this).attr('price'));
-	$('#price-cart').text("Precio: $"+price);
-	$('#price-add-cart').text("$"+price);
+	$('#price-cart').text("Precio: "+price+" Bs");
+	$('#price-add-cart').text(price+" Bs");
 	$('#btn-add-cart').attr('slug', ($(this).attr('slug')));
 	$('input[name="qty"]').val(1);
 	$('input[name="qty"]').attr('price', $(this).attr('price'));
@@ -381,14 +381,14 @@ $('#modal-qty').change(function() {
 	var price=$(this).attr('price'), qty=$(this).val();
 	var total=price*qty;
 	total=new Intl.NumberFormat("de-DE").format(total);
-	$('#price-add-cart').text("$"+total);
+	$('#price-add-cart').text(total+" Bs");
 });
 
 $('#modal-qty').keyup(function() {
 	var price=$(this).attr('price'), qty=$(this).val();
 	var total=price*qty;
 	total=new Intl.NumberFormat("de-DE").format(total);
-	$('#price-add-cart').text("$"+total);
+	$('#price-add-cart').text(total+" Bs");
 });
 
 //Al cambiar la cantidad de un producto en el carrito cambia el total
@@ -407,7 +407,7 @@ $('.qty').change(function() {
 		var obj=JSON.parse(result);
 
 		if (obj.status) {
-			$('.total[slug="'+slug+'"]').text("$"+obj.subtotal);
+			$('.total[slug="'+slug+'"]').text(obj.subtotal+" Bs");
 			var total=0;
 			$(".qty").each(function(){
 				$(this).attr('price');
@@ -416,7 +416,7 @@ $('.qty').change(function() {
 				total+=subtotal;
 			});
 			total=new Intl.NumberFormat("de-DE").format(total);
-			$('#subtotal-cart, #total-cart').text("$"+total);
+			$('#subtotal-cart, #total-cart').text(total+" Bs");
 		} else {
 			Lobibox.notify('error', {
 				title: 'Error',
@@ -442,7 +442,7 @@ $('.qty').keyup(function() {
 		var obj=JSON.parse(result);
 
 		if (obj.status) {
-			$('.total[slug="'+slug+'"]').text("$"+obj.subtotal);
+			$('.total[slug="'+slug+'"]').text(obj.subtotal+" Bs");
 			var total=0;
 			$(".qty").each(function(){
 				$(this).attr('price');
@@ -451,7 +451,7 @@ $('.qty').keyup(function() {
 				total+=subtotal;
 			});
 			total=new Intl.NumberFormat("de-DE").format(total);
-			$('#subtotal-cart, #total-cart').text("$"+total);
+			$('#subtotal-cart, #total-cart').text(total+" Bs");
 		} else {
 			Lobibox.notify('error', {
 				title: 'Error',

@@ -51,21 +51,22 @@ class ProductController extends Controller
         while (true) {
             $count2=Product::where('slug', $slug)->count();
             if ($count2>0) {
-                $slug=$slug."-".$num;
+                $slug=Str::slug(request('name'), '-')."-".$num;
                 $num++;
             } else {
-                $data=array('name' => request('name'), 'slug' => $slug, 'price' => request('price'), 'description' => request('description'), 'ofert' => request('ofert'), 'category_id' => request('category_id'));
+                $category=Category::where('slug', request('category_id'))->firstOrFail();
+                $data=array('name' => request('name'), 'slug' => $slug, 'price' => request('price'), 'description' => request('description'), 'ofert' => request('ofert'), 'category_id' => $category->id);
                 break;
             }
         }
 
-        // Mover imagen a carpeta users y extraer nombre
-        // if ($request->hasFile('files')) {
-        //     $file=$request->file('files');
-        //     $files=time()."_".$file->getClientOriginalName();
-        //     $file->move(public_path().'/admins/img/products/', $files);
-        //     $data['files']=$files;
-        // }
+        // Mover imagen a carpeta products y extraer nombre
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $image = time()."_".$slug;
+            $file->move(public_path().'/admins/img/products/', $image);
+            $data['image'] = $image;
+        }
 
         $product=Product::create($data);
 
@@ -84,7 +85,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('web.products.product');
     }
 
     /**
@@ -122,9 +122,9 @@ class ProductController extends Controller
         $product->delete();
 
         if ($product) {
-            return redirect()->route('productos.index')->with(['type' => 'success', 'title' => 'Modificación exitosa', 'msg' => 'El Producto ha sido eliminada exitosamente.']);
+            return redirect()->route('productos.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El producto ha sido eliminado exitosamente.']);
         } else {
-            return redirect()->route('productos.index')->with(['type' => 'error', 'title' => 'Modificación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('productos.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

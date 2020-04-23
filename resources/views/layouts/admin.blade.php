@@ -14,7 +14,7 @@
 	<link href="{{ asset('/admins/vendors/mcustomscrollbar/jquery.mCustomScrollbar.min.css') }}" rel="stylesheet">
 	
 	@yield('links')
-	<link href="{{ asset('/admins/css/colors/purple.css') }}" id="theme" rel="stylesheet" type="text/css">
+	<link href="{{ asset('/admins/css/colors/red.css') }}" id="theme" rel="stylesheet" type="text/css">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 
