@@ -461,3 +461,20 @@ $('.qty').keyup(function() {
 		}
 	});
 });
+
+$('.product-category a').click(function(event) {
+	$('.product-category a').removeClass('active');
+	$(this).addClass('active');
+	var filter=$(this).attr('category');
+	if (filter=="all") {
+		$('.menu-filter').show();
+	} else {
+		$('.menu-filter').each(function(index, el) {
+			if ($(this).attr('category')==filter) {
+				$(this).show();
+			} else {
+				$(this).hide();
+			}
+		});
+	}
+});

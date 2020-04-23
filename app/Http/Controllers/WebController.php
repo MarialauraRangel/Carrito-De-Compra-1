@@ -21,8 +21,9 @@ class WebController extends Controller
 
     public function menu(Request $request) {
         $categories=Category::all();
+        $products=Product::orderBy('category_id', 'ASC')->get();
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
-        return view('web.menu', compact('categories', 'cart'));
+        return view('web.menu', compact('categories', 'products', 'cart'));
     }
 
     public function product(Request $request, $slug) {
