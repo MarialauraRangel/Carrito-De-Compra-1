@@ -54,8 +54,9 @@
 							<select class="form-control" name="type" required id="typeUser">
 								<option value="">Seleccione</option>
 								<option value="1">Super Administrador</option>
-								<option value="2">Administrador de Tienda</option>
-								<option value="3">Normal</option>
+								<option value="2">Cajero</option>
+								<option value="3">Repartidor</option>
+								<option value="4">Cliente</option>
 							</select>
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12 d-none" id="storeField">
