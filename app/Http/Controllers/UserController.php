@@ -59,7 +59,7 @@ class UserController extends Controller
         while (true) {
             $count2=User::where('slug', $slug)->count();
             if ($count2>0) {
-                $slug=$slug."-".$num;
+                $slug=Str::slug(request('name')." ".request('lastname'), '-')."-".$num;
                 $num++;
             } else {
                 $data=array('name' => request('name'), 'lastname' => request('lastname'), 'phone' => request('phone'), 'slug' => $slug, 'email' => request('email'), 'type' => request('type'), 'password' => Hash::make(request('password')));

@@ -99,8 +99,9 @@
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
                         <h3><a href="#">{{ $product->name }}</a></h3>
-                        <div class="d-flex">
+                        <div class="row d-flex">
                             <div class="pricing">
+                                <p class="price"><span>{{ number_format($product->price, 2, ",", ".") }} Bs</span></p>
                                 <p class="price"><span>{{ number_format($product->price, 2, ",", ".") }} Bs</span></p>
                             </div>
                         </div>
