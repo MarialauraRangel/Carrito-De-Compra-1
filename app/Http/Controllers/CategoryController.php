@@ -48,7 +48,7 @@ class CategoryController extends Controller
         while (true) {
             $count2=Category::where('slug', $slug)->count();
             if ($count2>0) {
-                $slug=$slug."-".$num;
+                $slug=Str::slug(request('name'), '-')."-".$num;
                 $num++;
             } else {
                 $data=array('name' => request('name'), 'slug' => $slug);
