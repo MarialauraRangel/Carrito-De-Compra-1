@@ -17,7 +17,6 @@ class CreateSizesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug')->unique();
-            $table->float('price', 10, 2)->default(0.00)->nullable();
             $table->timestamps();
         });
     }
