@@ -28,7 +28,7 @@
 								<th>Tienda</th>
 								<th>Cajero y Repartidor</th>
 								<th>Estado</th>
-								<th><i class="fa fa-clock-o"></i></th>
+								<th>Hora Límite</th>
 								<th>Procesar</th>
 							</tr>
 						</thead>
@@ -40,20 +40,27 @@
 								<td>{{ $s->customer->name }} {{ $s->customer->lastname }}</td>
 								<td>{{ $s->stores->name }}</td>
 								<td>
-									@if($s->user_sale_id==NULL)
+									@if($s->casher_id==NULL)
 									<button class="btn btn-success text-white" onclick="confirmUsers('{{ $s->slug }}')">Asignar</button>
 									@else
-									{{ $s->user_sale_id }}
+									{{ $s->casher->name." ".$s->casher->lastname }} | {{ $s->delivery->name." ".$s->delivery->lastname }} 
 									@endif
 								</td>
 								<td>{!! saleState($s->state) !!}</td>
 								<td>		
 									@if($s->time==NULL)
 									<button class="btn btn-success text-white" onclick="confirmTime('{{ $s->slug }}')">Empezar</button>
+									@elseif($s->created_at<=date('Y-m-d H:i:s'))
+
+									<input type="hidden" id="minutes" value="30">
+									<input type="hidden" id="seconds" value="00">
+									<span id="tiempo">{{ $s->time }}</span>
+									@else
+									Finalizado
 									@endif
 								</td>
 								<td class="d-flex">
-									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('venta.index', ['slug' => $s->slug]) }}"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
+									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('venta.show', ['slug' => $s->slug]) }}"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
 									<a class="btn btn-success btn-circle btn-sm text-white" onclick="confirmState('{{ $s->slug }}')"><i class="fa fa-check"></i></a>&nbsp;&nbsp;
 								</td>
 							</tr>
@@ -86,7 +93,7 @@
 								<select class="form-control" name="casher_id">
 									<option>Seleccione</option>
 									@foreach($casher as $c)
-									<option value="{{ $c->id }}">{{ $c->id }}</option>
+									<option value="{{ $c->id }}">{{ $c->name." ".$c->lastname }} -> {{ $c->store->name }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -97,7 +104,7 @@
 								<select class="form-control" name="delivery_man_id">
 									<option>Seleccione</option>
 									@foreach($deliveryMan as $d)
-									<option value="{{ $d->id }}">{{ $d->id }}</option>
+									<option value="{{ $d->id }}">{{ $d->name." ".$d->lastname }} -> {{ $d->store->name }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -126,6 +133,7 @@
 				@csrf
 				@method('PUT')
 				<div class="row">
+					<input type="hidden" name="time" value="00:30:00">
 					<div class="form-group col-12 d-flex justify-content-end">
 						<button type="submit" class="btn btn-primary mr-2">Si</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
@@ -152,7 +160,7 @@
 					<div class="form-group col-12">
 						<label class="col-form-label">Seleccione el estado<b class="text-danger">*</b></label>
 						<div class="form-group col-12">
-							<select class="form-control">
+							<select class="form-control" name="state">
 								<option>Seleccione</option>
 								<option value="1">Preparación En Proceso</option>
 								<option value="2">Enviado</option>
@@ -182,4 +190,14 @@
 @section('script')
 <script src="{{ asset('/admins/vendors/lobibox/Lobibox.js') }}"></script>
 <script src="{{ asset('/admins/vendors/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('/admins/js/timer.jquery.js') }}"></script>
+<script type="text/javascript">
+
+	$("#tiempo").timer('remove');
+	$("#tiempo").timer({
+		countdown: true,
+		duration: $("#minutes").val()+"m"+$("#seconds").val()+"s",
+		format: "%M:%S"
+	});
+</script>
 @endsection

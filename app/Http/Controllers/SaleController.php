@@ -50,9 +50,10 @@ class SaleController extends Controller
      * @param  \App\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale $sale)
+    public function show($slug)
     {
-        //
+        $sale = Sale::where('slug', $slug)->firstOrFail();
+        return view('admin.sales.show', compact('sale'));
     }
 
     /**
@@ -75,7 +76,14 @@ class SaleController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        dd($request);
+        $sale = Sale::where('slug', $slug)->firstOrFail();
+        $sale->fill($request->all())->save();
+
+        if ($sale) {
+            return redirect()->route('venta.index')->with(['type' => 'success', 'title' => 'Asignación exitosa', 'msg' => 'Se ha asignado correctamente el cajero y repartidor correctamente.']);
+        } else {
+            return redirect()->route('venta.index')->with(['type' => 'error', 'title' => 'Asignación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
     }
 
     /**
@@ -89,14 +97,32 @@ class SaleController extends Controller
         //
     }
 
-    public function time($slug)
+    public function time(Request $request, $slug)
     {
-        dd($slug);
+        $sale = Sale::where('slug', $slug)->firstOrFail();
+        $mifecha= date('H:i:s'); 
+        $NuevaFecha = strtotime ( '+30 minute' , strtotime ($mifecha) ) ;  
+        $NuevaFecha = date ( 'H:i:s' , $NuevaFecha); 
+        $data = array('time' => $NuevaFecha);
+        $sale->fill($data)->save();
+
+        if ($sale) {
+            return redirect()->route('venta.index')->with(['type' => 'success', 'title' => 'Asignación exitosa', 'msg' => 'Se ha iniciado el tiempo de entrega.']);
+        } else {
+            return redirect()->route('venta.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
     }
 
     public function state(Request $request, $slug)
     {
-        dd($request);
+        $sale = Sale::where('slug', $slug)->firstOrFail();
+        $sale->fill($request->all())->save();
+
+        if ($sale) {
+            return redirect()->route('venta.index')->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'Se ha modificado correctamente el estado.']);
+        } else {
+            return redirect()->route('venta.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
     }
 
 
