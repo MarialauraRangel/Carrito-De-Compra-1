@@ -45,6 +45,10 @@
 									<input class="form-control" disabled name="phone" type="text" value="{{ $user->phone }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
+									<label class="col-form-label">DNI</label>
+									<input class="form-control" disabled name="dni" type="text" value="{{ $user->dni }}">
+								</div>
+								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Tipo</label>
 									<input class="form-control" disabled name="type" type="text" @if($user->type==1) value="Super Administrador" @endif @if($user->type==2) value="Administrador de Tienda" @endif @if($user->type==3) value="Normal" @endif  >
 								</div>

@@ -55,7 +55,7 @@ Route::delete('/maesma/productos/eliminar/{slug}', 'ProductController@destroy')-
 
 
 //Categorías
-Route::get('/maesma/categorias/listado', 'CategoryController@lista')->name('categorias.index');
+Route::get('/maesma/categorias/listado', 'CategoryController@index')->name('categorias.index');
 Route::get('/maesma/categorias/registrar', 'CategoryController@create')->name('categorias.create');
 Route::post('/maesma/categorias', 'CategoryController@store')->name('categorias.store');
 Route::get('/maesma/categorias/{slug}', 'CategoryController@show')->name('categorias.show');
@@ -86,3 +86,7 @@ Route::get('/maesma/perfil', 'UserController@profile')->name('usuario.profile');
 
 //Ventas
 Route::get('/maesma/ventas', 'SaleController@index')->name('venta.index');
+Route::put('/maesma/ventas/cajero-repartidor/{slug}', 'SaleController@update')->name('venta.user');
+Route::put('/maesma/ventas/tiempo/{slug}', 'SaleController@time')->name('venta.time');
+Route::put('/maesma/ventas/estado/{slug}', 'SaleController@state')->name('venta.state');
+Route::get('/maesma/ventas/{slug}', 'CategoryController@show')->name('categorias.show');

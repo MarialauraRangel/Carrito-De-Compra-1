@@ -50,6 +50,10 @@
 							<input class="form-control" type="text" name="phone" required placeholder="Introduzca un teléfono" value="{{ old('phone') }}" id="phone">
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
+							<label class="col-form-label">DNI<b class="text-danger">*</b></label>
+							<input class="form-control" type="text" name="dni" required placeholder="Introduzca su dni" value="{{ old('dni') }}" id="dni">
+						</div>
+						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Tipo<b class="text-danger">*</b></label>
 							<select class="form-control" name="type" required id="typeUser">
 								<option value="">Seleccione</option>

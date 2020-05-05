@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use App\Store;
+use App\Distance;
+
 use Illuminate\Http\Request;
 
 class WebController extends Controller
@@ -154,8 +157,10 @@ class WebController extends Controller
 
         }
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        $store = Store::all();
+        $distance = Distance::where('id', '>', '1')->get();
 
-        return view('web.checkout', compact('cart', 'total'));
+        return view('web.checkout', compact('cart', 'total','store', 'distance'));
     }
 
     public function shopping(Request $request) {
