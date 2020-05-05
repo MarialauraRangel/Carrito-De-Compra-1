@@ -38,21 +38,21 @@
 						</thead>
 						<tbody>
 							@forelse ($products as $product)
-							<tr class="text-center cartProduct" slug="{{ $product['slug'] }}">
-								<td class="product-remove"><a slug="{{ $product['slug'] }}"><span class="ion-ios-close"></span></a></td>
+							<tr class="text-center cartProduct" code="{{ $product['code'] }}">
+								<td class="product-remove"><a code="{{ $product['code'] }}"><span class="ion-ios-close"></span></a></td>
 								<td class="image-prod">
-									<div class="img" style="background-image:url({{ asset('/admins/img/products/'.$product->image) }});"></div>
+									<div class="img" style="background-image:url({{ asset('/admins/img/products/'.$product['product']->image) }});"></div>
 								</td>
 								<td class="product-name">
-									<h3>{{ $product['name'] }}</h3>
+									<h3>{{ $product['product']['name'] }}</h3>
 								</td>
-								<td class="price">{{ number_format($product['price'], 2, ",", ".") }} Bs</td>
+								<td class="price">{{ number_format($product['product']['price'], 2, ",", ".") }} Bs</td>
 								<td class="quantity">
 									<div class="input-group mb-3">
-										<input type="text" name="qty" class="quantity qty form-control" value="{{ $product['qty'] }}" min="1" slug="{{ $product['slug'] }}" price="{{ $product['price'] }}">
+										<input type="text" name="qty" class="quantity qty form-control" value="{{ $product['qty'] }}" min="1" slug="{{ $product['product']['slug'] }}" price="{{ $product['product']['price'] }}">
 									</div>
 								</td>
-								<td class="total" slug="{{ $product['slug'] }}">{{ number_format($product['price']*$product['qty'], 2, ",", ".") }} Bs</td>
+								<td class="total" slug="{{ $product['product']['slug'] }}">{{ number_format($product['product']['price']*$product['qty'], 2, ",", ".") }} Bs</td>
 							</tr>
 							@empty
 							<tr class="text-center">

@@ -27,6 +27,7 @@ Route::get('/producto/{slug}', 'WebController@product')->name('producto');
 
 //Pedidos
 Route::get('/carrito', 'WebController@cart')->name('carrito.index');
+Route::post('/carrito/producto', 'WebController@addProduct')->name('carrito.add.product');
 Route::post('/carrito/agregar', 'WebController@addCart')->name('carrito.add');
 Route::post('/carrito/quitar', 'WebController@removeCart')->name('carrito.remove');
 Route::post('/carrito/cantidad', 'WebController@qtyCart')->name('carrito.qty');
