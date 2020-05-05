@@ -45,15 +45,20 @@
 									<input class="form-control" name="phone" type="text" value="{{ $user->phone }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
+									<label class="col-form-label">DNI</label>
+									<input class="form-control" name="dni" type="text" value="{{ $user->dni }}">
+								</div>
+								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Tipo<b class="text-danger">*</b></label>
 									<select class="form-control" name="type" required id="typeUser">
 										<option value="">Seleccione</option>
 										<option value="1" @if($user->type==1) selected @endif>Super Administrador</option>
-										<option value="2" @if($user->type==2) selected @endif>Administrador de Tienda</option>
-										<option value="3" @if($user->type==3) selected @endif>Normal</option>
+										<option value="2" @if($user->type==2) selected @endif>Cajero</option>
+										<option value="3" @if($user->type==3) selected @endif>Repartidor</option>
+										<option value="4" @if($user->type==4) selected @endif>Cliente</option>
 									</select>
 								</div>
-{{-- 								<div class="form-group col-lg-12 col-md-12 col-12" id="storeField">
+								<div class="form-group col-lg-12 col-md-12 col-12" id="storeField">
 									<label class="col-form-label">Tienda<b class="text-danger">*</b></label>
 									<select class="form-control" name="store_id" required>
 										<option value="">Seleccione</option>
@@ -65,7 +70,7 @@
 										@endisset
 										@endforeach
 									</select>
-								</div> --}}
+								</div>
 							</div>
 						</div>
 						

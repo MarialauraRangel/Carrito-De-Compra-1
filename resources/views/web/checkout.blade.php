@@ -34,33 +34,13 @@
 					</div>
 					@guest
 					@else
-					<div class="col-md-12">
+{{-- 					<div class="col-md-12">
 						<div class="cart-detail p-3 p-md-4">
-							<h3 class="billing-heading mb-4">Métodos de Pago</h3>
-							<div class="form-group">
-								<div class="col-md-12">
-									<div class="radio">
-										<label><input type="radio" name="optradio" class="mr-2">Tarjeta de Débito</label>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-12">
-									<div class="radio">
-										<label><input type="radio" name="optradio" class="mr-2">Tarjeta de Crédito</label>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-12">
-									<div class="checkbox">
-										<label><input type="checkbox" value="" class="mr-2"> He leido y aceptado los términos y condiciones</label>
-									</div>
-								</div>
-							</div>
+							<h4 class="billing-heading mb-4">¿Está seguro de finalizar la compra?</h4>
+
 							<p><a href="#"class="btn btn-primary py-3 px-4">Finalizar Compra</a></p>
 						</div>
-					</div>
+					</div> --}}
 					@endguest
 				</div>
 			</div>
@@ -168,38 +148,53 @@
 								<input type="text" class="form-control" disabled value="{{ Auth::user()->email }}">
 							</div>
 						</div>
-						{{-- <div class="col-md-6">
+						<div class="w-100"></div>
+						<div class="col-md-6">
 							<div class="form-group">
-								<label for="firstname">Nombre</label>
-								<input type="text" class="form-control" placeholder="Introduzca su nombre" value="{{ Auth::user()->name }}">
+								<label for="phone">Teléfono</label>
+								<input type="text" class="form-control" value="{{ Auth::user()->phone }}" disabled>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="lastname">Apellido</label>
-								<input type="text" class="form-control" placeholder="Introduzca su apellido" value="{{ Auth::user()->lastname }}">
+								<label for="emailaddress">Correo Electrónico</label>
+								<input type="text" class="form-control" disabled  value="{{ Auth::user()->email }}">
 							</div>
-						</div> --}}
-						<div class="w-100"></div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="phone">Seleccione la tienda a solicitar productos</label>
+								<select class="form-control" name="store_id">
+									<option>Seleccione</option>
+									@foreach($store as $s)
+									<option value="{{ $s->id }}">{{ $s->name }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="phone">Distancia a recorrer</label>
+								<select class="form-control" name="distance_id">
+									<option>Seleccione</option>
+									<option value="1">Local = Gratis</option>
+									@foreach($distance as $d)
+									<option value="{{ $d->id }}">{{ $d->km }} km = {{ $d->price }} bs</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="streetaddress">Dirección</label>
 								<input type="text" class="form-control" placeholder="Introduzca su dirección (calle, número de casa, avenida, etc)">
 							</div>
 						</div>
-						<div class="w-100"></div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="phone">Teléfono</label>
-								<input type="text" class="form-control" placeholder="Introduzca un teléfono">
-							</div>
+						<div class="col-md-12">
+						<div class="form-group">
+							<p><button type="submit" class="btn btn-primary py-3 px-4">Finalizar Compra</button></p>
 						</div>
-						{{-- <div class="col-md-6">
-							<div class="form-group">
-								<label for="emailaddress">Correo Electrónico</label>
-								<input type="text" class="form-control" placeholder="Introduzca su correo electrónico" value="{{ Auth::user()->email }}">
-							</div>
-						</div> --}}
+					</div> 
 					</div>
 				</form>
 			</div>

@@ -105,8 +105,8 @@ class UserController extends Controller
      */
     public function edit($slug) {
         $user=User::where('slug', $slug)->firstOrFail();
-        // $stores=Store::all();
-        return view('admin.users.edit', compact("user"));
+        $stores=Store::all();
+        return view('admin.users.edit', compact("user", "stores"));
     }
 
     /**

@@ -45,4 +45,16 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function store(){
+        return $this->belongsTo(Store::class);
+    }
+
+    public function sale() {
+        return $this->hasOne(Sale::class, 'id');
+    }
+
+    public function userSale(){
+        return $this->hasOne(UserSale::class, 'id');
+    }
 }

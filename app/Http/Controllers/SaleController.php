@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Sale;
+use App\User;
+use App\UserSale;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -15,8 +17,10 @@ class SaleController extends Controller
     public function index()
     {
         $sale = Sale::all();
+        $casher = User::where('type', '=', '2')->get();
+        $deliveryMan = User::where('type', '=', '3')->get();
         $num = 1;
-        return view('admin.sales.index', compact('sale', 'num'));
+        return view('admin.sales.index', compact('sale', 'num', 'casher', 'deliveryMan'));
     }
 
     /**
@@ -69,9 +73,9 @@ class SaleController extends Controller
      * @param  \App\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale)
+    public function update(Request $request, $slug)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -84,4 +88,16 @@ class SaleController extends Controller
     {
         //
     }
+
+    public function time($slug)
+    {
+        dd($slug);
+    }
+
+    public function state(Request $request, $slug)
+    {
+        dd($request);
+    }
+
+
 }

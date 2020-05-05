@@ -23,32 +23,37 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Producto</th>
-								<th>Forma de Pago</th>
-								<th>Total</th>
+								<th>Pedido</th>
+								<th>Cliente</th>
+								<th>Tienda</th>
+								<th>Cajero y Repartidor</th>
 								<th>Estado</th>
-								<th>Fecha</th>
-								<th>Acciones</th>
+								<th><i class="fa fa-clock-o"></i></th>
+								<th>Procesar</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($sale as $payment)
+							@foreach($sale as $s)
 							<tr>
 								<td>{{ $num++ }}</td>
+								<td>{{ $s->order_id }}</td>
+								<td>{{ $s->customer->name }} {{ $s->customer->lastname }}</td>
+								<td>{{ $s->stores->name }}</td>
 								<td>
-
-									<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/products/'.$payment->products[0]->images[0]->image) }}' style='width: 150px; height: 150px;' ><br><b>{{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</b>"><img src="{{ asset('/admins/img/products/'.$payment->products[0]->images[0]->image) }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</a>
-									<a data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ asset('/admins/img/products/imagen.jpg') }}' style='width: 150px; height: 150px;' ><br><b>{{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</b>"><img src="{{ asset('/admins/img/products/imagen.jpg') }}" class="img-circle" alt="Foto de perfil" width="40" height="40" /> {{ $payment->products[0]->name." x ".$payment->products[0]->pivot->qty }}</a>
-
+									@if($s->user_sale_id==NULL)
+									<button class="btn btn-success text-white" onclick="confirmUsers('{{ $s->slug }}')">Asignar</button>
+									@else
+									{{ $s->user_sale_id }}
+									@endif
 								</td>
-								<td>{!! saleShape($payment->shape) !!}</td>
-								<td>{{ "S/. ".number_format($payment->total, 2, ".", "") }}</td>
-								<td>{!! saleState($payment->state) !!}</td>
-								<td>{{ date("d-m-Y", strtotime($payment->created_at)) }}</td>
+								<td>{!! saleState($s->state) !!}</td>
+								<td>		
+									@if($s->time==NULL)
+									<button class="btn btn-success text-white" onclick="confirmTime('{{ $s->slug }}')">Empezar</button>
+								@endif</td>
 								<td class="d-flex">
-									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('ventas.show', ['slug' => $payment->slug]) }}"><i class="fa fa-briefcase"></i></a>&nbsp;&nbsp;
-									<a class="btn btn-success btn-circle btn-sm text-white" onclick="confirmPay('{{ $payment->slug }}')"><i class="fa fa-check"></i></a>&nbsp;&nbsp;
-									<a class="btn btn-danger btn-circle btn-sm text-white" onclick="refusePay('{{ $payment->slug }}')"><i class="fa fa-close"></i></a>
+									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('venta.index', ['slug' => $s->slug]) }}"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
+									<a class="btn btn-success btn-circle btn-sm text-white" onclick="confirmState('{{ $s->slug }}')"><i class="fa fa-check"></i></a>&nbsp;&nbsp;
 								</td>
 							</tr>
 							@endforeach
@@ -60,47 +65,69 @@
 	</div>
 </div>
 
-<div class="modal fade" id="confirmPay" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="confirmUsers" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres confirmar este pago?</h5>
+				<h5 class="modal-title">Introduzca el caero y repartidor correspondiente</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<form action="#" method="POST" id="formConfirmPay">
+				<form action="#" method="POST" id="formConfirmUsers">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Confirmar</button>
+					<div class="row">
+						<div class="form-group col-6">
+							<label class="col-form-label">Seleccione el cajero<b class="text-danger">*</b></label>
+							<div class="form-group col-12">
+								<select class="form-control" name="casher_id">
+									<option>Seleccione</option>
+									@foreach($casher as $c)
+									<option value="{{ $c->id }}">{{ $c->id }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-6">
+							<label class="col-form-label">Seleccione el repartidor<b class="text-danger">*</b></label>
+							<div class="form-group col-12">
+								<select class="form-control" name="delivery_man_id">
+									<option>Seleccione</option>
+									@foreach($deliveryMan as $d)
+									<option value="{{ $d->id }}">{{ $d->id }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-12 d-flex justify-content-end">
+							<button type="submit" class="btn btn-primary mr-2">Asignar</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
 				</form>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="refusePay" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="confirmTime" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres rechazar este pago?</h5>
+				<h5 class="modal-title">¿Desea inicializar el tiempo de entrega?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="#" method="POST" id="formRefusePay" class="modal-footer">
+			<form action="#" method="POST" id="formConfirmTime" class="modal-footer">
 				@csrf
 				@method('PUT')
 				<div class="row">
-					<div class="form-group col-12">
-						<label class="col-form-label">Explicación<b class="text-danger">*</b></label>
-						<textarea class="form-control" name="explanation" required placeholder="Introduce la razón del rechazo del pago"></textarea>
-					</div>
 					<div class="form-group col-12 d-flex justify-content-end">
-						<button type="submit" class="btn btn-primary mr-2">Rechazar</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary mr-2">Si</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 					</div>
 				</div>
 			</form>
@@ -108,6 +135,47 @@
 	</div>
 </div>
 
+<div class="modal fade" id="confirmState" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Introduzca el estado actual del pedido</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form action="#" method="POST" id="formConfirmState" class="modal-footer">
+				@csrf
+				@method('PUT')
+				<div class="row">
+					<div class="form-group col-12">
+						<label class="col-form-label">Seleccione el estado<b class="text-danger">*</b></label>
+						<div class="form-group col-12">
+							<select class="form-control">
+								<option>Seleccione</option>
+								<option value="1">Preparación En Proceso</option>
+								<option value="2">Enviado</option>
+								<option value="3">Entregado</option>
+								<option value="4">Reembolso</option>
+								<option value="5">Productos Fuera de Linea</option>
+								<option value="6">Error en el pago</option>
+								<option value="7">Pago mediante cheque pendiente</option>
+								<option value="8">Pago por transferencia bancaria pendiente</option>
+								<option value="9">Pago mediante PayPal pendiente</option>
+								<option value="10">Pago Aceptado</option>
+								<option value="11">Cancelado</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-12 d-flex justify-content-end">
+						<button type="submit" class="btn btn-primary mr-2">Cambiar</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 @endsection
 
 @section('script')
