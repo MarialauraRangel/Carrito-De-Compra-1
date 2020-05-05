@@ -19,8 +19,8 @@ class CreateSalesTable extends Migration
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable()->comment('cliente');
             $table->bigInteger('store_id')->unsigned()->nullable();
-            $table->bigInteger('casher')->unsigned()->nullable()->comment('cajero');
-            $table->bigInteger('delivery_man')->unsigned()->nullable()->comment('repartidor');
+            $table->bigInteger('casher_id')->unsigned()->nullable()->comment('cajero');
+            $table->bigInteger('delivery_man_id')->unsigned()->nullable()->comment('repartidor');
             $table->enum('state', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])->default(1);
             $table->string('time')->nullable()->default(NULL);
             $table->mediumText('address');

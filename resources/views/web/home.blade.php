@@ -18,7 +18,7 @@
                     <div class="col-md-12 ftco-animate text-center">
                         <h1 class="mb-2">Las Mejores Pizzas</h1>
                         <h2 class="subheading mb-4">Para los mejores clientes</h2>
-                        <p><a href="#" class="btn btn-primary">Ver Más</a></p>
+                        <p><a href="{{ route('menu') }}" class="btn btn-primary">Ver Más</a></p>
                     </div>
 
                 </div>
@@ -93,12 +93,12 @@
             @foreach($products as $product)
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod">
+                    <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="img-prod">
                         <img class="img-fluid" src="{{ asset('/admins/img/products/'.$product->image) }}" alt="{{ $product->name }}">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
-                        <h3><a href="#">{{ $product->name }}</a></h3>
+                        <h3><a href="{{ route('producto', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h3>
                         <div class="row d-flex justify-content-center">
                             <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="btn btn-primary">
                                 <span><i class="ion-ios-menu"></i></span>

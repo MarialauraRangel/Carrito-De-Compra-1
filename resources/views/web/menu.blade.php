@@ -2,6 +2,10 @@
 
 @section('title', 'Menú')
 
+@section('links')
+<link rel="stylesheet" href="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.css') }}">
+@endsection
+
 @section('content')
 
 <section class="ftco-section">
@@ -11,7 +15,9 @@
                 <ul class="product-category">
                     <li><a href="#" category="all" class="active">Todas</a></li>
                     @foreach($categories as $category)
+                    @if(count($category->products)>0)
                     <li><a href="#" category="{{ $category->name }}">{{ $category->name }}</a></li>
+                    @endif
                     @endforeach
                 </ul>
             </div>
@@ -20,27 +26,20 @@
             @foreach($products as $product)
             <div class="col-md-6 col-lg-3 ftco-animate menu-filter" category="{{ $product->category->name }}">
                 <div class="product">
-                    <a href="#" class="img-prod">
+                    <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="img-prod">
                         <img class="img-fluid" src="{{ asset('/admins/img/products/'.$product->image) }}" alt="{{ $product->name }}">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
                         <h3><a href="{{ route('producto', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h3>
-                        <div class="d-flex">
-                            <div class="pricing">
-                                <p class="price"><span class="price-sale">{{ number_format($product->price, 2, ",", ".") }} Bs</span></p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a class="btn-cart-open d-flex justify-content-center align-items-center mx-1" title="{{ $product->name }}" img="{{ asset('/admins/img/products/'.$product->image) }}" price="{{ number_format($product->price, 2, '.', '') }}" description="{{ $product->description }}" slug="{{ $product->slug }}">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                            </div>
-                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="btn btn-primary">
+                                <span><i class="ion-ios-menu"></i></span>
+                            </a>
+                            <a class="btn btn-primary btn-cart-open mx-1" slug="{{ $product->slug }}" image="{{ asset('/admins/img/products/'.$product->image) }}">
+                                <span><i class="ion-ios-cart"></i></span>
+                            </a>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -91,4 +90,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+<script src="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
 @endsection

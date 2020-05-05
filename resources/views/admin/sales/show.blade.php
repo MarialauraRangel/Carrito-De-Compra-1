@@ -40,10 +40,10 @@
 								<p><strong>Tienda:</strong> {{ $sale->stores->name }}</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Cajero:</strong> {{ $sale->user_sale_id }}</p>
+								<p><strong>Cajero:</strong> {{ $sale->casher->name." ".$sale->casher->lastname }}</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Repartidor:</strong> {{ $sale->user_sale_id }}</p>
+								<p><strong>Repartidor:</strong> {{ $sale->delivery->name." ".$sale->delivery->lastname }}</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
 								<p><strong>Tiempo de Entrega:</strong> {{ $sale->time }}</p>
@@ -58,7 +58,7 @@
 									<strong>Dirección</strong>
 								</div>
 								<div class="col-lg-8 col-md-8 col-sm-7 col-12">
-									<p class="text-primary mb-1">...</p>
+									<p class="text-primary mb-1">{{ $sale->address }}</p>
 									<p><strong>Cantidad:</strong> ...</p>
 								</div>
 							</div>

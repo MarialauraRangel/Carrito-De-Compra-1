@@ -6,7 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
-    public function stores() {
+
+	protected $table = "sales";
+
+	protected $fillable = [
+		'slug',
+		'order_id',
+		'user_id',
+		'store_id',
+		'casher_id', 
+		'delivery_man_id',
+		'state',
+		'time',
+		'address'
+	];
+
+	public function stores() {
 		return $this->belongsTo(Store::class, 'store_id');
 	}
 
@@ -14,7 +29,12 @@ class Sale extends Model
 		return $this->belongsTo(User::class, 'user_id');
 	}
 
-	public function saleUser() {
-        return $this->hasMany(UserSale::class, 'user_sale_id');
-    }
+	public function casher() {
+		return $this->belongsTo(User::class, 'casher_id');
+	}
+
+	public function delivery() {
+		return $this->belongsTo(User::class, 'delivery_man_id');
+	}
+	
 }

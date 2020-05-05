@@ -435,12 +435,12 @@ $('.product-remove a').click(function() {
 
 //Al cambiar la cantidad de un producto en el carrito cambia el total
 $('.qty').change(function() {
-	var code=$(this).attr('code'), price=$(this).attr('price'), qty=$(this).val();
+	var code=$(this).attr('code'), slug=$(this).attr('slug'), size=$(this).attr('size'), price=$(this).attr('price'), qty=$(this).val();
 	$.ajax({
 		url: '/carrito/cantidad',
 		type: 'POST',
-		dataType: 'obj',
-		data: {qty: qty, code: code},
+		dataType: 'json',
+		data: {qty: qty, slug: slug, size: size, code: code},
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
@@ -456,7 +456,7 @@ $('.qty').change(function() {
 				total+=subtotal;
 			});
 			total=new Intl.NumberFormat("de-DE").format(total);
-			$('#subtotal-cart, #total-cart').text(total+" Bs");
+			$('#total-cart').text(total+" Bs");
 		} else {
 			Lobibox.notify('error', {
 				title: 'Error',
@@ -478,9 +478,7 @@ $('.qty').keyup(function() {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	})
-	.done(function(result) {
-		var obj=JSON.parse(result);
-
+	.done(function(obj) {
 		if (obj.status) {
 			$('.total[code="'+code+'"]').text(obj.subtotal+" Bs");
 			var total=0;
@@ -491,7 +489,7 @@ $('.qty').keyup(function() {
 				total+=subtotal;
 			});
 			total=new Intl.NumberFormat("de-DE").format(total);
-			$('#subtotal-cart, #total-cart').text(total+" Bs");
+			$('#total-cart').text(total+" Bs");
 		} else {
 			Lobibox.notify('error', {
 				title: 'Error',

@@ -19,29 +19,19 @@
 							<h3 class="billing-heading mb-4">Total de La Compra</h3>
 							<p class="d-flex">
 								<span>Subtotal</span>
-								<span>{{ number_format($total, 2, ",", ".") }} Bs</span>
+								<span id="subtotal">{{ number_format($total, 2, ",", ".") }} Bs</span>
 							</p>
 							<p class="d-flex">
 								<span>Delivery</span>
-								<span>0,00 Bs</span>
+								<span id="total-delivery">0,00 Bs</span>
 							</p>
 							<hr>
 							<p class="d-flex total-price">
 								<span>Total</span>
-								<span>{{ number_format($total, 2, ",", ".") }} Bs</span>
+								<span id="total">{{ number_format($total, 2, ",", ".") }} Bs</span>
 							</p>
 						</div>
 					</div>
-					@guest
-					@else
-{{-- 					<div class="col-md-12">
-						<div class="cart-detail p-3 p-md-4">
-							<h4 class="billing-heading mb-4">¿Está seguro de finalizar la compra?</h4>
-
-							<p><a href="#"class="btn btn-primary py-3 px-4">Finalizar Compra</a></p>
-						</div>
-					</div> --}}
-					@endguest
 				</div>
 			</div>
 

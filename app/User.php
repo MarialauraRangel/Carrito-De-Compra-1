@@ -54,7 +54,13 @@ class User extends Authenticatable
         return $this->hasOne(Sale::class, 'id');
     }
 
-    public function userSale(){
-        return $this->hasOne(UserSale::class, 'id');
+    public function sale2() {
+        return $this->hasOne(Sale::class, 'id');
     }
+
+    public function sale3() {
+        return $this->hasOne(Sale::class, 'id');
+    }
+
+
 }

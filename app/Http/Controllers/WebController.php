@@ -33,6 +33,7 @@ class WebController extends Controller
         $product=Product::where('slug', $slug)->firstOrFail();
         $products=Product::where('id', '!=', $product->id)->limit(4)->get();
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        
         return view('web.product', compact('product', 'products', 'cart'));
     }
 
@@ -41,6 +42,7 @@ class WebController extends Controller
         $products=[];
         if ($request->session()->has('cart')) {
             $cart=session('cart');
+            $request->session()->forget('cart');
             $num=0;
             foreach ($cart as $cartProduct) {
                 $size=Size::where('slug', $cartProduct['size_slug'])->first();
@@ -53,7 +55,13 @@ class WebController extends Controller
                 $products[$num]['qty']=$cartProduct['qty'];
                 $products[$num]['code']=$cartProduct['code'];
                 $total+=$product->price*$cartProduct['qty'];
-                $num++;
+
+                if ($num==0) {
+                    $request->session()->put('cart', array(0 => ['name' => $product->name, 'qty' => $cartProduct['qty'], 'price' => $product->price, 'subtotal' => number_format($product->price*$cartProduct['qty'], 2, ',', '.'), 'ofert' => $product->ofert, 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $cartProduct['code']]));
+                } else {
+                    $request->session()->push('cart', array('name' => $product->name, 'qty' => $cartProduct['qty'], 'price' => $product->price, 'subtotal' => number_format($product->price*$cartProduct['qty'], 2, ',', '.'), 'ofert' => $product->ofert, 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $cartProduct['code']));
+                }
+                $num++;  
             }
         }
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
@@ -72,10 +80,10 @@ class WebController extends Controller
     }
 
     public function addCart(Request $request) {
-    	if (!empty(request('store')) && request('qty')>0) {
+    	if (request('qty')>0 && !empty(request('store')) && !empty(request('size'))) {
     		$exists=Product::where('slug', request('slug'))->exists();
 
-    		if ($exists && !empty(request('store')) && !empty(request('size'))) {
+    		if ($exists) {
                 $size=Size::where('slug', request('size'))->first();
                 $store=Store::where('slug', request('store'))->first();
                 $product=Product::join('product_size', 'products.id', '=', 'product_size.product_id')->where('products.slug', request('slug'))->where('product_size.size_id', $size->id)->first();
@@ -140,15 +148,16 @@ class WebController extends Controller
     }
 
     public function qtyCart(Request $request) {
-        if (request('qty')>0) {
-            $count=Product::where('slug', request('slug'))->count();
-            if ($count>0) {
-                $product=Product::where('slug', request('slug'))->first();
+        if (request('qty')>0 && !empty(request('size')) && !empty(request('slug')) && !empty(request('code'))) {
+            $exists=Product::where('slug', request('slug'))->exists();
+            if ($exists) {
+                $size=Size::where('slug', request('size'))->first();
+                $product=Product::join('product_size', 'products.id', '=', 'product_size.product_id')->where('products.slug', request('slug'))->where('product_size.size_id', $size->id)->first();
+
                 $cart=session('cart');
+                if (array_search(request('code'), array_column($cart, 'code'))!==false) {
 
-                if (array_search($product->slug, array_column($cart, 'slug'))!==false) {
-
-                    $key=array_search($product->slug, array_column($cart, 'slug'));
+                    $key=array_search(request('code'), array_column($cart, 'code'));
                     $cart[$key]['qty']=request('qty');
                     $subtotal=$product->price*$cart[$key]['qty'];
                     $cart[$key]['price']=$product->price;
@@ -170,19 +179,17 @@ class WebController extends Controller
         if ($request->session()->has('cart')) {
             $cart=session('cart');
             foreach ($cart as $cartProduct) {
-                $product=Product::where('slug', $cartProduct['slug'])->first();
-                $total+=$product->price*$cartProduct['qty'];
+                $total+=$cartProduct['price']*$cartProduct['qty'];
             }
 
             $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
             $store = Store::all();
             $distance = Distance::where('id', '>', '1')->get();
 
-            return view('web.checkout', compact('cart', 'total','store', 'distance'));
+            return view('web.checkout', compact('cart', 'total', 'store', 'distance'));
         }
-        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
 
-        return view('web.checkout', compact('cart', 'total'));
+        return redirect()->route('web.cart');
     }
 
     public function shopping(Request $request) {
