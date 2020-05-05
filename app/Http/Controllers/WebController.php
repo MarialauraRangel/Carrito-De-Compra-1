@@ -236,11 +236,25 @@ class WebController extends Controller
             Order::create($data2)->save();
         }
 
+        
+
         return view('web.orders', compact('cart'));
     }
 
     public function shopping(Request $request) {
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
-        return view('web.orders', compact('cart'));
+        $sale = Sale::where('user_id', '=', Auth::user()->id)->get();
+        $num = 1;
+        return view('web.orders', compact('cart', 'sale', 'num'));
     }
+
+        public function orderProduct(Request $request, $slug) {
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        $sale = Sale::where('slug', $slug)->firstOrFail();
+        $order = Order::where('sale_id', '=', $sale->id)->get();
+        $num = 1;
+
+        return view('web.order_product', compact('cart', 'sale', 'order', 'num'));
+    }
+
 }

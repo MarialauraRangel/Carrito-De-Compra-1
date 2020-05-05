@@ -8,7 +8,7 @@
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
 			<div class="col-md-9 ftco-animate text-center">
-				<h1 class="mb-0 bread">Compras Realizadas</h1>
+				<h1 class="mb-0 bread">{{ $sale->created_at }}</h1>
 			</div>
 		</div>
 	</div>
@@ -23,24 +23,20 @@
 						<thead class="thead-primary">
 							<tr class="text-center">
 								<th>#</th>
-								<th>Total</th>
-								<th>Estado</th>
-								<th>Tienda</th>
-								<th>Fecha</th>
-								<th>Acciones</th>
+								<th>Producto</th>
+								<th>Tamaño</th>
+								<th>Precio</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($sale as $s)
+							@foreach($order as $o)
 							<tr>
 								<td>{{ $num++ }}</td>
-								<td></td>
-								<td>{!!  saleState($s->state) !!}</td>
-								<td>{{ $s->stores->name }}</td>
-								<td>{{ $s->created_at }}</td>
-								<td class="d-flex justify-content-center">
-									<a href="{{ route('pago.order', ['slug' => $s->slug]) }}" class="btn btn-primary"><i class="icon-eye"></i></a>
+								<td class="image-prod">
+									<div class="img" title="{{ $o->product->name }}" style="background-image:url({{ asset('/admins/img/products/'.$o->product->image) }});"></div>
 								</td>
+								<td>{{ $o->size->name }}</td>
+								<td>{{ $o->price }} Bs</td>
 							</tr>
 							@endforeach
 						</tbody>

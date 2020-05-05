@@ -36,5 +36,11 @@ class Sale extends Model
 	public function delivery() {
 		return $this->belongsTo(User::class, 'delivery_man_id');
 	}
+
+	public function distance() {
+		return $this->belongsTo(Distance::class, 'distance_id');
+	}
+
+	
 	
 }
