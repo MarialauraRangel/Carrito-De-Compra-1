@@ -1,8 +1,10 @@
 @extends('layouts.web')
 
-@section('title', 'Carrito de Compra')
+@section('title', 'Producto')
 
 @section('links')
+<link rel="stylesheet" href="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.css') }}">
+@endsection
 
 @endsection
 
@@ -27,17 +29,14 @@
 							<div class="select-wrap">
 								<div class="icon"><span class="ion-ios-arrow-down"></span></div>
 								<select name="" id="" class="form-control">
-									<option value="">Pequeña</option>
-									<option value="">Mediana</option>
-									<option value="">Grande</option>
-									<option value="">Gigante</option>
-									<option value="">Súper Gigante</option>
+									@foreach($product->sizes as $size)
+									<option value="{{ $size->slug }}">{{ $size->name." - ".number_format($size->pivot->price, 2, ",", ".")." Bs" }}</option>
+									@endforeach
 								</select>
 							</div>
 						</div>
 					</div>
 				</div>
-				<p class="price"><span>{{ number_format($product->price, 2, ",", ".") }} Bs</span></p>
 				<p>{{ $product->description }}</p>
 				<p><a href="cart.html" class="btn btn-black py-3 px-5">Agregar al carrito</a></p>
 			</div>
@@ -49,8 +48,7 @@
 	<div class="container">
 		<div class="row justify-content-center mb-3 pb-3">
 			<div class="col-md-12 heading-section text-center ftco-animate">
-				<span class="subheading">Nuestras Pizzas</span>
-				<h2 class="mb-4">Más Destacadas</h2>
+				<h2 class="mb-4">Productos Relacionados</h2>
 			</div>
 		</div>   		
 	</div>
@@ -59,27 +57,20 @@
 			@foreach($products as $product)
 			<div class="col-md-6 col-lg-3 ftco-animate">
 				<div class="product">
-					<a href="#" class="img-prod">
+					<a href="{{ route('producto', ['slug' => $product->slug]) }}" class="img-prod">
 						<img class="img-fluid" src="{{ asset('/admins/img/products/'.$product->image) }}" alt="{{ $product->name }}">
 						<div class="overlay"></div>
 					</a>
 					<div class="text py-3 pb-4 px-3 text-center">
-						<h3><a href="#">{{ $product->name }}</a></h3>
-						<div class="d-flex">
-							<div class="pricing">
-								<p class="price"><span>{{ number_format($product->price, 2, ",", ".") }} Bs</span></p>
-							</div>
-						</div>
-						<div class="bottom-area d-flex px-3">
-							<div class="m-auto d-flex">
-								<a href="{{ route('producto', ['slug' => $product->slug]) }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-									<span><i class="ion-ios-menu"></i></span>
-								</a>
-								<a class="btn-cart-open d-flex justify-content-center align-items-center mx-1" title="{{ $product->name }}" img="{{ asset('/admins/img/products/'.$product->image) }}" price="{{ number_format($product->price, 2, '.', '') }}" description="{{ $product->description }}" slug="{{ $product->slug }}">
-									<span><i class="ion-ios-cart"></i></span>
-								</a>
-							</div>
-						</div>
+						<h3><a href="{{ route('producto', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h3>
+                        <div class="row d-flex justify-content-center">
+                            <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="btn btn-primary">
+                                <span><i class="ion-ios-menu"></i></span>
+                            </a>
+                            <a class="btn btn-primary btn-cart-open mx-1" slug="{{ $product->slug }}" image="{{ asset('/admins/img/products/'.$product->image) }}">
+                                <span><i class="ion-ios-cart"></i></span>
+                            </a>
+                        </div> 
 					</div>
 				</div>
 			</div>
@@ -87,5 +78,47 @@
 		</div>
 	</div>
 </section>
+
+<div class="modal fade" id="modal-cart" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title-cart"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <img src="" class="w-100 img-fluid" id="img-cart">
+                    </div>
+                    <div class="col-12">
+                        <p id="description-cart"></p>
+                    </div>
+                    <div class="form-group col-12">
+                        <label class="col-form-label">Tienda</label>
+                        <select class="form-control" name="store" id="select-store-cart">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="col-form-label">Tamaño</label>
+                        <select class="form-control" name="size" id="select-size-cart">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="col-form-label">Cantidad</label>
+                        <input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="modal-qty" price="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-add-cart" slug=""><b id="price-add-cart"></b> Agregar Al Carrito</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
