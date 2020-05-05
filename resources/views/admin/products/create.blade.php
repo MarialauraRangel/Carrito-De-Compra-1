@@ -71,7 +71,7 @@
 									<option value="{{ $size->slug }}">{{ $size->name }}</option>
 									@endforeach
 								</select>
-								<button type="type" class="btn btn-primary text-white input-group-addon">Agregar</button>
+								<button type="type" class="btn btn-primary text-white input-group-addon" id="btn-select-size">Agregar</button>
 							</div>
 						</div>
 
@@ -126,62 +126,58 @@
 	});
 
 	$('#btn-select-size').click(function() {
-		var side=parseInt($(".side:last").attr('side'), 10)+1;
+		var size=$('#select-size').val();
 		$("#newSizes").append($('<div>', {
-			class: "form-group col-lg-4 col-md-4 col-12 size",
+			class: "form-group col-lg-5 col-md-5 col-12 size",
 			size: size
 		}).append($('<label>', {
 			class: "col-form-label",
 			text: "Tamaño"
 		})).append($('<input>', {
-			class: "form-control ",
+			type: 'text',
+			class: "form-control",
 			disabled: "disabled",
-			value: 
+			value: $('#select-size option:selected').text();
+		})).append($('<input>', {
+			type: 'hidden',
+			class: "form-control",
+			name: "size[]"
+			value: $('#select-size').val();
 		})));
 
-    
+		$("#newSizes").append($('<div>', {
+			class: "form-group col-lg-5 col-md-5 col-12 size",
+			size: size
+		}).append($('<label>', {
+			class: "col-form-label",
+			text: "Precio"
+		}).append($('<b>', {
+			class: "text-danger",
+			text: "*"
+		}))).append($('<input>', {
+			class: "form-control price",
+			name: "price[]",
+			required: "required"
+			value: 1,
+			min: 1
+		})));
 
-    $("#newTask").append($('<div>', {
-    	class: "form-group col-lg-4 col-md-4 col-12 task",
-    	task: side
-    }).append($('<label>', {
-    	class: "col-form-label",
-    	text: "Parte del Vehículo"
-    }).append($('<b>', {
-    	class: "text-danger",
-    	text: "*"
-    })).append($('<button>', {
-    	type: "button",
-    	class: "btn btn-sm btn-primary ml-2 d-none addPart",
-    	text: "Agregar",
-    	btn: side
-    }))).append($('<select>', {
-    	class: "form-control part",
-    	name: "part_id[]",
-    	required: "required",
-    	disabled: "disabled",
-    	part: side
-    }).append($('<option>', {
-    	value: '',
-    	text: 'Seleccione'
-    }))));
+		$("#newSizes").append($('<div>', {
+			class: "form-group col-lg-2 col-md-2 col-12 size",
+			size: size
+		}).append($('<button>', {
+			type: "button",
+			class: "btn btn-danger deleteSize",
+			size: size
+		}).append($('<i>', {
+			class: "fa fa-close"
+		}))));
 
-    $("#newTask").append($('<div>', {
-    	class: "form-group col-lg-1 col-md-1 col-12 task",
-    	task: side
-    }).append($('<button>', {
-    	type: "button",
-    	class: "btn btn-danger deleteTask",
-    	task: side
-    }).append($('<i>', {
-    	class: "fa fa-close"
-    }))));
-
-    //Quitar tarea de presupuestos y trabajos/incidentes
-    $('.deleteTask').on("click", function() {
-    	var task=$(this).attr('task');
-    	$('.task[task="'+task+'"]').remove();
+    	//Quitar tamaño de producto
+    	$('.deleteSize').on("click", function() {
+    		var size=$(this).attr('size');
+    		$('.size[size="'+size+'"]').remove();
+    	});
     });
-});
 </script>
 @endsection
