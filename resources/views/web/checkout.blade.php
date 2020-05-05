@@ -123,7 +123,7 @@
 			</div>
 			@else
 			<div class="col-xl-8 col-lg-8 order-lg-0 order-xl-0 ftco-animate">
-				<form action="#" class="billing-form">
+				<form action="{{ route('pago.store') }}" method="POST" class="billing-form">
 					<h3 class="mb-4 billing-heading">Detalles de La Compra</h3>
 					<div class="row align-items-end">
 						<div class="col-md-6">

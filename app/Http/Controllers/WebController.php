@@ -7,7 +7,10 @@ use App\Category;
 use App\Size;
 use App\Store;
 use App\Distance;
+use App\Sale;
+use App\Order;
 use Illuminate\Http\Request;
+use Auth;
 
 class WebController extends Controller
 {
@@ -190,6 +193,37 @@ class WebController extends Controller
         }
 
         return redirect()->route('web.cart');
+    }
+
+    public function saleStore(Request $request) {
+        $count=Sale::count();
+        $slug=Str::slug('venta', '-');
+        if ($count>0) {
+            $slug="venta-".$count;
+        }
+
+        // Validación para que no se repita el slug
+        $num=0;
+        while (true) {
+            $count2=Sale::where('slug', $slug)->count();
+            if ($count2>0) {
+                $slug="venta-".$num;
+                $num++;
+            } else {
+                $data=array('slug' => $slug, 'user_id' => Auth::user()->id, 'store_id' => , 'address' => );
+                break;
+            }
+        }
+
+        $sale=Sale::create($data);
+
+        $cart=session('cart');
+        foreach ($cart as $order) {
+            $data=['sale_id' => $sale->id, 'product_id' => , 'size_id' => , 'store_id' => , 'price' => , 'qty' => ]
+            Order::create($data)->save();
+        }
+
+        return view('web.orders', compact('cart'));
     }
 
     public function shopping(Request $request) {
