@@ -89,4 +89,4 @@ Route::get('/maesma/ventas', 'SaleController@index')->name('venta.index');
 Route::put('/maesma/ventas/cajero-repartidor/{slug}', 'SaleController@update')->name('venta.user');
 Route::put('/maesma/ventas/tiempo/{slug}', 'SaleController@time')->name('venta.time');
 Route::put('/maesma/ventas/estado/{slug}', 'SaleController@state')->name('venta.state');
-Route::get('/maesma/ventas/{slug}', 'CategoryController@show')->name('categorias.show');
+Route::get('/maesma/ventas/{slug}', 'SaleController@show')->name('venta.show');

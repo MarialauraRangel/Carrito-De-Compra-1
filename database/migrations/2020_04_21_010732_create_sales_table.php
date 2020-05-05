@@ -18,17 +18,19 @@ class CreateSalesTable extends Migration
             $table->string('slug')->unique();
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable()->comment('cliente');
-            $table->bigInteger('user_sale_id')->unsigned()->nullable()->comment('Repartidor y cajero')->default(NULL);
             $table->bigInteger('store_id')->unsigned()->nullable();
+            $table->bigInteger('casher')->unsigned()->nullable()->comment('cajero');
+            $table->bigInteger('delivery_man')->unsigned()->nullable()->comment('repartidor');
             $table->enum('state', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])->default(1);
             $table->string('time')->nullable()->default(NULL);
             $table->mediumText('address');
             $table->timestamps();
 
-            #Relations
+             #Relations
+            $table->foreign('casher')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('delivery_man')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('user_sale_id')->references('id')->on('users_sales')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
 
         });

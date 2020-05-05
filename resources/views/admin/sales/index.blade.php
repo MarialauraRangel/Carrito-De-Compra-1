@@ -40,10 +40,10 @@
 								<td>{{ $s->customer->name }} {{ $s->customer->lastname }}</td>
 								<td>{{ $s->stores->name }}</td>
 								<td>
-									@if($s->user_sale_id==NULL)
+									@if($s->cajero_id==NULL)
 									<button class="btn btn-success text-white" onclick="confirmUsers('{{ $s->slug }}')">Asignar</button>
 									@else
-									{{ $s->user_sale_id }}
+									{{ $s->cajero_id }} | {{ $s->delivery_man_id }} 
 									@endif
 								</td>
 								<td>{!! saleState($s->state) !!}</td>
@@ -52,7 +52,7 @@
 									<button class="btn btn-success text-white" onclick="confirmTime('{{ $s->slug }}')">Empezar</button>
 								@endif</td>
 								<td class="d-flex">
-									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('venta.index', ['slug' => $s->slug]) }}"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
+									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('venta.show', ['slug' => $s->slug]) }}"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
 									<a class="btn btn-success btn-circle btn-sm text-white" onclick="confirmState('{{ $s->slug }}')"><i class="fa fa-check"></i></a>&nbsp;&nbsp;
 								</td>
 							</tr>
@@ -96,7 +96,7 @@
 								<select class="form-control" name="delivery_man_id">
 									<option>Seleccione</option>
 									@foreach($deliveryMan as $d)
-									<option value="{{ $d->id }}">{{ $d->id }}</option>
+									<option value="{{ $d->id }}">{{ $d->name." ".$d->lastname }} -> {{ $d->store_id }}</option>
 									@endforeach
 								</select>
 							</div>

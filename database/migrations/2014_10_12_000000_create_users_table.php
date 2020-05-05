@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('store_id')->unsigned()->nullable();
             $table->string('name');
             $table->string('lastname');
             $table->string('photo')->default('usuario.png');
@@ -31,6 +32,9 @@ class CreateUsersTable extends Migration
             $table->enum('type', [1, 2, 3, 4])->default(4);
             $table->rememberToken();
             $table->timestamps();
+
+            #Relations
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
