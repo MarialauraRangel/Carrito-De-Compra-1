@@ -86,27 +86,28 @@ class WebController extends Controller
 
                     if (array_search($code, array_column($cart, 'code'))!==false) {
 
-                     $key=array_search($code, array_column($cart, 'code'));
-                     $cart[$key]['qty']=$cart[$key]['qty']+request('qty');
-                     $subtotal=$product->price*$cart[$key]['qty'];
-                     $cart[$key]['price']=$product->price;
-                     $cart[$key]['subtotal']=number_format($subtotal, 2, ',', '.');
-                     $cart[$key]['ofert']=$product->ofert;
-                     $request->session()->put('cart', $cart);
+                        $key=array_search($code, array_column($cart, 'code'));
+                        $cart[$key]['qty']=$cart[$key]['qty']+request('qty');
+                        $subtotal=$product->price*$cart[$key]['qty'];
+                        $cart[$key]['price']=$product->price;
+                        $cart[$key]['subtotal']=number_format($subtotal, 2, ',', '.');
+                        $cart[$key]['ofert']=$product->ofert;
+                        $request->session()->put('cart', $cart);
 
-                     return response()->json(['status' => true, 'cart' => session('cart')]);
+                        return response()->json(['status' => true, 'cart' => session('cart')]);
 
-                 } else {
-                     $subtotal=$product->price*request('qty');
-                     $request->session()->push('cart', array('name' => $product->name, 'qty' => request('qty'), 'price' => $product->price, 'subtotal' => number_format($subtotal, 2, ',', '.'), 'ofert' => $product->ofert, 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $code));
+                    } else {
+                        $subtotal=$product->price*request('qty');
+                        $request->session()->push('cart', array('name' => $product->name, 'qty' => request('qty'), 'price' => $product->price, 'subtotal' => number_format($subtotal, 2, ',', '.'), 'ofert' => $product->ofert, 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $code));
 
-                     return response()->json(['status' => true, 'cart' => session('cart')]);
-                 }
-             } else {
-                $subtotal=$product->price*request('qty');
-                $request->session()->push('cart', array('name' => $product->name, 'qty' => request('qty'), 'price' => $product->price, 'subtotal' => number_format($subtotal, 2, ',', '.'), 'ofert' => $product->ofert, 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $code));
+                        return response()->json(['status' => true, 'cart' => session('cart')]);
+                    }
+                } else {
+                    $subtotal=$product->price*request('qty');
+                    $request->session()->push('cart', array('name' => $product->name, 'qty' => request('qty'), 'price' => $product->price, 'subtotal' => number_format($subtotal, 2, ',', '.'), 'ofert' => $product->ofert, 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $code));
 
-                return response()->json(['status' => true, 'cart' => session('cart')]);
+                    return response()->json(['status' => true, 'cart' => session('cart')]);
+                }
             }
         }
 

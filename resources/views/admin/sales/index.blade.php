@@ -50,7 +50,8 @@
 								<td>		
 									@if($s->time==NULL)
 									<button class="btn btn-success text-white" onclick="confirmTime('{{ $s->slug }}')">Empezar</button>
-								@endif</td>
+									@endif
+								</td>
 								<td class="d-flex">
 									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('venta.index', ['slug' => $s->slug]) }}"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
 									<a class="btn btn-success btn-circle btn-sm text-white" onclick="confirmState('{{ $s->slug }}')"><i class="fa fa-check"></i></a>&nbsp;&nbsp;

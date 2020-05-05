@@ -33,9 +33,6 @@ Route::post('/carrito/quitar', 'WebController@removeCart')->name('carrito.remove
 Route::post('/carrito/cantidad', 'WebController@qtyCart')->name('carrito.qty');
 Route::get('/pedido/{slug}', 'OrderController@show')->name('pedido.show');
 
-//Ventas
-Route::get('/ventas', 'SaleController@index')->name('venta.index');
-
 //Pagos
 Route::get('/comprar', 'WebController@checkout')->name('pago.create');
 Route::get('/mis-compras', 'WebController@shopping')->name('pago.index');
@@ -79,10 +76,10 @@ Route::get('/maesma/usuarios/registrar', 'UserController@create')->name('usuario
 Route::post('/maesma/usuarios', 'UserController@store')->name('usuario.store');
 Route::get('/maesma/usuarios/{slug}', 'UserController@show')->name('usuario.show');
 Route::get('/maesma/usuarios/{slug}/editar', 'UserController@edit')->name('usuario.edit');
+Route::put('/maesma/usuarios/inactivos', 'UserController@inactive')->name('usuario.inactivos');
 Route::put('/maesma/usuarios/{slug}', 'UserController@update')->name('usuario.update');
 Route::put('/maesma/usuarios/activar/{slug}', 'UserController@activate')->name('usuario.activate');
 Route::put('/maesma/usuarios/desactivar/{slug}', 'UserController@deactivate')->name('usuario.deactivate');
-Route::put('/maesma/usuarios/inactivos', 'UserController@inactive')->name('usuario.inactivos');
 Route::get('/maesma/perfil', 'UserController@profile')->name('usuario.profile');
 
 //Ventas
@@ -90,4 +87,4 @@ Route::get('/maesma/ventas', 'SaleController@index')->name('venta.index');
 Route::put('/maesma/ventas/cajero-repartidor/{slug}', 'SaleController@update')->name('venta.user');
 Route::put('/maesma/ventas/tiempo/{slug}', 'SaleController@time')->name('venta.time');
 Route::put('/maesma/ventas/estado/{slug}', 'SaleController@state')->name('venta.state');
-Route::get('/maesma/ventas/{slug}', 'CategoryController@show')->name('categorias.show');
+Route::get('/maesma/ventas/{slug}', 'CategoryController@show')->name('venta.show');
