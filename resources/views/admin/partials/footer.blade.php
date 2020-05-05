@@ -1,1 +1,1 @@
-<footer class="footer">Todos los derecho reservados &copy; - MisterFix {{ date('Y') }} </footer>
+<footer class="footer">Todos los derecho reservados &copy; - Pizzería Maesma {{ date('Y') }} | Realizado por Otter Company </footer>

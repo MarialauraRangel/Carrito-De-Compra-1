@@ -53,15 +53,32 @@
 							<label class="col-form-label">Descripción<b class="text-danger">*</b></label>
 							<textarea class="form-control" rows="4" name="description" required placeholder="Introduzca una descripción">{{ old('description') }}</textarea>
 						</div>
+
 						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label class="col-form-label">Tamaño<b class="text-danger">*</b></label>
-							<select class="form-control multiselect" multiple="" id="size" name="size_id" required>
-								<option value="">Seleccione</option>
-								@foreach($sizes as $size)
-								<option value="{{ $size->slug }}">{{ $size->name }}</option>
-								@endforeach
+							<label class="col-form-label">¿El producto tendrá varios tamaños?<b class="text-danger">*</b></label>
+							<select class="form-control" name="size-question">
+								<option value="0">No</option>
+								<option value="1">Si</option>
 							</select>
 						</div>
+
+						<div class="form-group col-lg-6 col-md-6 col-12 d-none" id="div-select-select">
+							<label class="col-form-label">Tamaño<b class="text-danger">*</b></label>
+							<div class="input-group">
+								<select class="form-control" id="select-size">
+									<option value="">Seleccione</option>
+									@foreach($sizes as $size)
+									<option value="{{ $size->slug }}">{{ $size->name }}</option>
+									@endforeach
+								</select>
+								<button type="type" class="btn btn-primary text-white input-group-addon">Agregar</button>
+							</div>
+						</div>
+
+						<div class="col-12">
+							<div class="row" id="newSizes"></div>
+						</div>
+
 						<div class="form-group col-12">
 							<label class="col-form-label">Imagen (Opcional)</label>
 							<input type="file" name="image" accept="image/*" id="input-file-now" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" />
@@ -92,26 +109,79 @@
 <script src="{{ asset('/admins/js/validate.js') }}"></script>
 
 <script type="text/javascript">
-	$("#selH").on('change',function(){
-
-		var selectValue = $(this).val();
-		switch (selectValue) {
-
-			case "0":
-			$("#hermanos").css('display','none');
-			break;
-
-			case "Si":
-			$("#hermanos").css('display','block');
-			//$("#hermanos").fadeIn(800);
-			break;
-
-			case "No":
-			$("#hermanos").css('display','none');
-			break;
-
+	$('input[name="size-question"]').change(function() {
+		if ($(this).val()==0) {
+			$('#div-select-size').addClass('d-none');
+		} else {
+			$('#div-select-size').removeClass('d-none');
 		}
+	});
 
-	}).change();
+	$('#select-size').change(function() {
+		if ($(this).val()!="") {
+			$('#btn-select-size').attr('disabled', true);
+		} else {
+			$('#btn-select-size').attr('disabled', false);
+		}
+	});
+
+	$('#btn-select-size').click(function() {
+		var side=parseInt($(".side:last").attr('side'), 10)+1;
+		$("#newSizes").append($('<div>', {
+			class: "form-group col-lg-4 col-md-4 col-12 size",
+			size: size
+		}).append($('<label>', {
+			class: "col-form-label",
+			text: "Tamaño"
+		})).append($('<input>', {
+			class: "form-control ",
+			disabled: "disabled",
+			value: 
+		})));
+
+    
+
+    $("#newTask").append($('<div>', {
+    	class: "form-group col-lg-4 col-md-4 col-12 task",
+    	task: side
+    }).append($('<label>', {
+    	class: "col-form-label",
+    	text: "Parte del Vehículo"
+    }).append($('<b>', {
+    	class: "text-danger",
+    	text: "*"
+    })).append($('<button>', {
+    	type: "button",
+    	class: "btn btn-sm btn-primary ml-2 d-none addPart",
+    	text: "Agregar",
+    	btn: side
+    }))).append($('<select>', {
+    	class: "form-control part",
+    	name: "part_id[]",
+    	required: "required",
+    	disabled: "disabled",
+    	part: side
+    }).append($('<option>', {
+    	value: '',
+    	text: 'Seleccione'
+    }))));
+
+    $("#newTask").append($('<div>', {
+    	class: "form-group col-lg-1 col-md-1 col-12 task",
+    	task: side
+    }).append($('<button>', {
+    	type: "button",
+    	class: "btn btn-danger deleteTask",
+    	task: side
+    }).append($('<i>', {
+    	class: "fa fa-close"
+    }))));
+
+    //Quitar tarea de presupuestos y trabajos/incidentes
+    $('.deleteTask').on("click", function() {
+    	var task=$(this).attr('task');
+    	$('.task[task="'+task+'"]').remove();
+    });
+});
 </script>
 @endsection
