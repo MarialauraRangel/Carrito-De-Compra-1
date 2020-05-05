@@ -99,22 +99,14 @@
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
                         <h3><a href="#">{{ $product->name }}</a></h3>
-                        <div class="row d-flex">
-                            <div class="pricing">
-                                <p class="price"><span>{{ number_format($product->price, 2, ",", ".") }} Bs</span></p>
-                                <p class="price"><span>{{ number_format($product->price, 2, ",", ".") }} Bs</span></p>
-                            </div>
-                        </div>
-                        <div class="bottom-area d-flex px-3">
-                            <div class="m-auto d-flex">
-                                <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="ion-ios-menu"></i></span>
-                                </a>
-                                <a class="btn-cart-open d-flex justify-content-center align-items-center mx-1" title="{{ $product->name }}" img="{{ asset('/admins/img/products/'.$product->image) }}" price="{{ number_format($product->price, 2, '.', '') }}" description="{{ $product->description }}" slug="{{ $product->slug }}">
-                                    <span><i class="ion-ios-cart"></i></span>
-                                </a>
-                            </div>
-                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="btn btn-primary">
+                                <span><i class="ion-ios-menu"></i></span>
+                            </a>
+                            <a class="btn btn-primary btn-cart-open mx-1" slug="{{ $product->slug }}" image="{{ asset('/admins/img/products/'.$product->image) }}">
+                                <span><i class="ion-ios-cart"></i></span>
+                            </a>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -151,12 +143,21 @@
                         <img src="" class="w-100 img-fluid" id="img-cart">
                     </div>
                     <div class="col-12">
-                        <p id="price-cart"></p>
-                    </div>
-                    <div class="col-12">
                         <p id="description-cart"></p>
                     </div>
                     <div class="form-group col-12">
+                        <label class="col-form-label">Tienda</label>
+                        <select class="form-control" name="store" id="select-store-cart">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="col-form-label">Tamaño</label>
+                        <select class="form-control" name="size" id="select-size-cart">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
                         <label class="col-form-label">Cantidad</label>
                         <input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="modal-qty" price="">
                     </div>

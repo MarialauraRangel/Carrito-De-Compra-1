@@ -296,34 +296,93 @@ $(document).ready(function() {
 	}
 });
 
+//Abrir producto en el modal
 $('.btn-cart-open').click(function(event) {
-	$('#title-cart').text($(this).attr('title'));
-	$('#description-cart').text($(this).attr('description'));
-	$('#img-cart').attr('src', $(this).attr('img'));
-	var price=new Intl.NumberFormat("de-DE").format($(this).attr('price'));
-	$('#price-cart').text("Precio: "+price+" Bs");
-	$('#price-add-cart').text(price+" Bs");
-	$('#btn-add-cart').attr('slug', ($(this).attr('slug')));
-	$('input[name="qty"]').val(1);
-	$('input[name="qty"]').attr('price', $(this).attr('price'));
-	$('#modal-cart').modal();
-});
-
-//Agregar producto del carrito
-$('#btn-add-cart').click(function(event) {
-	var qty=$('input[name="qty"]').val(), slug=$(this).attr('slug');;
+	var slug=$(this).attr('slug'), img=$(this).attr('image');
 	$.ajax({
-		url: '/carrito/agregar',
+		url: '/carrito/producto',
 		type: 'POST',
-		dataType: 'html',
-		data: {qty: qty, slug: slug},
+		dataType: 'json',
+		data: {slug: slug},
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	})
-	.done(function(result) {
-		var obj=JSON.parse(result);
+	.done(function(obj) {
+		if (obj.status) {
+			$('#select-size-cart option').remove();
+			for (var i=obj.product.sizes.length-1; i>=0; i--) {
+				$('#select-size-cart').append($('<option>', {
+					value: obj.product.sizes[i].slug,
+					text: obj.product.sizes[i].name+" - "+new Intl.NumberFormat("de-DE").format(obj.product.sizes[i].pivot.price)+" Bs",
+					price: obj.product.sizes[i].pivot.price
+				}));
+			}
 
+			$('#select-store-cart option').remove();
+			for (var i=obj.product.stores.length-1; i>=0; i--) {
+				$('#select-store-cart').append($('<option>', {
+					value: obj.product.stores[i].slug,
+					text: obj.product.stores[i].name
+				}));
+			}
+
+			$('#title-cart').text(obj.product.name);
+			$('#description-cart').text(obj.product.description);
+			$('#img-cart').attr('src', img);
+			var price=new Intl.NumberFormat("de-DE").format($('#select-size-cart option:selected').attr('price'));
+			$('#price-add-cart').text(price+" Bs");
+			$('#btn-add-cart').attr('slug', obj.product.slug);
+			$('input[name="qty"]').val(1);
+			$('input[name="qty"]').attr('price', $('#select-size-cart option:selected').attr('price'));
+			$('#modal-cart').modal();
+		} else {
+			Lobibox.notify('error', {
+				title: 'Error',
+				sound: true,
+				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
+			});
+		}
+	});
+});
+
+//Cambiar el precio en el carrito si se cambia el tamaño del producto
+$('#select-size-cart').change(function(event) {
+	var qty=$('input[name="qty"]').val(), price=$('#select-size-cart option:selected').attr('price');
+	var total=price*qty;
+	var total=new Intl.NumberFormat("de-DE").format(total);
+	$('#price-add-cart').text(total+" Bs");
+	$('input[name="qty"]').attr('price', price);
+});
+
+//Al cambiar la cantidad de un producto en el carrito en el modal cambia el total
+$('#modal-qty').change(function() {
+	var price=$(this).attr('price'), qty=$(this).val();
+	var total=price*qty;
+	total=new Intl.NumberFormat("de-DE").format(total);
+	$('#price-add-cart').text(total+" Bs");
+});
+
+$('#modal-qty').keyup(function() {
+	var price=$(this).attr('price'), qty=$(this).val();
+	var total=price*qty;
+	total=new Intl.NumberFormat("de-DE").format(total);
+	$('#price-add-cart').text(total+" Bs");
+});
+
+//Agregar producto del carrito
+$('#btn-add-cart').click(function(event) {
+	var qty=$('input[name="qty"]').val(), slug=$(this).attr('slug'), store=$('#select-store-cart').val(), size=$('#select-size-cart').val();
+	$.ajax({
+		url: '/carrito/agregar',
+		type: 'POST',
+		dataType: 'json',
+		data: {qty: qty, slug: slug, store: store, size: size},
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	})
+	.done(function(obj) {
 		if (obj.status) {
 			$(".count-cart").text(obj.cart.length);
 			$('#modal-cart').modal('hide');
@@ -344,20 +403,18 @@ $('#btn-add-cart').click(function(event) {
 
 //Quitar producto del carrito
 $('.product-remove a').click(function() {
-	var slug=$(this).attr('slug');
+	var code=$(this).attr('code');
 	$.ajax({
 		url: '/carrito/quitar',
 		type: 'POST',
-		dataType: 'html',
-		data: {slug: slug},
+		dataType: 'json',
+		data: {code: code},
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
-	}).done(function(result) {
-		var obj=JSON.parse(result);
-
+	}).done(function(obj) {
 		if (obj.status) {
-			$(".cartProduct[slug='"+slug+"']").remove();
+			$(".cartProduct[code='"+code+"']").remove();
 			var count=$(".count-cart").text();
 			count=count-1;
 			$(".count-cart").text(count);
@@ -377,37 +434,20 @@ $('.product-remove a').click(function() {
 });
 
 //Al cambiar la cantidad de un producto en el carrito cambia el total
-$('#modal-qty').change(function() {
-	var price=$(this).attr('price'), qty=$(this).val();
-	var total=price*qty;
-	total=new Intl.NumberFormat("de-DE").format(total);
-	$('#price-add-cart').text(total+" Bs");
-});
-
-$('#modal-qty').keyup(function() {
-	var price=$(this).attr('price'), qty=$(this).val();
-	var total=price*qty;
-	total=new Intl.NumberFormat("de-DE").format(total);
-	$('#price-add-cart').text(total+" Bs");
-});
-
-//Al cambiar la cantidad de un producto en el carrito cambia el total
 $('.qty').change(function() {
-	var slug=$(this).attr('slug'), price=$(this).attr('price'), qty=$(this).val();
+	var code=$(this).attr('code'), price=$(this).attr('price'), qty=$(this).val();
 	$.ajax({
 		url: '/carrito/cantidad',
 		type: 'POST',
-		dataType: 'html',
-		data: {qty: qty, slug: slug},
+		dataType: 'obj',
+		data: {qty: qty, code: code},
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	})
-	.done(function(result) {
-		var obj=JSON.parse(result);
-
+	.done(function(obj) {
 		if (obj.status) {
-			$('.total[slug="'+slug+'"]').text(obj.subtotal+" Bs");
+			$('.total[code="'+code+'"]').text(obj.subtotal+" Bs");
 			var total=0;
 			$(".qty").each(function(){
 				$(this).attr('price');
@@ -428,12 +468,12 @@ $('.qty').change(function() {
 });
 
 $('.qty').keyup(function() {
-	var slug=$(this).attr('slug'), price=$(this).attr('price'), qty=$(this).val();
+	var code=$(this).attr('code'), price=$(this).attr('price'), qty=$(this).val();
 	$.ajax({
 		url: '/carrito/cantidad',
 		type: 'POST',
-		dataType: 'html',
-		data: {qty: qty, slug: slug},
+		dataType: 'json',
+		data: {qty: qty, code: code},
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
@@ -442,7 +482,7 @@ $('.qty').keyup(function() {
 		var obj=JSON.parse(result);
 
 		if (obj.status) {
-			$('.total[slug="'+slug+'"]').text(obj.subtotal+" Bs");
+			$('.total[code="'+code+'"]').text(obj.subtotal+" Bs");
 			var total=0;
 			$(".qty").each(function(){
 				$(this).attr('price');

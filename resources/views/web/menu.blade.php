@@ -64,12 +64,21 @@
                         <img src="" class="w-100 img-fluid" id="img-cart">
                     </div>
                     <div class="col-12">
-                        <p id="price-cart"></p>
-                    </div>
-                    <div class="col-12">
                         <p id="description-cart"></p>
                     </div>
                     <div class="form-group col-12">
+                        <label class="col-form-label">Tienda</label>
+                        <select class="form-control" name="store" id="select-store-cart">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="col-form-label">Tamaño</label>
+                        <select class="form-control" name="size" id="select-size-cart">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
                         <label class="col-form-label">Cantidad</label>
                         <input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="modal-qty" price="">
                     </div>

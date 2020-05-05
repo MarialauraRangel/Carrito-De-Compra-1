@@ -50,7 +50,8 @@
 								<td>		
 									@if($s->time==NULL)
 									<button class="btn btn-success text-white" onclick="confirmTime('{{ $s->slug }}')">Empezar</button>
-								@endif</td>
+									@endif
+								</td>
 								<td class="d-flex">
 									<a class="btn btn-primary btn-circle btn-sm" href="{{ route('venta.show', ['slug' => $s->slug]) }}"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
 									<a class="btn btn-success btn-circle btn-sm text-white" onclick="confirmState('{{ $s->slug }}')"><i class="fa fa-check"></i></a>&nbsp;&nbsp;
@@ -69,7 +70,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Introduzca el caero y repartidor correspondiente</h5>
+				<h5 class="modal-title">Introduzca el cajero y repartidor correspondiente</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
