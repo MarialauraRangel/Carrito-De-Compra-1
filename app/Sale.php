@@ -11,7 +11,6 @@ class Sale extends Model
 
 	protected $fillable = [
 		'slug',
-		'order_id',
 		'user_id',
 		'store_id',
 		'casher_id', 

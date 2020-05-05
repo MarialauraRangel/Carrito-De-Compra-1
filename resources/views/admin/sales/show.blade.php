@@ -31,7 +31,7 @@
 					<div class="col-lg-7 col-md-7 col-12 ftco-animate">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Pedido:</strong> N° {{  $sale->order_id }}</p>
+								<p><strong>Pedido:</strong> N° {{  $sale->id }}</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
 								<p><strong>Cliente:</strong> {{ $sale->customer->name." ".$sale->customer->name }} </p>

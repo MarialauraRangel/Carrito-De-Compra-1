@@ -12,7 +12,7 @@ class CreateOrdersTable extends Migration
      * @return void
      */
     public function up()
-    {
+    { 
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('sale_id')->unsigned()->nullable();

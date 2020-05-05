@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use App\Size;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.products.create', compact('stores', 'categories'));
+        $sizes = Size::all();
+        return view('admin.products.create', compact('stores', 'categories', 'sizes'));
     }
 
     /**

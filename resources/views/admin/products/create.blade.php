@@ -53,6 +53,15 @@
 							<label class="col-form-label">Descripción<b class="text-danger">*</b></label>
 							<textarea class="form-control" rows="4" name="description" required placeholder="Introduzca una descripción">{{ old('description') }}</textarea>
 						</div>
+						<div class="form-group col-lg-6 col-md-6 col-12">
+							<label class="col-form-label">Tamaño<b class="text-danger">*</b></label>
+							<select class="form-control multiselect" multiple="" id="size" name="size_id" required>
+								<option value="">Seleccione</option>
+								@foreach($sizes as $size)
+								<option value="{{ $size->slug }}">{{ $size->name }}</option>
+								@endforeach
+							</select>
+						</div>
 						<div class="form-group col-12">
 							<label class="col-form-label">Imagen (Opcional)</label>
 							<input type="file" name="image" accept="image/*" id="input-file-now" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" />
@@ -81,4 +90,28 @@
 <script src="{{ asset('/admins/vendors/validate/additional-methods.js') }}"></script>
 <script src="{{ asset('/admins/vendors/validate/messages_es.js') }}"></script>
 <script src="{{ asset('/admins/js/validate.js') }}"></script>
+
+<script type="text/javascript">
+	$("#selH").on('change',function(){
+
+		var selectValue = $(this).val();
+		switch (selectValue) {
+
+			case "0":
+			$("#hermanos").css('display','none');
+			break;
+
+			case "Si":
+			$("#hermanos").css('display','block');
+			//$("#hermanos").fadeIn(800);
+			break;
+
+			case "No":
+			$("#hermanos").css('display','none');
+			break;
+
+		}
+
+	}).change();
+</script>
 @endsection
