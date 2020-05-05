@@ -9,8 +9,10 @@ use App\Store;
 use App\Distance;
 use App\Sale;
 use App\Order;
+use App\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class WebController extends Controller
 {
@@ -196,6 +198,7 @@ class WebController extends Controller
     }
 
     public function saleStore(Request $request) {
+
         $count=Sale::count();
         $slug=Str::slug('venta', '-');
         if ($count>0) {
@@ -210,7 +213,8 @@ class WebController extends Controller
                 $slug="venta-".$num;
                 $num++;
             } else {
-                $data=array('slug' => $slug, 'user_id' => Auth::user()->id, 'store_id' => , 'address' => );
+                $id = Auth::user()->id;
+                $data = array('slug' => $slug, 'user_id' => $id, 'store_id' => request('store_id'), 'address' => request('address'), 'distance_id' => request('distance_id'));
                 break;
             }
         }
@@ -218,9 +222,18 @@ class WebController extends Controller
         $sale=Sale::create($data);
 
         $cart=session('cart');
+
         foreach ($cart as $order) {
-            $data=['sale_id' => $sale->id, 'product_id' => , 'size_id' => , 'store_id' => , 'price' => , 'qty' => ]
-            Order::create($data)->save();
+
+            $store = Store::where('slug', $order['store_slug'])->firstOrFail();
+ 
+            $product = Product::where('slug', $order['product_slug'])->firstOrFail();
+
+            $size = Size::where('slug', $order['size_slug'])->firstOrFail();
+            
+
+            $data2 = array('sale_id' => $sale->id, 'product_id' => $product->id, 'size_id' => $size->id, 'store_id' => $store->id, 'price' => $order['price'], 'qty' => $order['qty']);
+            Order::create($data2)->save();
         }
 
         return view('web.orders', compact('cart'));

@@ -124,6 +124,7 @@
 			@else
 			<div class="col-xl-8 col-lg-8 order-lg-0 order-xl-0 ftco-animate">
 				<form action="{{ route('pago.store') }}" method="POST" class="billing-form">
+					@csrf
 					<h3 class="mb-4 billing-heading">Detalles de La Compra</h3>
 					<div class="row align-items-end">
 						<div class="col-md-6">
@@ -177,7 +178,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="streetaddress">Dirección</label>
-								<input type="text" class="form-control" placeholder="Introduzca su dirección (calle, número de casa, avenida, etc)">
+								<input type="text" name="address" class="form-control" placeholder="Introduzca su dirección (calle, número de casa, avenida, etc)">
 							</div>
 						</div>
 						<div class="col-md-12">
