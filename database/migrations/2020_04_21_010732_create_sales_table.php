@@ -27,8 +27,8 @@ class CreateSalesTable extends Migration
             $table->timestamps();
 
              #Relations
-            $table->foreign('casher')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('delivery_man')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('casher_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('delivery_man_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
