@@ -19,4 +19,12 @@ class Product extends Model
 	public function stores() {
 		return $this->belongsToMany(Store::class)->withTimestamps();
 	}
+
+	public function order(){
+        return $this->belongsTo(Store::class, 'order_id');
+    }
+
+    public function products(){
+    	return $this->hasOne(ProductSizes::class, 'id');
+    }
 }

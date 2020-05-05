@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sale;
 use App\User;
-use App\UserSale;
+use App\Order;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -53,7 +53,9 @@ class SaleController extends Controller
     public function show($slug)
     {
         $sale = Sale::where('slug', $slug)->firstOrFail();
-        return view('admin.sales.show', compact('sale'));
+        $order = Order::where('sale_id', '=', $sale->id)->get();
+        $num = 1;
+        return view('admin.sales.show', compact('sale', 'order', 'num'));
     }
 
     /**

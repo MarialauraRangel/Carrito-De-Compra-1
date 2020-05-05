@@ -34,19 +34,43 @@
 								<p><strong>Pedido:</strong> N° {{  $sale->id }}</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Cliente:</strong> {{ $sale->customer->name." ".$sale->customer->name }} </p>
+								<p><strong>Cliente:</strong> {{ $sale->customer->name." ".$sale->customer->lastname }} </p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Tienda:</strong> {{ $sale->stores->name }}</p>
+								<p><strong>Tienda:</strong>
+									@if($sale->store_id==NULL)
+									No asignado
+									@else
+									{{ $sale->stores->name }}
+								@endif </p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Cajero:</strong> {{ $sale->casher->name." ".$sale->casher->lastname }}</p>
+								<p><strong>Cajero:</strong> 
+									@if($sale->casher_id==NULL)
+									No asignado
+									@else
+									{{ $sale->casher->name." ".$sale->casher->lastname }}
+									@endif
+								</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Repartidor:</strong> {{ $sale->delivery->name." ".$sale->delivery->lastname }}</p>
+								<p><strong>Repartidor:</strong> 
+									@if($sale->delivery_man_id==NULL)
+									No asignado
+									@else
+									{{ $sale->delivery->name." ".$sale->delivery->lastname }}
+									@endif
+								</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Tiempo de Entrega:</strong> {{ $sale->time }}</p>
+								<p><strong>Tiempo de Entrega:</strong> 
+
+									@if($sale->time==NULL)
+									No asignado
+									@else
+									{{ $sale->time }}
+									@endif
+								</p>
 							</div>
 						</div>
 					</div>
@@ -69,7 +93,7 @@
 							</p>
 							<p class="d-flex justify-content-between">
 								<span>Delivery</span>
-								<span>...</span>
+								<span>{{ $sale->distance->price }}</span>
 							</p>
 							<hr>
 							<p class="d-flex justify-content-between">
@@ -92,22 +116,23 @@
 				<div class="table-responsive">
 					<table id="tabla" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
 						<thead>
-							<tr>
+							<tr class="text-center">
 								<th>#</th>
 								<th>Producto</th>
 								<th>Tamaño</th>
-								<th>Categoría</th>
-								<th>Cantidad</th>
+								<th>Precio</th>
 							</tr>
 						</thead>
 						<tbody>
+							@foreach($order as $o)
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>{{ $num++ }}</td>
+								<td>{{ $o->product->name }}
+								</td>
+								<td>{{ $o->size->name }}</td>
+								<td>{{ $o->price }} Bs</td>
 							</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>

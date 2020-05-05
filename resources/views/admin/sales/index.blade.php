@@ -23,7 +23,6 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Pedido</th>
 								<th>Cliente</th>
 								<th>Tienda</th>
 								<th>Cajero y Repartidor</th>
@@ -36,8 +35,7 @@
 							@foreach($sale as $s)
 							<tr>
 								<td>{{ $num++ }}</td>
-								<td>{{ $s->order_id }}</td>
-								<td>{{ $s->customer->name }} {{ $s->customer->lastname }}</td>
+								<td>{{ $s->customer->name." ".$s->customer->lastname }}</td>
 								<td>{{ $s->stores->name }}</td>
 								<td>
 									@if($s->casher_id==NULL)

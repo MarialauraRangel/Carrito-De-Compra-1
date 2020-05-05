@@ -16,4 +16,12 @@ class Order extends Model
 		'price',
 		'qty'
 	];
+
+	public function product() {
+        return $this->hasOne(Product::class, 'id');
+    }
+
+    public function size() {
+        return $this->hasOne(Size::class, 'id');
+    }
 }
