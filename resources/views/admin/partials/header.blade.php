@@ -1,7 +1,7 @@
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
         <div class="navbar-header d-flex justify-content-center">
-            <a class="navbar-brand" href="{{ route('home') }}">
+            <a class="navbar-brand" href="{{ route('admin') }}">
                 <b>
                     <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="dark-logo" width="100" />
                     <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="light-logo" width="100" />
@@ -30,8 +30,8 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ route('home') }}"><i class="fa fa-home"></i> Volver a la Web</a></li>
                             <li><a href="{{-- {{ route('usuarios.profile') }} --}}"><i class="fa fa-id-card"></i> Perfil</a></li>
-                            <li><a href="{{-- {{ route('logout') }} --}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
-                            <form id="logout-form" action="{{-- {{ route('logout') }} --}}" method="POST" style="display: none;">
+                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </ul>

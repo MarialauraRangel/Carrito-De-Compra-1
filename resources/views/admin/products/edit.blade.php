@@ -54,22 +54,22 @@
 						<div class="form-group col-lg-3 col-md-3 col-12">
 							<label class="col-form-label">¿Tendrá varios tamaños?<b class="text-danger">*</b></label>
 							<select class="form-control" name="size-question" required>
-								<option value="0" @if(count($product->sizes)<2) selected @endif>No</option>
-								<option value="1" @if(count($product->sizes)>1) selected @endif>Si</option>
+								<option value="0" @if(count($product->sizes)<2 && $product->sizes[0]->slug=="normal") selected @endif>No</option>
+								<option value="1" @if(count($product->sizes)>1 || $product->sizes[0]->slug!="normal") selected @endif>Si</option>
 							</select>
 						</div>
 
-						<div class="form-group col-lg-3 col-md-3 col-12 @if(count($product->sizes)>1) d-none @endif" id="price-unique">
+						<div class="form-group col-lg-3 col-md-3 col-12 @if(count($product->sizes)>1 || $product->sizes[0]->slug!="normal") d-none @endif" id="price-unique">
 							<label class="col-form-label">Precio<b class="text-danger">*</b></label>
 							<input class="form-control price" type="text" name="price-unique" required placeholder="Introduzca el precio" value="0.00">
 						</div>
 
-						<div class="form-group col-lg-3 col-md-3 col-12 @if(count($product->sizes)<2) d-none @endif" id="div-select-size">
+						<div class="form-group col-lg-3 col-md-3 col-12 @if(count($product->sizes)<2 && $product->sizes[0]->slug=="normal") d-none @endif" id="div-select-size">
 							<label class="col-form-label">Tamaño<b class="text-danger">*</b></label>
 							<div class="input-group">
 								<select class="form-control" id="select-size">
 									<option value="">Seleccione</option>
-									@if(count($product->sizes)<2)
+									@if(count($product->sizes)<2 && $product->sizes[0]->slug=="normal")
 									@foreach($sizes as $size)
 									@if($size->slug!="normal")
 									<option value="{{ $size->slug }}">{{ $size->name }}</option>
@@ -85,12 +85,12 @@
 
 						<div class="col-12">
 							<div class="row" id="newSizes">
-								@if(count($product->sizes)>1)
+								@if(count($product->sizes)>1 || $product->sizes[0]->slug!="normal")
 								@foreach($product->sizes as $size)
 								<div class="form-group col-lg-2 col-md-2 col-12 size" size="{{ $size->slug }}">
 									<label class="col-form-label">Tamaño</label>
 									<input type="text" class="form-control" disabled="disabled" value="{{ $size->name }}">
-									<input type="hidden" class="form-control" name="size[]" value="}{{ $size->slug }}">
+									<input type="hidden" class="form-control" name="size[]" value="{{ $size->slug }}">
 								</div>
 
 								<div class="form-group col-lg-3 col-md-3 col-9 size" size="{{ $size->slug }}">
