@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
-	protected $fillable = [ 'image', 'name', 'slug', 'address', 'phone-one', 'phone-two', 'state'];
+	protected $fillable = ['image', 'name', 'slug', 'address', 'phone_one', 'phone_two', 'state'];
 
     public function products() {
 		return $this->belongsToMany(Product::class)->withTimestamps();
@@ -19,6 +19,4 @@ class Store extends Model
     public function sales() {
         return $this->hasOne(Store::class, 'id');
     }
-
-
 }

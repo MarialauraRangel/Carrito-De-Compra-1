@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth')->only('index', 'create', 'store', 'show', 'edit', 'update', 'destroy', 'profile');
-    }
     /**
      * Display a listing of the resource.
      *

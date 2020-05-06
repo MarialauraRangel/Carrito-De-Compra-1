@@ -24,6 +24,8 @@
 							<tr>
 								<th>#</th>
 								<th>Nombre</th>
+								<th>Télefono</th>
+								<th>Dirección</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -32,15 +34,14 @@
 							<tr>
 								<td>{{ $num++ }}</td>
 								<td>{{ $store->name }}</td>
+								<td>{{ $store->phone_one }} @if($store->phone_two!=NULL)<br>{{ $store->phone_two }} @endif</td>
+								<td>{{ $store->address }}</td>
 								<td class="d-flex">
-									{{-- <a class="btn btn-primary btn-circle btn-sm" href="{{ route('tiendas.show', ['slug' => $store->slug]) }}"><i class="fa fa-briefcase"></i></a>&nbsp;&nbsp; --}}
-									<a class="btn btn-info btn-circle btn-sm" href="#{{-- {{ route('tiendas.edit', ['slug' => $store->slug]) }} --}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-									@if(Auth::user()->type==1)
+									<a class="btn btn-info btn-circle btn-sm" href="{{ route('tienda.edit', ['slug' => $store->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 									@if($store->state==1)
 									<button class="btn btn-danger btn-circle btn-sm" onclick="desactivateStore('{{ $store->slug }}')"><i class="fa fa-power-off"></i></button>
 									@else
 									<button class="btn btn-success btn-circle btn-sm" onclick="activateStore('{{ $store->slug }}')"><i class="fa fa-history"></i></button>
-									@endif
 									@endif
 								</td>
 							</tr>

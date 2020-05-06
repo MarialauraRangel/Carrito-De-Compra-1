@@ -19,8 +19,8 @@ class CreateStoresTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('address');
-            $table->string('phone-one');
-            $table->string('phone-two')->nullable();
+            $table->string('phone_one');
+            $table->string('phone_two')->nullable();
             $table->enum('state', [1, 2])->default(1);
             $table->timestamps();
         });

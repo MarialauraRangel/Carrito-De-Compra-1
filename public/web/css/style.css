@@ -11088,7 +11088,7 @@
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
     color: #e10f21;
     padding: 10px 20px;
-    background: transparent !important;
+    background: #e10f21 !important;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
@@ -12627,4 +12627,13 @@
   .line-through {
     text-decoration: line-through;
     color: #b3b3b3;
+  }
+
+  .btn-primary {
+    color: #fff !important;
+  }
+
+  .btn-primary:hover, .btn-primary:active {
+    color: #e10f21 !important;
+    background: #fff !important;
   }

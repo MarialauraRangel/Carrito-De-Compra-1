@@ -15,7 +15,7 @@
 				<li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Registrarse</a></li>
 				@else
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
+					<a class="nav-link dropdown-toggle" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown05">
 						@if(Auth::user()->type==1 || Auth::user()->type==2 || Auth::user()->type==3)
 						<a class="dropdown-item" href="{{ route('admin') }}">Panel Administrativo</a>

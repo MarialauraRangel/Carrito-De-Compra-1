@@ -5,7 +5,6 @@
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendors/lobibox/Lobibox.min.css') }}">
-<link rel="stylesheet" href="{{ asset('/admins/vendors/dropify/css/dropify.min.css') }}">
 @endsection
 
 @section('breadcrumb')
@@ -47,7 +46,6 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('/admins/vendors/dropify/js/dropify.min.js') }}"></script>
 <script src="{{ asset('/admins/vendors/lobibox/Lobibox.js') }}"></script>
 <script src="{{ asset('/admins/vendors/validate/jquery.validate.js') }}"></script>
 <script src="{{ asset('/admins/vendors/validate/additional-methods.js') }}"></script>

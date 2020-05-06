@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Categorias')
-@section('page-title', 'Lista de Categorias')
+@section('title', 'Lista de Categorías')
+@section('page-title', 'Lista de Categorías')
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendors/lobibox/Lobibox.min.css') }}">
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item">Categorias</li>
+<li class="breadcrumb-item">Categorías</li>
 <li class="breadcrumb-item active">Lista</li>
 @endsection
 
@@ -34,7 +34,9 @@
 								<td>{{ $category->name }}</td>
 								<td class="d-flex">
 									<a class="btn btn-info btn-circle btn-sm" href="{{ route('categorias.edit', ['slug' => $category->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+									@if(count($category->products)==0)
 									<button class="btn btn-danger btn-circle btn-sm" onclick="deleteCategory('{{ $category->slug }}')"><i class="fa fa-trash"></i></button>
+									@endif
 								</td>
 							</tr>
 							@endforeach
@@ -50,7 +52,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres eliminar esta categoria?</h5>
+				<h5 class="modal-title">¿Estás seguro de que quieres eliminar esta categoría?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
