@@ -24,6 +24,7 @@ class CreateSalesTable extends Migration
             $table->enum('state', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])->default(1);
             $table->string('time')->nullable();
             $table->mediumText('address');
+            $table->float('total', 10, 2);
             $table->timestamps();
 
             #Relations

@@ -27,7 +27,6 @@
                     </div>
                 </div>
 
-
                 <div class="form-group m-t-10">
                     <div class="col-xs-12">
                         <label>Correo Electrónico</label>
