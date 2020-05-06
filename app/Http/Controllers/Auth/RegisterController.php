@@ -92,6 +92,7 @@ class RegisterController extends Controller
             'slug' => $slug,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+
         ]);
     }
 }

@@ -188,7 +188,7 @@ class WebController extends Controller
 
             $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
             $store = Store::all();
-            $distance = Distance::where('id', '>', '1')->get();
+            $distance = Distance::all();
 
             return view('web.checkout', compact('cart', 'total', 'store', 'distance'));
         }
@@ -213,9 +213,26 @@ class WebController extends Controller
             } else {
                 $store = Store::where('slug', request('store_id'))->firstOrFail();
                 $distance = Distance::where('slug', request('distance_id'))->firstOrFail();
-                $data = array('slug' => $slug, 'user_id' => Auth::user()->id, 'store_id' => $store->id, 'address' => request('address'), 'distance_id' => $distance->id);
+                $data = array('slug' => $slug, 'user_id' => Auth::user()->id, 'store_id' => $store->id, 'address' => request('address'), 'distance_id' => $distance->id, 'total' => request('total'));
+                
+
+                if (isset($request->phone)) {
+                    $user = User::where('slug', $request->user)->firstOrFail();
+                    $data = array('phone' => $request->phone);
+                    $user->fill($data)->save();  
+                }
+
+                if (isset($request->dni)) {
+                    $user = User::where('slug', $request->user)->firstOrFail();
+                    $data = array('dni' => $request->dni);
+                    $user->fill($data)->save();  
+                    dd($user->dni);
+                }
+
                 break;
+                
             }
+
         }
 
         $sale=Sale::create($data);
@@ -225,7 +242,7 @@ class WebController extends Controller
             $store = Store::where('slug', $order['store_slug'])->firstOrFail();
             $product = Product::where('slug', $order['product_slug'])->firstOrFail();
             $size = Size::where('slug', $order['size_slug'])->firstOrFail();
-        
+
             $data = array('sale_id' => $sale->id, 'product_id' => $product->id, 'size_id' => $size->id, 'store_id' => $store->id, 'price' => $order['price'], 'qty' => $order['qty']);
             Order::create($data)->save();
         }

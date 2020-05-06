@@ -143,26 +143,41 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="phone">Teléfono</label>
+								@if(Auth::user()->phone==NULL)
+								<input type="text" class="form-control" required name="phone" placeholder="Introduzca su número telefónico">
+								@else
 								<input type="text" class="form-control" value="{{ Auth::user()->phone }}" disabled>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="phone">DNI</label>
+								@if(Auth::user()->dni==NULL)
+								<input type="text" class="form-control" required name="dni" placeholder="Introduzca su dni">
+								@else
+								<input type="text" class="form-control" value="{{ Auth::user()->dni }}" disabled>
+								@endif
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="phone">Seleccione la tienda a solicitar productos</label>
-								<select class="form-control" name="store_id">
+								<select class="form-control" required name="store_id">
 									<option>Seleccione</option>
 									@foreach($store as $s)
 									<option value="{{ $s->slug }}">{{ $s->name }}</option>
 									@endforeach
 								</select>
+								<input type="hidden" name="total" value="{{ number_format($total, 2, ",", ".") }}">
+								<input type="hidden" class="form-control" value="{{ Auth::user()->slug }}" name="user">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="phone">Distancia a recorrer</label>
-								<select class="form-control" name="distance_id">
+								<select class="form-control" required name="distance_id">
 									<option>Seleccione</option>
-									<option value="1">Local = Gratis</option>
 									@foreach($distance as $d)
 									<option value="{{ $d->slug }}">{{ $d->km }} km = {{ $d->price }} bs</option>
 									@endforeach
@@ -172,14 +187,14 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="streetaddress">Dirección</label>
-								<input type="text" name="address" class="form-control" placeholder="Introduzca su dirección (calle, número de casa, avenida, etc)">
+								<input type="text" name="address" class="form-control" required placeholder="Introduzca su dirección (calle, número de casa, avenida, etc)">
 							</div>
 						</div>
 						<div class="col-md-12">
-						<div class="form-group">
-							<p><button type="submit" class="btn btn-primary py-3 px-4">Finalizar Compra</button></p>
-						</div>
-					</div> 
+							<div class="form-group">
+								<p><button type="submit" class="btn btn-primary py-3 px-4">Finalizar Compra</button></p>
+							</div>
+						</div> 
 					</div>
 				</form>
 			</div>
