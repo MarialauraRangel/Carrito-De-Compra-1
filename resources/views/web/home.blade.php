@@ -151,13 +151,13 @@
                             <option value="">Seleccione</option>
                         </select>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-lg-6 col-md-6 col-12">
                         <label class="col-form-label">Tamaño</label>
                         <select class="form-control" name="size" id="select-size-cart">
                             <option value="">Seleccione</option>
                         </select>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-lg-6 col-md-6 col-12">
                         <label class="col-form-label">Cantidad</label>
                         <input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="modal-qty" price="">
                     </div>

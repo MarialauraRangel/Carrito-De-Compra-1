@@ -36,11 +36,12 @@ Route::get('/pedido/{slug}', 'OrderController@show')->name('pedido.show');
 //Pagos
 Route::get('/comprar', 'WebController@checkout')->name('pago.create');
 Route::post('/comprar', 'WebController@saleStore')->name('pago.store');
-Route::get('/mis-compras', 'WebController@shopping')->name('pago.index');
-Route::get('/mis-compras/{slug}', 'WebController@orderProduct')->name('pago.order');
 
-///// //////////////////////////////////ADMIN ///////////////////////////////////////////////////
 Route::group(['middleware' => ['auth']], function () {
+	Route::get('/mis-compras', 'WebController@shopping')->name('pago.index');
+	Route::get('/mis-compras/{slug}', 'WebController@orderProduct')->name('pago.order');
+
+	///// //////////////////////////////////ADMIN ///////////////////////////////////////////////////
 
 	// Inicio
 	Route::get('/maesma', 'AdminController@index')->name('admin');

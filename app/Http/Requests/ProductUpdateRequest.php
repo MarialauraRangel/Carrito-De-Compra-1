@@ -25,6 +25,7 @@ class ProductUpdateRequest extends FormRequest
     {
         return [
             'category_id' => 'required',
+            'store_id' => 'required',
             'name' => 'required|string|min:2|max:191',
             'size-question' => 'required',
             'description' => 'required|string|min:0|max:64000'

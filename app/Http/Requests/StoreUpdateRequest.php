@@ -27,7 +27,7 @@ class StoreUpdateRequest extends FormRequest
             'name' => 'required|string|min:2|max:191',
             'address' => 'required|min:2|max:191',
             'phone_one' => 'required|min:2|max:15',
-            'phone_two' => 'required|min:2|max:15'
+            'phone_two' => 'nullable|min:2|max:15'
         ];
     }
 }

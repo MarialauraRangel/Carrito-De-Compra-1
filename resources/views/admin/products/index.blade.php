@@ -24,8 +24,8 @@
 							<tr>
 								<th>#</th>
 								<th>Nombre</th>
-								<th>Categoria</th>
-								<th>Precio</th>
+								<th>Categoría</th>
+								<th>Tamaños y Precios</th>
 								<th>Acciones</th>
 							</tr>
 						</thead> 
@@ -35,10 +35,16 @@
 								<td>{{ $num++ }}</td>
 								<td>{{ $product->name }}</td>
 								<td>{{ $product->category->name }}</td>
-								<td>{{ $product->price }} Bs</td>
+								<td>
+									@foreach($product->sizes as $size)
+									{{ $size->name.": ".number_format($size->pivot->price, 2, ",", ".")." Bs" }}<br>
+									@endforeach
+								</td>
 								<td class="d-flex">
-									<a class="btn btn-info btn-circle btn-sm" href="{{-- {{ route('productos.edit', ['slug' => $product->slug]) }} --}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+									<a class="btn btn-info btn-circle btn-sm" href="{{ route('productos.edit', ['slug' => $product->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+									@if(count($product->orders)==0)
 									<button class="btn btn-danger btn-circle btn-sm" onclick="deleteProduct('{{ $product->slug }}')"><i class="fa fa-trash"></i></button>
+									@endif
 								</td>
 							</tr>
 							@endforeach

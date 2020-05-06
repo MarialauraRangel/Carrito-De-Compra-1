@@ -42,19 +42,29 @@ class StoreController extends Controller
     public function update(StoreUpdateRequest $request, $slug)
     {
         $store=Store::where('slug', $slug)->firstOrFail();
-        $store->fill($request->all())->save();
+        $data=array('name' => request('name'), 'phone_one' => request('phone_one'), 'phone_two' => request('phone_two'), 'address' => request('address'));
+
+        // Mover imagen a carpeta products y extraer nombre
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $image = time()."_".$slug;
+            $file->move(public_path().'/admins/img/stores/', $image);
+            $data['image'] = $image;
+        }
+
+        $store->fill($data)->save();
 
         if ($store) {
-            return redirect()->route('tiendas.edit', ['slug' => $slug])->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La tienda ha sido editada exitosamente.']);
+            return redirect()->route('tienda.edit', ['slug' => $slug])->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La tienda ha sido editada exitosamente.']);
         } else {
-            return redirect()->route('tiendas.edit', ['slug' => $slug])->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('tienda.edit', ['slug' => $slug])->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function desactivate(Request $request, $slug) {
 
         $store = Store::where('slug', $slug)->firstOrFail();
-        $store->fill($request->all())->save();
+        $store->fill(['state' => 2])->save();
 
         if ($store) {
             return redirect()->route('tienda.index')->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La tienda ha sido desactivada exitosamente.']);
@@ -66,7 +76,7 @@ class StoreController extends Controller
     public function activate(Request $request, $slug) {
 
         $store = Store::where('slug', $slug)->firstOrFail();
-        $store->fill($request->all())->save();
+        $store->fill(['state' => 1])->save();
 
         if ($store) {
             return redirect()->route('tienda.index')->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La tienda ha sido activada exitosamente.']);

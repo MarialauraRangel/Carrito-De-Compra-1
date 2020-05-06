@@ -17,6 +17,6 @@ class Store extends Model
     }
 
     public function sales() {
-        return $this->hasOne(Store::class, 'id');
+        return $this->hasMany(Sale::class);
     }
 }

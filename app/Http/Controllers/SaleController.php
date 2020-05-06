@@ -17,8 +17,8 @@ class SaleController extends Controller
     public function index()
     {
         $sale = Sale::all();
-        $casher = User::where('type', '=', '2')->get();
-        $deliveryMan = User::where('type', '=', '3')->get();
+        $casher = User::where('type', 2)->where('state', 1)->get();
+        $deliveryMan = User::where('type', 3)->where('state', 1)->get();
         $num = 1;
         return view('admin.sales.index', compact('sale', 'num', 'casher', 'deliveryMan'));
     }
@@ -102,10 +102,10 @@ class SaleController extends Controller
     public function time(Request $request, $slug)
     {
         $sale = Sale::where('slug', $slug)->firstOrFail();
-        $mifecha= date('H:i:s'); 
-        $NuevaFecha = strtotime ( '+30 minute' , strtotime ($mifecha) ) ;  
-        $NuevaFecha = date ( 'H:i:s' , $NuevaFecha); 
-        $data = array('time' => $NuevaFecha);
+        $today= date('H:i:s'); 
+        $newDate = strtotime('+30 minute', strtotime($today)) ;  
+        $newDate = date('H:i:s', $newDate); 
+        $data = array('time' => $newDate);
         $sale->fill($data)->save();
 
         if ($sale) {

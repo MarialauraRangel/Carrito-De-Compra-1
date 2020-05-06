@@ -15,7 +15,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'lastname', 'dni', 'phone', 'photo', 'slug', 'address', 'email', 'password', 'state', 'type'];
+    protected $fillable = ['name', 'lastname', 'dni', 'phone', 'photo', 'slug', 'address', 'email', 'password', 'state', 'type', 'store_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -50,17 +50,15 @@ class User extends Authenticatable
         return $this->belongsTo(Store::class);
     }
 
-    public function sale() {
-        return $this->hasOne(Sale::class, 'id');
+    public function sales() {
+        return $this->hasMany(Sale::class);
     }
 
-    public function sale2() {
-        return $this->hasOne(Sale::class, 'id');
+    public function sales2() {
+        return $this->hasMany(Sale::class);
     }
 
-    public function sale3() {
-        return $this->hasOne(Sale::class, 'id');
+    public function sales3() {
+        return $this->hasMany(Sale::class);
     }
-
-
 }

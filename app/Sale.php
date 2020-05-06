@@ -21,26 +21,27 @@ class Sale extends Model
 		'address'
 	];
 
-	public function stores() {
-		return $this->belongsTo(Store::class, 'store_id');
+	public function store() {
+		return $this->belongsTo(Store::class);
 	}
 
 	public function customer() {
-		return $this->belongsTo(User::class, 'user_id');
+		return $this->belongsTo(User::class);
 	}
 
 	public function casher() {
-		return $this->belongsTo(User::class, 'casher_id');
+		return $this->belongsTo(User::class, 'casher_id', 'id');
 	}
 
 	public function delivery() {
-		return $this->belongsTo(User::class, 'delivery_man_id');
+		return $this->belongsTo(User::class, 'delivery_man_id', 'id');
 	}
 
 	public function distance() {
-		return $this->belongsTo(Distance::class, 'distance_id');
+		return $this->belongsTo(Distance::class);
 	}
 
-	
-	
+	public function orders() {
+		return $this->hasMany(Order::class);
+	}
 }

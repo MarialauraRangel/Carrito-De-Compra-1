@@ -25,9 +25,9 @@
 					<div class="col-lg-6 col-md-6 col-12">
 						<div class="form-group">
 							<label class="col-form-label">Tamaño</label>
-							<select name="" id="" class="form-control">
+							<select id="select-product-size-cart" class="form-control">
 								@foreach($product->sizes as $size)
-								<option value="{{ $size->slug }}">{{ $size->name." - ".number_format($size->pivot->price, 2, ",", ".")." Bs" }}</option>
+								<option value="{{ $size->slug }}" price="{{ $size->pivot->price }}">{{ $size->name." - ".number_format($size->pivot->price, 2, ",", ".")." Bs" }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -36,14 +36,14 @@
 					<div class="col-lg-6 col-md-6 col-12">
 						<div class="form-group">
 							<label class="col-form-label">Cantidad</label>
-							<input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="product-qty" price="">
+							<input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="product-qty" price="{{ $product->sizes[0]->pivot->price }}">
 						</div>
 					</div>
 
 					<div class="col-12">
 						<div class="form-group">
 							<label class="col-form-label">Tienda</label>
-							<select name="" id="" class="form-control">
+							<select id="select-product-store-cart" class="form-control">
 								@foreach($product->stores as $store)
 								<option value="{{ $store->slug }}">{{ $store->name }}</option>
 								@endforeach
@@ -52,7 +52,7 @@
 					</div>
 				</div>
 				<p>{{ $product->description }}</p>
-				<p><a class="btn btn-black py-3 px-5">Agregar al carrito</a></p>
+				<p><a class="btn btn-black text-white py-3 px-5" id="btn-add-product-cart" slug="{{ $product->slug }}"><span id="price-product-add-cart">{{ number_format($product->sizes[0]->pivot->price, 2, ",", ".")." Bs" }}</span> Agregar al carrito</a></p>
 			</div>
 		</div>
 	</div>
@@ -116,13 +116,13 @@
 							<option value="">Seleccione</option>
 						</select>
 					</div>
-					<div class="form-group col-6">
+					<div class="form-group col-lg-6 col-md-6 col-12">
 						<label class="col-form-label">Tamaño</label>
 						<select class="form-control" name="size" id="select-size-cart">
 							<option value="">Seleccione</option>
 						</select>
 					</div>
-					<div class="form-group col-6">
+					<div class="form-group col-lg-6 col-md-6 col-12">
 						<label class="col-form-label">Cantidad</label>
 						<input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="modal-qty" price="">
 					</div>

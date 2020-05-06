@@ -148,17 +148,11 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="emailaddress">Correo Electrónico</label>
-								<input type="text" class="form-control" disabled  value="{{ Auth::user()->email }}">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
 								<label for="phone">Seleccione la tienda a solicitar productos</label>
 								<select class="form-control" name="store_id">
 									<option>Seleccione</option>
 									@foreach($store as $s)
-									<option value="{{ $s->id }}">{{ $s->name }}</option>
+									<option value="{{ $s->slug }}">{{ $s->name }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -170,7 +164,7 @@
 									<option>Seleccione</option>
 									<option value="1">Local = Gratis</option>
 									@foreach($distance as $d)
-									<option value="{{ $d->id }}">{{ $d->km }} km = {{ $d->price }} bs</option>
+									<option value="{{ $d->slug }}">{{ $d->km }} km = {{ $d->price }} bs</option>
 									@endforeach
 								</select>
 							</div>

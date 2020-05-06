@@ -3,7 +3,7 @@
 @section('title', 'Compras')
 
 @section('content')
-<div class="hero-wrap hero-bread" >
+<div class="hero-wrap hero-bread" style="background-image: url('web/images/bg_2.jpg');">
 	<div class="overlay"></div>
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -23,21 +23,21 @@
 						<thead class="thead-primary">
 							<tr class="text-center">
 								<th>#</th>
+								<th>Tienda</th>
 								<th>Total</th>
 								<th>Estado</th>
-								<th>Tienda</th>
 								<th>Fecha</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($sale as $s)
+							@foreach($sales as $s)
 							<tr>
 								<td>{{ $num++ }}</td>
+								<td>{{ $s->store->name }}</td>
 								<td></td>
 								<td>{!!  saleState($s->state) !!}</td>
-								<td>{{ $s->stores->name }}</td>
-								<td>{{ $s->created_at }}</td>
+								<td>{{ $s->created_at->format('d-m-Y') }}</td>
 								<td class="d-flex justify-content-center">
 									<a href="{{ route('pago.order', ['slug' => $s->slug]) }}" class="btn btn-primary"><i class="icon-eye"></i></a>
 								</td>

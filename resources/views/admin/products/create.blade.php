@@ -31,9 +31,23 @@
 							<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
 							<input class="form-control" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ old('name') }}">
 						</div>
+
+						<div class="form-group col-lg-6 col-md-6 col-12">
+							<label class="col-form-label">Tiendas<b class="text-danger">*</b></label>
+							<select class="form-control multiselect" name="store_id[]" multiple required>
+								@if(!is_array(old('store_id')) || empty(old('store_id')))
+								@foreach($stores as $store)
+								<option value="{{ $store->slug }}">{{ $store->name }}</option>
+								@endforeach
+								@else
+								{!! selectArray($stores, old('store_id')) !!}
+								@endif
+							</select>
+						</div>
+
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Categoria<b class="text-danger">*</b></label>
-							<select class="form-control multiselect" name="category_id" required id="category">
+							<select class="form-control multiselect" name="category_id" required>
 								<option value="">Seleccione</option>
 								@foreach($categories as $category)
 								<option value="{{ $category->slug }}">{{ $category->name }}</option>
@@ -41,20 +55,20 @@
 							</select>
 						</div>
 
-						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label class="col-form-label">¿El producto tendrá varios tamaños?<b class="text-danger">*</b></label>
+						<div class="form-group col-lg-3 col-md-3 col-12">
+							<label class="col-form-label">¿Tendrá varios tamaños?<b class="text-danger">*</b></label>
 							<select class="form-control" name="size-question" required>
 								<option value="0">No</option>
 								<option value="1">Si</option>
 							</select>
 						</div>
 
-						<div class="form-group col-lg-6 col-md-6 col-12" id="price-unique">
+						<div class="form-group col-lg-3 col-md-3 col-12" id="price-unique">
 							<label class="col-form-label">Precio<b class="text-danger">*</b></label>
 							<input class="form-control price" type="text" name="price-unique" required placeholder="Introduzca el precio" value="0.00">
 						</div>
 
-						<div class="form-group col-lg-6 col-md-6 col-12 d-none" id="div-select-size">
+						<div class="form-group col-lg-3 col-md-3 col-12 d-none" id="div-select-size">
 							<label class="col-form-label">Tamaño<b class="text-danger">*</b></label>
 							<div class="input-group">
 								<select class="form-control" id="select-size">

@@ -197,7 +197,6 @@ class WebController extends Controller
     }
 
     public function saleStore(Request $request) {
-
         $count=Sale::count();
         $slug=Str::slug('venta', '-');
         if ($count>0) {
@@ -212,8 +211,9 @@ class WebController extends Controller
                 $slug="venta-".$num;
                 $num++;
             } else {
-                $id = Auth::user()->id;
-                $data = array('slug' => $slug, 'user_id' => $id, 'store_id' => request('store_id'), 'address' => request('address'), 'distance_id' => request('distance_id'));
+                $store = Store::where('slug', request('store_id'))->firstOrFail();
+                $distance = Distance::where('slug', request('distance_id'))->firstOrFail();
+                $data = array('slug' => $slug, 'user_id' => Auth::user()->id, 'store_id' => $store->id, 'address' => request('address'), 'distance_id' => $distance->id);
                 break;
             }
         }
@@ -221,30 +221,28 @@ class WebController extends Controller
         $sale=Sale::create($data);
 
         $cart=session('cart');
-
         foreach ($cart as $order) {
-
             $store = Store::where('slug', $order['store_slug'])->firstOrFail();
-
             $product = Product::where('slug', $order['product_slug'])->firstOrFail();
-
             $size = Size::where('slug', $order['size_slug'])->firstOrFail();
-            
-
-            $data2 = array('sale_id' => $sale->id, 'product_id' => $product->id, 'size_id' => $size->id, 'store_id' => $store->id, 'price' => $order['price'], 'qty' => $order['qty']);
-            Order::create($data2)->save();
+        
+            $data = array('sale_id' => $sale->id, 'product_id' => $product->id, 'size_id' => $size->id, 'store_id' => $store->id, 'price' => $order['price'], 'qty' => $order['qty']);
+            Order::create($data)->save();
         }
 
-        
-
-        return view('web.orders', compact('cart'));
+        if ($sale) {
+            $request->session()->forget('cart');
+            return redirect()->route('pago.index')->with(['type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'La compra ha sido registrada exitosamente.']);
+        } else {
+            return redirect()->route('pago.create')->with(['type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
     }
 
     public function shopping(Request $request) {
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
-        $sale = Sale::where('user_id', '=', Auth::user()->id)->get();
+        $sales = Sale::where('user_id', '=', Auth::user()->id)->get();
         $num = 1;
-        return view('web.orders', compact('cart', 'sale', 'num'));
+        return view('web.orders', compact('cart', 'sales', 'num'));
     }
 
     public function orderProduct(Request $request, $slug) {

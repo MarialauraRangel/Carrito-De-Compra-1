@@ -54,8 +54,6 @@
 	</div>
 </div>
 
-@if(Auth::user()->type==1)
-
 <div class="modal fade" id="desactivateStore" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -66,10 +64,9 @@
 				</button>
 			</div>
 			<div class="modal-footer">
-				<form action="#" method="POST" id="formDesactivateStore">
+				<form action="#" method="POST" id="formDesactiveStore">
 					@csrf
 					@method('PUT')
-					<input type="hidden" name="state" value="2">
 					<button type="submit" class="btn btn-primary">Desactivar</button>
 				</form>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -88,10 +85,9 @@
 				</button>
 			</div>
 			<div class="modal-footer">
-				<form action="#" method="POST" id="formActivateStore">
+				<form action="#" method="POST" id="formActiveStore">
 					@csrf
 					@method('PUT')
-					<input type="hidden" name="state" value="1">
 					<button type="submit" class="btn btn-primary">Activar</button>
 				</form>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -99,7 +95,6 @@
 		</div>
 	</div>
 </div>
-@endif
 
 @endsection
 

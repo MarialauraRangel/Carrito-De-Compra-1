@@ -18,10 +18,18 @@ class Order extends Model
 	];
 
 	public function product() {
-        return $this->hasOne(Product::class, 'id');
+        return $this->belongsTo(Product::class);
     }
 
     public function size() {
-        return $this->hasOne(Size::class, 'id');
+        return $this->belongsTo(Size::class);
+    }
+
+    public function sale() {
+        return $this->belongsTo(Sale::class);
+    }
+
+    public function store() {
+        return $this->belongsTo(Store::class);
     }
 }

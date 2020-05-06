@@ -12,7 +12,7 @@ class SizesTableSeeder extends Seeder
     public function run()
     {
         $sizes = [
-    		['id' => 1, 'name' => 'Unico', 'slug' => 'unico'],
+    		['id' => 1, 'name' => 'Normal', 'slug' => 'normal'],
             ['id' => 2, 'name' => 'Pequeña', 'slug' => 'pequena'],
     		['id' => 3, 'name' => 'Madiana', 'slug' => 'mediana'],
     		['id' => 4, 'name' => 'Grande', 'slug' => 'grande'],

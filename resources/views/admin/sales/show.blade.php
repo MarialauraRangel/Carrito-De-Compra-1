@@ -8,11 +8,6 @@
 <li class="breadcrumb-item active">Detalles</li>
 @endsection
 
-@section('links')
-<link rel="stylesheet" href="{{ asset('/admins/vendors/leaflet/leaflet.css') }}">
-<link rel="stylesheet" href="{{ asset('/admins/vendors/leaflet/leaflet-routing-machine.css') }}">
-@endsection
-
 @section('content')
 <div class="row">
 	<div class="col-lg-12 col-md-12">
@@ -141,9 +136,4 @@
 	</div>
 </div>
 
-@endsection
-
-@section('script')
-<script src="{{ asset('/admins/vendors/leaflet/leaflet.js') }}"></script>
-<script src="{{ asset('/admins/vendors/leaflet/leaflet-routing-machine.js') }}"></script>
 @endsection

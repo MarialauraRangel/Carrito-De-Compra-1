@@ -74,7 +74,6 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($slug) {
-
         $category=Category::where('slug', $slug)->firstOrFail();
         return view('admin.categories.edit', compact('category'));
     }

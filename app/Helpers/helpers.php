@@ -43,17 +43,43 @@ function saleState($state) {
 	} 
 	elseif ($state==11) {
 		return '<span class="badge badge-danger">Cancelado</span>';
-	} 
-
-
-
-
-
-
-
-
-
-	else {
+	} else {
 		return '<span class="badge badge-dark">Desconocido</span>';
 	}
+}
+
+function selectArray($arrays, $selectedItems) {
+	$selects="";
+	foreach ($arrays as $array) {
+		if (count($selectedItems)>0) {
+			foreach ($selectedItems as $selected) {
+				if ($selected->slug==$array->slug) {
+					$select="selected";
+					break;
+				} else {
+					$select="";
+				}
+			}
+		}
+		$selects.='<option value="'.$array->slug.'" '.$select.'>'.$array->name.'</option>';
+	}
+	return $selects;
+}
+
+function selectSizesProduct($arrays, $selectedItems) {
+	$selects="";
+	foreach ($arrays as $array) {
+		if (count($selectedItems)>0) {
+			foreach ($selectedItems as $selected) {
+				if ($selected->slug==$array->slug) {
+					$none='class="d-none"';
+					break;
+				} else {
+					$none="";
+				}
+			}
+		}
+		$selects.='<option value="'.$array->slug.'" '.$none.'>'.$array->name.'</option>';
+	}
+	return $selects;
 }
