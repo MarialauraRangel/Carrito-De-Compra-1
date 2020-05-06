@@ -24,8 +24,8 @@ class DistanceUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'km' => 'required|integer|min:1|max:10',
-            'price' => 'required'
+            'km' => 'required|number|min:0|max:10000000',
+            'price' => 'required|number|min:0|max:10000000'
         ];
     }
 }

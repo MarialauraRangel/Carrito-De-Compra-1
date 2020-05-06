@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DistanceStoreRquest extends FormRequest
+class DistanceStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class DistanceStoreRquest extends FormRequest
     public function rules()
     {
         return [
-            'km' => 'required|integer|min:1|max:10',
-            'price' => 'required'
+            'km' => 'required|number|min:0|max:10000000',
+            'price' => 'required|number|min:0|max:10000000'
         ];
     }
 }
