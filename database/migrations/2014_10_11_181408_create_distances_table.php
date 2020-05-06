@@ -15,8 +15,8 @@ class CreateDistancesTable extends Migration
     {
         Schema::create('distances', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('km');
-            $table->float('price', 10, 2);
+            $table->float('km', 5, 1)->default(0.0);
+            $table->float('price', 10, 2)->default(0.00);
             $table->string('slug')->unique();
             $table->timestamps();
         });

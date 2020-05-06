@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Editar Categoria')
-@section('page-title', 'Editar Categoria')
+@section('title', 'Editar Distancia')
+@section('page-title', 'Editar Distancia')
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendors/lobibox/Lobibox.min.css') }}">
 @endsection
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('categorias.index') }}">Categorias</a></li>
+<li class="breadcrumb-item"><a href="{{ route('distancias.index') }}">Distancias</a></li>
 <li class="breadcrumb-item active">Editar</li>
 @endsection
 

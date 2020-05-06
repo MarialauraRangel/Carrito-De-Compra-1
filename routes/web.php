@@ -58,8 +58,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/maesma/productos/{slug}', 'ProductController@update')->name('productos.update');
 		Route::delete('/maesma/productos/eliminar/{slug}', 'ProductController@destroy')->name('productos.delete');
 
-		//Categorías
-		Route::get('/maesma/categorias/listado', 'CategoryController@index')->name('categorias.index');
+		//Distancias
+		Route::get('/maesma/categorias', 'CategoryController@index')->name('categorias.index');
 		Route::get('/maesma/categorias/registrar', 'CategoryController@create')->name('categorias.create');
 		Route::post('/maesma/categorias', 'CategoryController@store')->name('categorias.store');
 		Route::get('/maesma/categorias/{slug}', 'CategoryController@show')->name('categorias.show');
@@ -85,6 +85,14 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/maesma/usuarios/activar/{slug}', 'UserController@activate')->name('usuario.activate');
 		Route::put('/maesma/usuarios/desactivar/{slug}', 'UserController@deactivate')->name('usuario.deactivate');
 		Route::get('/maesma/perfil', 'UserController@profile')->name('usuario.profile');
+
+		//Distancias
+		Route::get('/maesma/distancias', 'DistanceController@index')->name('distancias.index');
+		Route::get('/maesma/distancias/registrar', 'DistanceController@create')->name('distancias.create');
+		Route::post('/maesma/distancias', 'DistanceController@store')->name('distancias.store');
+		Route::get('/maesma/distancias/{slug}/editar', 'DistanceController@edit')->name('distancias.edit');
+		Route::put('/maesma/distancias/{slug}', 'DistanceController@update')->name('distancias.update');
+		Route::delete('/maesma/distancias/eliminar/{slug}', 'DistanceController@destroy')->name('distancias.delete');
 	});
 
 	Route::group(['middleware' => ['not.client']], function () {

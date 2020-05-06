@@ -11,10 +11,10 @@ class DistanceTableSeeder extends Seeder
      */
     public function run()
     {
-         $distance = [
-    		['id' => 1, 'km' => 'Local', 'price' => '00,00', 'slug' => 'local-gratis'],
-    		['id' => 2, 'km' => '3', 'price' => '10,00', 'slug' => '3-10'],
-    		['id' => 3, 'km' => '5', 'price' => '15,00', 'slug' => '5-15']
+        $distance = [
+    		['id' => 1, 'km' => 0.0, 'price' => 0.00, 'slug' => 'local-gratis'],
+    		['id' => 2, 'km' => 3.0, 'price' => 10.00, 'slug' => '3-kilometros'],
+    		['id' => 3, 'km' => 5.0, 'price' => 15.00, 'slug' => '5-kilometros']
     	];
     	DB::table('distances')->insert($distance);
     }

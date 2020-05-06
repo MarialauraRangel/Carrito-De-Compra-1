@@ -36,6 +36,12 @@
                     </ul>
                 </li>
                 <li><a class="waves-effect waves-dark" href="{{ route('tienda.index') }}"><i class="fa fa-building"></i><span class="hide-menu">Tiendas</span></a></li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa  fa-map"></i><span class="hide-menu">Distancias</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('distancias.create') }}">Registrar</a></li>
+                        <li><a href="{{ route('distancias.index') }}">Lista</a></li>
+                    </ul>
+                </li>
                 @endif
             </ul>
         </nav>
