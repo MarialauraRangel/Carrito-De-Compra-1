@@ -56,7 +56,7 @@
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Tipo<b class="text-danger">*</b></label>
 							<select class="form-control" name="type" required id="typeUser">
-								<option value="">Seleccione</option>
+								<option value="0">Seleccione</option>
 								<option value="1">Super Administrador</option>
 								<option value="2">Cajero</option>
 								<option value="3">Repartidor</option>
@@ -85,7 +85,7 @@
 								<button type="submit" class="btn btn-primary" action="user">Guardar</button>
 								<a href="{{ route('usuario.index') }}" class="btn btn-secondary">Volver</a>
 							</div>
-						</div>
+						</div> 
 					</div>
 				</form>
 			</div>

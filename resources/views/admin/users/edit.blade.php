@@ -37,40 +37,46 @@
 									<input class="form-control" type="text" disabled value="{{ $user->name.' '.$user->lastname }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
-									<label class="col-form-label">Correo Electrónico</label>
+									<label class="col-form-label">Correo Electrónico<b class="text-danger">*</b></label>
 									<input class="form-control" type="text" name="email" value="{{ $user->email }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
-									<label class="col-form-label">Teléfono</label>
+									<label class="col-form-label">Teléfono<b class="text-danger">*</b></label>
 									<input class="form-control" name="phone" type="text" value="{{ $user->phone }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
-									<label class="col-form-label">DNI</label>
+									<label class="col-form-label">DNI<b class="text-danger">*</b></label>
 									<input class="form-control" name="dni" type="text" value="{{ $user->dni }}">
 								</div>
-								<div class="form-group col-lg-12 col-md-12 col-12">
-									<label class="col-form-label">Tipo<b class="text-danger">*</b></label>
-									<select class="form-control" name="type" required id="typeUser">
-										<option value="">Seleccione</option>
-										<option value="1" @if($user->type==1) selected @endif>Super Administrador</option>
-										<option value="2" @if($user->type==2) selected @endif>Cajero</option>
-										<option value="3" @if($user->type==3) selected @endif>Repartidor</option>
-										<option value="4" @if($user->type==4) selected @endif>Cliente</option>
-									</select>
-								</div>
-								<div class="form-group col-lg-12 col-md-12 col-12" id="storeField">
-									<label class="col-form-label">Tienda<b class="text-danger">*</b></label>
-									<select class="form-control" name="store_id" required>
-										<option value="">Seleccione</option>
-										@foreach($stores as $store)
-										@isset($user->stores[0]->id)
-										<option value="{{ $store->slug }}" @if($user->stores[0]->id==$store->id) selected @endif>{{ $store->name }}</option>
-										@else
-										<option value="{{ $store->slug }}">{{ $store->name }}</option>
-										@endisset
-										@endforeach
-									</select>
-								</div>
+							</div>
+						</div>
+
+						<div class="form-group col-lg-6 col-md-12 col-12">
+							<div class="form-group col-lg-12 col-md-8 col-12">
+								<label class="col-form-label">Tipo<b class="text-danger">*</b></label>
+								<select class="form-control" name="type" required id="typeUser">
+									<option value="">Seleccione</option>
+									<option value="1" @if($user->type==1) selected @endif>Super Administrador</option>
+									<option value="2" @if($user->type==2) selected @endif>Cajero</option>
+									<option value="3" @if($user->type==3) selected @endif>Repartidor</option>
+									<option value="4" @if($user->type==4) selected @endif>Cliente</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group col-lg-6 col-md-12 col-12">
+							<div class="form-group col-lg-12 col-md-12 col-12" id="storeField">
+								<label class="col-form-label">Tienda<b class="text-danger">*</b></label>
+								<select class="form-control" name="store_id" required>
+									<option value="">Seleccione</option>
+									@foreach($stores as $store)
+									@isset($user->stores[0]->id)
+									<option value="{{ $store->slug }}" @if($user->stores[0]->id==$store->id) selected @endif>{{ $store->name }}</option>
+									@else
+									<option value="{{ $store->slug }}">{{ $store->name }}</option>
+									@endisset
+									@endforeach
+								</select>
 							</div>
 						</div>
 						

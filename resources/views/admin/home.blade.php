@@ -14,11 +14,11 @@
 			<div class="text-center bg-light">
 				<div class="row">
 					<div class="col-6  p-20 b-r">
-						<h4 class="m-b-0 font-medium">0</h4>
+						<h4 class="m-b-0 font-medium">{{ $activos }}</h4>
 						<small>Usuarios Activos</small>
 					</div>
 					<div class="col-6  p-20">
-						<h4 class="m-b-0 font-medium">0</h4>
+						<h4 class="m-b-0 font-medium">{{ $inactivos }}</h4>
 						<small>Usuarios Inactivos</small>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 					<div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="{{ '/admins/img/icon/staff.png'}}" alt="Income" /></div>
 					<div class="align-self-center">
 						<h6 class="text-muted m-t-10 m-b-0">Tiendas</h6>
-						<h2 class="m-t-0">0</h2></div>
+						<h2 class="m-t-0">{{ $tienda }}</h2></div>
 					</div>
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 						<div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="{{ '/admins/img/icon/assets.png'}}" alt="Income" /></div>
 						<div class="align-self-center">
 							<h6 class="text-muted m-t-10 m-b-0">Productos</h6>
-							<h2 class="m-t-0">0</h2></div>
+							<h2 class="m-t-0">{{ $producto }}</h2></div>
 						</div>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 							<div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="{{ '/admins/img/icon/income.png'}}" alt="Income" /></div>
 							<div class="align-self-center">
 								<h6 class="text-muted m-t-10 m-b-0">Categorías</h6>
-								<h2 class="m-t-0">0</h2></div>
+								<h2 class="m-t-0">{{ $categoria }}</h2></div>
 							</div>
 						</div>
 					</div>
@@ -70,7 +70,7 @@
 								<div class="m-r-20 align-self-center"><span class="lstick m-r-20"></span><img src="{{ '/admins/img/icon/assets.png'}}" alt="Income" /></div>
 								<div class="align-self-center">
 									<h6 class="text-muted m-t-10 m-b-0">Ventas</h6>
-									<h2 class="m-t-0">0</h2></div>
+									<h2 class="m-t-0">{{ $venta }}</h2></div>
 								</div>
 							</div>
 						</div>

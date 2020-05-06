@@ -5,6 +5,7 @@
 @section('links')
 <link rel="stylesheet" href="{{ asset('/web/vendors/select2/select2.css') }}">
 <link rel="stylesheet" href="{{ asset('/web/vendors/select2/select2-bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('/admins/vendors/dropify/css/dropify.min.css') }}">
 @endsection
 
 @section('content')
@@ -123,7 +124,7 @@
 			</div>
 			@else
 			<div class="col-xl-8 col-lg-8 order-lg-0 order-xl-0 ftco-animate">
-				<form action="{{ route('pago.store') }}" method="POST" class="billing-form">
+				<form action="{{ route('pago.store') }}" method="POST" id="saleForm" class="billing-form">
 					@csrf
 					<h3 class="mb-4 billing-heading">Detalles de La Compra</h3>
 					<div class="row align-items-end">
@@ -169,7 +170,7 @@
 									<option value="{{ $s->slug }}">{{ $s->name }}</option>
 									@endforeach
 								</select>
-								<input type="hidden" name="total" value="{{ number_format($total, 2, ",", ".") }}">
+								<input type="hidden" name="total" value="$total">
 								<input type="hidden" class="form-control" value="{{ Auth::user()->slug }}" name="user">
 							</div>
 						</div>
@@ -192,7 +193,7 @@
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<p><button type="submit" class="btn btn-primary py-3 px-4">Finalizar Compra</button></p>
+								<p><button type="submit" action="sale" class="btn btn-primary py-3 px-4">Finalizar Compra</button></p>
 							</div>
 						</div> 
 					</div>
@@ -203,4 +204,12 @@
 	</div>
 </section>
 
+@endsection
+
+@section('script')
+<script src="{{ asset('/admins/vendors/dropify/js/dropify.min.js') }}"></script>
+<script src="{{ asset('/admins/vendors/validate/jquery.validate.js') }}"></script>
+<script src="{{ asset('/admins/vendors/validate/additional-methods.js') }}"></script>
+<script src="{{ asset('/admins/vendors/validate/messages_es.js') }}"></script>
+<script src="{{ asset('/admins/js/validate.js') }}"></script>
 @endsection

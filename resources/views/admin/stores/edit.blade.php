@@ -38,7 +38,7 @@
 						</div>
 
 						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label class="col-form-label">Segundo Teléfono (Opcional)<b class="text-danger">*</b></label>
+							<label class="col-form-label">Segundo Teléfono (Opcional)</label>
 							<input class="form-control" type="text" name="phone_two" placeholder="Introduzca un teléfono" value="{{ $store->phone_two }}">
 						</div>
 
