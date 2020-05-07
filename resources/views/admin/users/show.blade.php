@@ -3,11 +3,6 @@
 @section('title', 'Ver Usuario')
 @section('page-title', 'Ver Usuario')
 
-@section('links')
-<link rel="stylesheet" href="{{ asset('/admins/vendors/lobibox/Lobibox.min.css') }}">
-<link rel="stylesheet" href="{{ asset('/admins/vendors/dropify/css/dropify.min.css') }}">
-@endsection
-
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('usuario.index') }}">Usuarios</a></li>
 <li class="breadcrumb-item active">Ver</li>
@@ -34,23 +29,27 @@
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Nombre y Apellido</label>
-									<input class="form-control" disabled type="text" disabled value="{{ $user->name.' '.$user->lastname }}">
+									<input class="form-control" disabled type="text" value="{{ $user->name.' '.$user->lastname }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Correo Electrónico</label>
-									<input class="form-control" disabled type="text" name="email" value="{{ $user->email }}">
+									<input class="form-control" disabled type="text" value="{{ $user->email }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Teléfono</label>
-									<input class="form-control" disabled name="phone" type="text" value="{{ $user->phone }}">
+									<input class="form-control" disabled type="text" value="{{ $user->phone }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">DNI</label>
-									<input class="form-control" disabled name="dni" type="text" value="{{ $user->dni }}">
+									<input class="form-control" disabled type="text" value="{{ $user->dni }}">
 								</div>
 								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Tipo</label>
-									<input class="form-control" disabled name="type" type="text" @if($user->type==1) value="Super Administrador" @endif @if($user->type==2) value="Administrador de Tienda" @endif @if($user->type==3) value="Normal" @endif  >
+									<input class="form-control" disabled name="type" type="text" @if($user->type==1) value="Super Administrador" @elseif($user->type==2) value="Cajero" @elseif($user->type==3) value="Repartidor" @else value="Cliente" @endif  >
+								</div>
+								<div class="form-group col-lg-12 col-md-12 col-12 @if($user->type!=2 && $user->type!=3) d-none @endif" id="storeField">
+									<label class="col-form-label">Tienda<b class="text-danger">*</b></label>
+									<input class="form-control" disabled type="text" value="{{ $user->store->name }}">
 								</div>
 							</div>
 						</div>
@@ -67,13 +66,4 @@
 	</div>
 </div>
 
-@endsection
-
-@section('script')
-<script src="{{ asset('/admins/vendors/dropify/js/dropify.min.js') }}"></script>
-<script src="{{ asset('/admins/vendors/lobibox/Lobibox.js') }}"></script>
-<script src="{{ asset('/admins/vendors/validate/jquery.validate.js') }}"></script>
-<script src="{{ asset('/admins/vendors/validate/additional-methods.js') }}"></script>
-<script src="{{ asset('/admins/vendors/validate/messages_es.js') }}"></script>
-<script src="{{ asset('/admins/js/validate.js') }}"></script>
 @endsection

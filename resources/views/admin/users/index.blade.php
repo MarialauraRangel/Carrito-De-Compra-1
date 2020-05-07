@@ -26,6 +26,7 @@
 								<th>#</th>
 								<th>Nombre Completo</th>
 								<th>Correo Electrónico</th>
+								<th>Tipo</th>
 								<th>Estado</th>
 								<th>Acciones</th>
 							</tr>
@@ -40,6 +41,7 @@
 									</span>
 								</td>
 								<td>{{ $user->email }}</td>
+								<td>@if($user->type==1) Super Administrador @elseif($user->type==2) Cajero @elseif($user->type==3) Repartidor @else Cliente @endif</td>
 								<td>
 									@if($user->state==1)
 									<span class="badge badge-success">Activo</span>

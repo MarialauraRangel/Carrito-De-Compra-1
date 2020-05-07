@@ -7,9 +7,11 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')</title>
 
-	<meta name="description" content="Las mejores pizzas que puedes pedir desde la comodidad de tu casa y te las enviamos enseguida.">
+	<link rel="icon" href="{{ asset('/auth/images/icons/favicon.ico') }}" type="image/x-icon" />
+
+	<meta name="description" content="La pizzería restaurante Maesma es el lugar ideal para disfrutar de una buena pizza estilo americano, la frescura de los productos y po la cortesía de un ambiente agradable y de un personal calificado.">
 	<meta property="og:title" content="Maesma Pizzería" />
-	<meta property="og:description" content="Las mejores pizzas que puedes pedir desde la comodidad de tu casa y te las enviamos enseguida." />
+	<meta property="og:description" content="La pizzería restaurante Maesma es el lugar ideal para disfrutar de una buena pizza estilo americano, la frescura de los productos y po la cortesía de un ambiente agradable y de un personal calificado." />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://www.maesma.com" />
 	<meta property="og:image" content="https://www.maesma.com/admins/img/logo.png" />

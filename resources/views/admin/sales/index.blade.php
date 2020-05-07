@@ -35,23 +35,22 @@
 							@foreach($sale as $s)
 							<tr>
 								<td>{{ $num++ }}</td>
-								<td></td>
+								<td>{{ $s->user->name." ".$s->user->lastname }}</td>
 								<td>{{ $s->store->name }}</td>
 								<td>
-									@if($s->casher_id==NULL)
+									@if($s->casher==NULL && $s->deliveryUser==NULL)
 									<button class="btn btn-success text-white" onclick="confirmUsers('{{ $s->slug }}')">Asignar</button>
 									@else
-									{{ $s->casher->name." ".$s->casher->lastname }} | {{ $s->delivery->name." ".$s->delivery->lastname }} 
+									{{ $s->casher->user->name." ".$s->casher->user->lastname }} | {{ $s->deliveryUser->user->name." ".$s->deliveryUser->user->lastname }} 
 									@endif
 								</td>
 								<td>		
-									@if($s->time==NULL)
+									@if($s->time_start==NULL && $s->time_finish==NULL)
 									<button class="btn btn-success text-white" onclick="confirmTime('{{ $s->slug }}')">Empezar</button>
-									@elseif($s->created_at<=date('Y-m-d H:i:s'))
-
-									<input type="hidden" id="minutes" value="30">
+									@elseif($s->time_finish>=date('Y-m-d H:i:s'))
+									<input type="hidden" id="minutes" value="{{ minutes($s->time_start, date('Y-m-d H:i:s')) }}">
 									<input type="hidden" id="seconds" value="00">
-									<span id="tiempo">{{ $s->time }}</span>
+									<span id="countdown"></span>
 									@else
 									Finalizado
 									@endif
@@ -83,14 +82,13 @@
 			<div class="modal-footer">
 				<form action="#" method="POST" id="formConfirmUsers">
 					@csrf
-					@method('PUT')
 					<div class="row">
 						<div class="form-group col-6">
 							<label class="col-form-label">Cajero<b class="text-danger">*</b></label>
 							<select class="form-control" name="casher_id" required>
 								<option>Seleccione</option>
 								@foreach($casher as $c)
-								<option value="{{ $c->id }}">{{ $c->name." ".$c->lastname }} -> {{ $c->store->name }}</option>
+								<option value="{{ $c->slug }}">{{ $c->name." ".$c->lastname }} -> {{ $c->store->name }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -99,7 +97,7 @@
 							<select class="form-control" name="delivery_man_id" required>
 								<option>Seleccione</option>
 								@foreach($deliveryMan as $d)
-								<option value="{{ $d->id }}">{{ $d->name." ".$d->lastname }} -> {{ $d->store->name }}</option>
+								<option value="{{ $d->slug }}">{{ $d->name." ".$d->lastname }} -> {{ $d->store->name }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -182,13 +180,4 @@
 <script src="{{ asset('/admins/vendors/lobibox/Lobibox.js') }}"></script>
 <script src="{{ asset('/admins/vendors/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('/admins/js/timer.jquery.js') }}"></script>
-<script type="text/javascript">
-
-	$("#tiempo").timer('remove');
-	$("#tiempo").timer({
-		countdown: true,
-		duration: $("#minutes").val()+"m"+$("#seconds").val()+"s",
-		format: "%M:%S"
-	});
-</script>
 @endsection

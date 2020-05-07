@@ -571,3 +571,19 @@ $('#btn-add-product-cart').click(function(event) {
 		}
 	});
 });
+
+$('#delivery').change(function(event) {
+	if ($(this).val()!="") {
+		var delivery=$('#delivery option:selected').attr('price'), total=$('#total').attr('total');
+		var totalDelivery=new Intl.NumberFormat("de-DE").format(delivery);
+		total=parseFloat(total, 10)+parseFloat(delivery, 10);
+		total=new Intl.NumberFormat("de-DE").format(total);
+		$('#total-delivery').text(totalDelivery+' Bs');
+		$('#total').text(total+' Bs');
+	} else {
+		var total=$('#total').attr('total');
+		total=new Intl.NumberFormat("de-DE").format(total);
+		$('#total-delivery').text('0,00 Bs');
+		$('#total').text(total+' Bs');
+	}
+});

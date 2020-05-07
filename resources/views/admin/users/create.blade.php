@@ -27,7 +27,7 @@
 					<div class="row">
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Foto (Opcional)</label>
-							<input type="file" name="photo" accept="image/*" id="input-file-now" class="dropify" data-height="125" data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg web3" />
+							<input type="file" name="photo" accept="image/*" id="input-file-now" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" />
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<div class="row">
@@ -56,7 +56,7 @@
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label class="col-form-label">Tipo<b class="text-danger">*</b></label>
 							<select class="form-control" name="type" required id="typeUser">
-								<option value="0">Seleccione</option>
+								<option value="">Seleccione</option>
 								<option value="1">Super Administrador</option>
 								<option value="2">Cajero</option>
 								<option value="3">Repartidor</option>

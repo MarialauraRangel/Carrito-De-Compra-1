@@ -6,17 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
-
-	protected $table = "sales";
-
 	protected $fillable = [
 		'slug',
 		'user_id',
 		'store_id',
 		'distance_id',
 		'state',
-		'time',
+		'time_start',
+		'time_finish',
+		'subtotal',
+		'delivery',
 		'total',
+		'phone',
 		'address'
 	];
 
@@ -24,8 +25,8 @@ class Sale extends Model
 		return $this->belongsTo(Store::class);
 	}
 
-	public function users() {
-		return $this->belongsToMany(User::class)->withPivot('rol')->withTimestamps();
+	public function user() {
+		return $this->belongsTo(User::class);
 	}
 
 	public function distance() {
@@ -34,5 +35,13 @@ class Sale extends Model
 
 	public function orders() {
 		return $this->hasMany(Order::class);
+	}
+
+	public function casher() {
+		return $this->hasOne(Casher::class);
+	}
+
+	public function deliveryUser() {
+		return $this->hasOne(DeliveryUser::class);
 	}
 }

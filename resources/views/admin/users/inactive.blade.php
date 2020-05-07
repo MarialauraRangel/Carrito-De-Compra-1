@@ -26,6 +26,7 @@
 								<th>#</th>
 								<th>Nombre Completo</th>
 								<th>Correo Electrónico</th>
+								<th>Tipo</th>
 								<th>Estado</th>
 								<th>Acciones</th>
 							</tr>
@@ -40,7 +41,14 @@
 									</span>
 								</td>
 								<td>{{ $user->email }}</td>
-								<td>{{  $user->state }}</td>
+								<td>@if($user->type==1) Super Administrador @elseif($user->type==2) Cajero @elseif($user->type==3) Repartidor @else Cliente @endif</td>
+								<td>
+									@if($user->state==1)
+									<span class="badge badge-success">Activo</span>
+									@else
+									<span class="badge badge-danger">Inactivo</span>
+									@endif
+								</td>
 								<td class="d-flex">
 									<a class="btn btn-success btn-circle btn-sm" href="{{ route('usuario.show', ['slug' => $user->slug]) }}"><i class="mdi mdi-account-card-details"></i></a>&nbsp;&nbsp;
 									<a class="btn btn-info btn-circle btn-sm" href="{{ route('usuario.edit', ['slug' => $user->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;

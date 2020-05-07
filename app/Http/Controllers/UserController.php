@@ -61,9 +61,14 @@ class UserController extends Controller
                 $slug=Str::slug(request('name')." ".request('lastname'), '-')."-".$num;
                 $num++;
             } else {
-                $data=array('name' => request('name'), 'lastname' => request('lastname'), 'phone' => request('phone'), 'slug' => $slug, 'email' => request('email'), 'type' => request('type'), 'password' => Hash::make(request('password')));
+                $data=array('name' => request('name'), 'lastname' => request('lastname'), 'dni' => request('dni'), 'phone' => request('phone'), 'slug' => $slug, 'email' => request('email'), 'type' => request('type'), 'password' => Hash::make(request('password')));
                 break;
             }
+        }
+
+        if (request('type')==2 || request('type')==3) {
+            $store=Store::where('slug', request('store_id'))->firstOrFail();
+            $data['store_id']=$store->id;
         }
 
         // Mover imagen a carpeta users y extraer nombre
@@ -118,7 +123,24 @@ class UserController extends Controller
     public function update(Request $request, $slug) {
 
         $user = User::where('slug', $slug)->firstOrFail();
-        $user->fill($request->all())->save();
+        $data=array('name' => request('name'), 'lastname' => request('lastname'), 'dni' => request('dni'), 'phone' => request('phone'), 'type' => request('type'));
+
+        if (request('type')==2 || request('type')==3) {
+            $store=Store::where('slug', request('store_id'))->firstOrFail();
+            $data['store_id']=$store->id;
+        } else {
+            $data['store_id']=NULL;
+        }
+
+        // Mover imagen a carpeta users y extraer nombre
+        if ($request->hasFile('photo')) {
+            $file=$request->file('photo');
+            $photo=time()."_".$file->getClientOriginalName();
+            $file->move(public_path().'/admins/img/users/', $photo);
+            $data['photo']=$photo;
+        }
+
+        $user->fill($data)->save();
 
         if ($user) {
             return redirect()->route('usuario.edit', ['slug' => $slug])->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido editado exitosamente.']);
@@ -149,27 +171,6 @@ class UserController extends Controller
         } else {
             return redirect()->route('usuario.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($slug) {
-        $user=User::where('slug', $slug)->firstOrFail();
-        $user->delete();
-
-        if ($user) {
-            return redirect()->route('usuario.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El usuario ha sido eliminado exitosamente.']);
-        } else {
-            return redirect()->route('usuario.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
-        }
-    }
-
-    public function profile(Request $request) {
-        return view('admin.users.profile');
     }
 
     public function emailVerify(Request $request)

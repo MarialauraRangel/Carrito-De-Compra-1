@@ -51,6 +51,14 @@ class User extends Authenticatable
     }
 
     public function sales() {
-        return $this->belongsToMany(Sale::class)->withPivot('rol')->withTimestamps();
+        return $this->hasMany(Sale::class);
+    }
+
+    public function cashers() {
+        return $this->hasMany(Casher::class);
+    }
+
+    public function deliveries() {
+        return $this->hasMany(DeliveryUser::class);
     }
 }

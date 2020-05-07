@@ -35,9 +35,9 @@
 							<tr>
 								<td>{{ $num++ }}</td>
 								<td>{{ $s->store->name }}</td>
-								<td></td>
-								<td>{!!  saleState($s->state) !!}</td>
-								<td>{{ $s->created_at->format('d-m-Y') }}</td>
+								<td>{{ number_format($s->total, 2, ",", ".")." Bs" }}</td>
+								<td>{!! saleState($s->state) !!}</td>
+								<td>{{ $s->created_at->format('d-m-Y H:i a') }}</td>
 								<td class="d-flex justify-content-center">
 									<a href="{{ route('pago.order', ['slug' => $s->slug]) }}" class="btn btn-primary"><i class="icon-eye"></i></a>
 								</td>

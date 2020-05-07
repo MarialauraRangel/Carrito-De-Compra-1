@@ -18,7 +18,7 @@
 						<h4 class="card-title"><span class="lstick"></span>Estado: {!! saleState($sale->state) !!}</h4>
 					</div>
 					<div class="ml-auto">
-						<h5 class="card-title"><span class="lstick"></span>Fecha: {{ date('d-m-Y', strtotime($sale->created_at)) }}</h5>
+						<h5 class="card-title"><span class="lstick"></span>Fecha: {{ date('d-m-Y H:i a', strtotime($sale->created_at)) }}</h5>
 					</div>
 				</div>
 
@@ -26,74 +26,87 @@
 					<div class="col-lg-7 col-md-7 col-12 ftco-animate">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Pedido:</strong> N° {{  $sale->id }}</p>
+								<p><strong>Pedido:</strong> N° {{ $sale->id }}</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Cliente:</strong> {{ $sale->customer->name." ".$sale->customer->lastname }} </p>
+								<p><strong>Cliente:</strong> {{ $sale->user->name." ".$sale->user->lastname }} </p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Tienda:</strong>
+								<p><strong>Teléfono:</strong> {{ $sale->phone }}</p>
+							</div>
+							<div class="col-lg-6 col-md-6 col-12">
+								<p><strong>Envio:</strong> @if($sale->distance->km==0) No @else Si @endif</p>
+							</div>
+							@if($sale->distance->km>0)
+							<div class="col-lg-6 col-md-6 col-12">
+								<p><strong>Distancia:</strong> {{ number_format($sale->distance->km, 1, ",", ".")." kilometros" }}</p>
+							</div>
+							@endif
+							<div class="col-lg-6 col-md-6 col-12">
+								<p>
+									<strong>Tienda:</strong>
 									@if($sale->store_id==NULL)
 									No asignado
 									@else
-									{{ $sale->stores->name }}
-								@endif </p>
-							</div>
-							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Cajero:</strong> 
-									@if($sale->casher_id==NULL)
-									No asignado
-									@else
-									{{ $sale->casher->name." ".$sale->casher->lastname }}
+									{{ $sale->store->name }}
 									@endif
 								</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Repartidor:</strong> 
-									@if($sale->delivery_man_id==NULL)
+								<p>
+									<strong>Cajero:</strong> 
+									@if($sale->casher==NULL)
 									No asignado
 									@else
-									{{ $sale->delivery->name." ".$sale->delivery->lastname }}
+									{{ $sale->casher->user->name." ".$sale->casher->user->lastname }}
 									@endif
 								</p>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<p><strong>Tiempo de Entrega:</strong> 
-
-									@if($sale->time==NULL)
+								<p>
+									<strong>Repartidor:</strong> 
+									@if($sale->deliveryUser==NULL)
 									No asignado
 									@else
-									{{ $sale->time }}
+									{{ $sale->deliveryUser->user->name." ".$sale->deliveryUser->user->lastname }}
 									@endif
 								</p>
+							</div>
+							<div class="col-lg-6 col-md-6 col-12">
+								<p>
+									<strong>Tiempo de Entrega:</strong> 
+									@if($sale->time_start==NULL && $sale->time_finish==NULL)
+									No asignado
+									@elseif($sale->time_finish>=date('Y-m-d h:i:s'))
+									<input type="hidden" id="minutes" value="{{ minutes($sale->time_start, date('Y-m-d H:i:s')) }}">
+									<input type="hidden" id="seconds" value="00">
+									<span id="countdown"></span>
+									@else 
+									Finalizado
+									@endif
+								</p>
+							</div>
+							<div class="col-12">
+								<strong>Dirección</strong> {{ $sale->address }}
 							</div>
 						</div>
 					</div>
 
 					<div class="col-lg-5 col-md-5 col-12 ftco-animate">
 						<div class="cart-detail cart-total p-3 p-md-4 bg-light">
-							<div class="row mb-2">
-								<div class="col-lg-4 col-md-4 col-sm-5 col-12">
-									<strong>Dirección</strong>
-								</div>
-								<div class="col-lg-8 col-md-8 col-sm-7 col-12">
-									<p class="text-primary mb-1">{{ $sale->address }}</p>
-									<p><strong>Cantidad:</strong> ...</p>
-								</div>
-							</div>
 							<h3 class="billing-heading mb-2">Total del Pago</h3>
 							<p class="d-flex justify-content-between">
 								<span>Subtotal</span>
-								<span>...</span>
+								<span>{{ number_format($sale->subtotal, 2, ",", ".")." Bs" }}</span>
 							</p>
 							<p class="d-flex justify-content-between">
 								<span>Delivery</span>
-								<span>{{ $sale->distance->price }}</span>
+								<span>{{ number_format($sale->delivery, 2, ",", ".")." Bs" }}</span>
 							</p>
 							<hr>
 							<p class="d-flex justify-content-between">
 								<span>Total</span>
-								<span>...</span>
+								<span>{{ number_format($sale->total, 2, ",", ".")." Bs" }}</span>
 							</p>
 						</div>
 					</div>
@@ -115,6 +128,7 @@
 								<th>#</th>
 								<th>Producto</th>
 								<th>Tamaño</th>
+								<th>Cantidad</th>
 								<th>Precio</th>
 							</tr>
 						</thead>
@@ -125,7 +139,8 @@
 								<td>{{ $o->product->name }}
 								</td>
 								<td>{{ $o->size->name }}</td>
-								<td>{{ $o->price }} Bs</td>
+								<td>{{ $o->qty }}</td>
+								<td>{{ number_format($o->price, 2, ",", ".")." Bs" }}</td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -136,4 +151,9 @@
 	</div>
 </div>
 
+@endsection
+
+@section('script')
+<script src="{{ asset('/admins/vendors/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('/admins/js/timer.jquery.js') }}"></script>
 @endsection

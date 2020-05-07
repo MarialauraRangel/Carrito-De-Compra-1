@@ -23,7 +23,7 @@
 							<hr>
 							<p class="d-flex total-price">
 								<span>Total</span>
-								<span id="total">{{ number_format($total, 2, ",", ".") }} Bs</span>
+								<span id="total" total="{{ $total }}">{{ number_format($total, 2, ",", ".") }} Bs</span>
 							</p>
 						</div>
 					</div>
@@ -138,43 +138,33 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="phone">Teléfono</label>
-								@if(Auth::user()->phone==NULL)
-								<input type="text" class="form-control" required name="phone" placeholder="Introduzca su número telefónico">
-								@else
-								<input type="text" class="form-control" value="{{ Auth::user()->phone }}" disabled>
-								@endif
+								<input type="text" class="form-control" required name="phone" placeholder="Introduzca su número telefónico" @if(Auth::user()->phone!=NULL) value="{{ Auth::user()->phone }}" @endif>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="phone">DNI</label>
-								@if(Auth::user()->dni==NULL)
-								<input type="text" class="form-control" required name="dni" placeholder="Introduzca su dni">
-								@else
-								<input type="text" class="form-control" value="{{ Auth::user()->dni }}" disabled>
-								@endif
+								<input type="text" class="form-control" required name="dni" placeholder="Introduzca su dni"  @if(Auth::user()->dni!=NULL) value="{{ Auth::user()->dni }}" readonly @endif>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="phone">Seleccione la tienda a solicitar productos</label>
+								<label for="phone">Seleccione la tienda a solicitar los productos</label>
 								<select class="form-control" required name="store_id">
-									<option>Seleccione</option>
+									<option value="">Seleccione</option>
 									@foreach($store as $s)
-									<option value="{{ $s->slug }}">{{ $s->name }}</option>
+									<option value="{{ $s['slug'] }}">{{ $s['name'] }}</option>
 									@endforeach
 								</select>
-								
-								<input type="hidden" name="total" value="{{ $total }}">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="phone">Distancia a recorrer</label>
-								<select class="form-control" required name="distance_id">
-									<option>Seleccione</option>
+								<select class="form-control" required name="distance_id" id="delivery">
+									<option value="">Seleccione</option>
 									@foreach($distance as $d)
-									<option value="{{ $d->slug }}" price="{{ $d->price }}">@if($d->km>0) {{ number_format($d->km, 1, ",", ".")." kilometros" }} @else Local @endif - @if($d->price>0) {{ number_format($d->price, 2, ",", ".")." Bs" }} @else (Gratis) @endif</option>
+									<option value="{{ $d->slug }}" price="{{ $d->price }}">@if($d->km>0) {{ number_format($d->km, 1, ",", ".")." kilometros" }} @else Local @endif - @if($d->price>0) {{ number_format($d->price, 2, ",", ".")." Bs" }} @else {{ "Gratis" }} @endif</option>
 									@endforeach
 								</select>
 							</div>

@@ -183,12 +183,16 @@ class WebController extends Controller
         $total=0;
         if ($request->session()->has('cart')) {
             $cart=session('cart');
+            $store=[];
+            $num=0;
             foreach ($cart as $cartProduct) {
                 $total+=$cartProduct['price']*$cartProduct['qty'];
+                if (array_search($cartProduct['store_slug'], array_column($store, 'slug'))===false) {
+                    $store[$num]=['slug' => $cartProduct['store_slug'], 'name' => $cartProduct['store']];
+                }
             }
 
             $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
-            $store = Store::all();
             $distance = Distance::all();
 
             return view('web.checkout', compact('cart', 'total', 'store', 'distance'));
@@ -212,26 +216,29 @@ class WebController extends Controller
                 $slug="venta-".$num;
                 $num++;
             } else {
+                $subtotal=0;
+                $cart=session('cart');
+                foreach ($cart as $cartProduct) {
+                    $subtotal+=$cartProduct['price']*$cartProduct['qty'];
+                }
                 $store = Store::where('slug', request('store_id'))->firstOrFail();
                 $distance = Distance::where('slug', request('distance_id'))->firstOrFail();
-                $data = array('slug' => $slug, 'user_id' => Auth::user()->id, 'store_id' => $store->id, 'address' => request('address'), 'distance_id' => $distance->id, 'total' => $request->total); 
+                $total=$subtotal+$distance->price;
+                $data = array('slug' => $slug, 'user_id' => Auth::user()->id, 'phone' => request('phone'), 'address' => request('address'), 'subtotal' => $subtotal, 'delivery' => $distance->price, 'total' => $total, 'user_id' => Auth::user()->id, 'store_id' => $store->id,  'distance_id' => $distance->id); 
                 
 
-                if (isset($request->phone)) {
-                    $user = User::where('slug', $request->user)->firstOrFail();
+                if (Auth::user()->phone==NULL) {
+                    $user = User::find(Auth::user()->id);
                     $data = array('phone' => $request->phone);
                     $user->fill($data)->save();  
                 }
 
-                if (isset($request->dni)) {
-                    $user = User::where('slug', $request->user)->firstOrFail();
+                if (Auth::user()->dni==NULL) {
+                    $user = User::find(Auth::user()->id);
                     $data = array('dni' => $request->dni);
-                    $user->fill($data)->save();  
-                    dd($user->dni);
+                    $user->fill($data)->save();
                 }
-
                 break;
-                
             }
 
         }
@@ -258,18 +265,18 @@ class WebController extends Controller
 
     public function shopping(Request $request) {
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
-        $sales = Sale::where('user_id', '=', Auth::user()->id)->get();
+        $sales = Sale::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         $num = 1;
+
         return view('web.orders', compact('cart', 'sales', 'num'));
     }
 
     public function orderProduct(Request $request, $slug) {
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
         $sale = Sale::where('slug', $slug)->firstOrFail();
-        $order = Order::where('sale_id', '=', $sale->id)->get();
         $num = 1;
 
-        return view('web.order_product', compact('cart', 'sale', 'order', 'num'));
+        return view('web.order_product', compact('cart', 'sale', 'num'));
     }
 
 }

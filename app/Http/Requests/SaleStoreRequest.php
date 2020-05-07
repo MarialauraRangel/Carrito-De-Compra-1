@@ -25,7 +25,9 @@ class SaleStoreRequest extends FormRequest
     {
         return [
             'store_id' => 'required',
-            'address' => 'required|string|min:0|max:64000',
+            'phone' => 'required|min:6|max:14',
+            'dni' => 'required|min:5|max:11',
+            'address' => 'required|string|min:6|max:64000',
             'distance_id' => 'required'
         ];
     }

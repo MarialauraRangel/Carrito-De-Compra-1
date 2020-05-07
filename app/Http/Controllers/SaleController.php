@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Sale;
 use App\User;
 use App\Order;
+use App\Casher;
+use App\DeliveryUser;
 use App\Http\Requests\SaleStoreRequest;
 use App\Http\Requests\SaleUpdateRequest;
 use Illuminate\Http\Request;
@@ -18,32 +20,11 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sale = Sale::all();
+        $sale = Sale::orderBy('id', 'DESC')->get();
         $casher = User::where('type', 2)->where('state', 1)->get();
         $deliveryMan = User::where('type', 3)->where('state', 1)->get();
         $num = 1;
         return view('admin.sales.index', compact('sale', 'num', 'casher', 'deliveryMan'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -61,17 +42,6 @@ class SaleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Sale  $sale
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Sale $sale)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -81,34 +51,26 @@ class SaleController extends Controller
     public function update(Request $request, $slug)
     {
         $sale = Sale::where('slug', $slug)->firstOrFail();
-        $sale->fill($request->all())->save();
+        $casher= User::where('slug', request('casher_id'))->firstOrFail();
+        $deliveryMan= User::where('slug', request('delivery_man_id'))->firstOrFail();
 
-        if ($sale) {
+        $delivery=DeliveryUser::create(['sale_id' => $sale->id, 'user_id' => $deliveryMan->id])->save();
+        $casher=Casher::create(['sale_id' => $sale->id, 'user_id' => $casher->id])->save();
+        
+        if ($casher || $delivery) {
             return redirect()->route('venta.index')->with(['type' => 'success', 'title' => 'Asignación exitosa', 'msg' => 'Se ha asignado correctamente el cajero y repartidor correctamente.']);
         } else {
             return redirect()->route('venta.index')->with(['type' => 'error', 'title' => 'Asignación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Sale  $sale
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Sale $sale)
-    {
-        //
-    }
-
     public function time(Request $request, $slug)
     {
         $sale = Sale::where('slug', $slug)->firstOrFail();
-        $today= date('H:i:s'); 
+        $today= date('Y-m-d H:i:s'); 
         $newDate = strtotime('+30 minute', strtotime($today)) ;  
-        $newDate = date('H:i:s', $newDate); 
-        $data = array('time' => $newDate);
-        $sale->fill($data)->save();
+        $newDate = date('Y-m-d H:i:s', $newDate);
+        $sale->fill(['time_start' => date('Y-m-d H:i:s'), 'time_finish' => $newDate])->save();
 
         if ($sale) {
             return redirect()->route('venta.index')->with(['type' => 'success', 'title' => 'Asignación exitosa', 'msg' => 'Se ha iniciado el tiempo de entrega.']);
@@ -128,6 +90,4 @@ class SaleController extends Controller
             return redirect()->route('venta.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
-
-
 }

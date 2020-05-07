@@ -16,12 +16,13 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug')->unique();
-            $table->string('time')->nullable();
-            $table->mediumText('phone');
+            $table->string('phone');
             $table->mediumText('address');
             $table->float('subtotal', 10, 2)->default(0.00);
             $table->float('delivery', 10, 2)->default(0.00);
             $table->float('total', 10, 2)->default(0.00);
+            $table->string('time_start')->nullable();
+            $table->string('time_finish')->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('store_id')->unsigned()->nullable();
             $table->bigInteger('distance_id')->unsigned()->nullable();

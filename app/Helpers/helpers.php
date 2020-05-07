@@ -83,3 +83,11 @@ function selectSizesProduct($arrays, $selectedItems) {
 	}
 	return $selects;
 }
+
+function minutes($start, $end) {
+	$minutes=(strtotime($start)-strtotime($end))/60;
+	$minutes=abs($minutes);
+	$minutes=floor($minutes);
+
+	return 30-$minutes;
+}

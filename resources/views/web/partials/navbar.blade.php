@@ -1,9 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light shadow" id="ftco-navbar">
 	<div class="container">
 		<a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('/admins/img/logo.png') }} " width="90" alt="Logo"></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="oi oi-menu"></span> Menu
-		</button>
+		<div>
+			<a class="d-xl-none d-lg-none pl-5" href="{{ route('carrito.index') }}"><i class="icon-shopping_cart"></i>[<span class="count-cart">{{ $cart }}</span>]</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+		</div>
 
 		<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="navbar-nav ml-auto">
@@ -20,7 +23,6 @@
 						@if(Auth::user()->type==1 || Auth::user()->type==2 || Auth::user()->type==3)
 						<a class="dropdown-item" href="{{ route('admin') }}">Panel Administrativo</a>
 						@endif
-						{{-- <a class="dropdown-item" href="{{ route('web.profile') }}">Perfil</a> --}}
 						<a class="dropdown-item" href="{{ route('pago.index') }}">Mis Compras</a>
 						<hr class="w-75 my-0">
 						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>

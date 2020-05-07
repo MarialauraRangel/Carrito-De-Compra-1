@@ -79,13 +79,12 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/maesma/usuarios', 'UserController@index')->name('usuario.index');
 		Route::get('/maesma/usuarios/registrar', 'UserController@create')->name('usuario.create');
 		Route::post('/maesma/usuarios', 'UserController@store')->name('usuario.store');
+		Route::get('/maesma/usuarios/inactivos', 'UserController@inactive')->name('usuario.inactivos');
 		Route::get('/maesma/usuarios/{slug}', 'UserController@show')->name('usuario.show');
 		Route::get('/maesma/usuarios/{slug}/editar', 'UserController@edit')->name('usuario.edit');
-		Route::put('/maesma/inactivos', 'UserController@inactive')->name('usuario.inactivos');
 		Route::put('/maesma/usuarios/{slug}', 'UserController@update')->name('usuario.update');
 		Route::put('/maesma/usuarios/activar/{slug}', 'UserController@activate')->name('usuario.activate');
 		Route::put('/maesma/usuarios/desactivar/{slug}', 'UserController@deactivate')->name('usuario.deactivate');
-		Route::get('/maesma/perfil', 'UserController@profile')->name('usuario.profile');
 
 		//Distancias
 		Route::get('/maesma/distancias', 'DistanceController@index')->name('distancias.index');
@@ -99,7 +98,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::group(['middleware' => ['not.client']], function () {
 		//Ventas
 		Route::get('/maesma/ventas', 'SaleController@index')->name('venta.index');
-		Route::put('/maesma/ventas/cajero-repartidor/{slug}', 'SaleController@update')->name('venta.user');
+		Route::post('/maesma/ventas/cajero-repartidor/{slug}', 'SaleController@update')->name('venta.user');
 		Route::put('/maesma/ventas/tiempo/{slug}', 'SaleController@time')->name('venta.time');
 		Route::put('/maesma/ventas/estado/{slug}', 'SaleController@state')->name('venta.state');
 		Route::get('/maesma/ventas/{slug}', 'SaleController@show')->name('venta.show');

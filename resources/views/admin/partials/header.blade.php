@@ -29,7 +29,6 @@
                             </li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ route('home') }}"><i class="fa fa-home"></i> Volver a la Web</a></li>
-                            <li><a href="{{-- {{ route('usuarios.profile') }} --}}"><i class="fa fa-id-card"></i> Perfil</a></li>
                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
