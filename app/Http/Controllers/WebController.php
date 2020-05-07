@@ -10,6 +10,7 @@ use App\Distance;
 use App\Sale;
 use App\Order;
 use App\User;
+use App\Http\Requests\SaleStoreRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -196,7 +197,7 @@ class WebController extends Controller
         return redirect()->route('web.cart');
     }
 
-    public function saleStore(Request $request) {
+    public function saleStore(SaleStoreRequest $request) {
         $count=Sale::count();
         $slug=Str::slug('venta', '-');
         if ($count>0) {
@@ -213,7 +214,7 @@ class WebController extends Controller
             } else {
                 $store = Store::where('slug', request('store_id'))->firstOrFail();
                 $distance = Distance::where('slug', request('distance_id'))->firstOrFail();
-                $data = array('slug' => $slug, 'user_id' => Auth::user()->id, 'store_id' => $store->id, 'address' => request('address'), 'distance_id' => $distance->id, 'total' => request('total'));
+                $data = array('slug' => $slug, 'user_id' => Auth::user()->id, 'store_id' => $store->id, 'address' => request('address'), 'distance_id' => $distance->id, 'total' => $request->total); 
                 
 
                 if (isset($request->phone)) {

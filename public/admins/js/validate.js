@@ -136,10 +136,16 @@ $(document).ready(function(){
 					maxlength: 15
 				},
 
-				password: {
+				dni: {
 					required: true,
-					minlength: 8,
-					maxlength: 40
+					minlength: 5,
+					maxlength: 15
+				},
+
+				phone: {
+					required: true,
+					minlength: 5,
+					maxlength: 15
 				},
 
 				password_confirmation: { 
@@ -171,6 +177,11 @@ $(document).ready(function(){
 					maxlength: 'Escribe máximo {0} caracteres.'
 				},
 
+				dni: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
 				password: {
 					minlength: 'Escribe mínimo {0} caracteres.',
 					maxlength: 'Escribe máximo {0} caracteres.'
@@ -185,58 +196,9 @@ $(document).ready(function(){
 		});
 	});
 
-	//Blog
-	$("button[action='blog']").on("click",function(){
-		$("#formBlog").validate({
-			rules:
-			{
-				title: {
-					required: true,
-					minlength: 2,
-					maxlength: 191
-				}
-			},
-			messages:
-			{
-				title: {
-					minlength: 'Escribe mínimo {0} caracteres.',
-					maxlength: 'Escribe máximo {0} caracteres.'
-				}
-			}
-		});
-	});
 
-	//Marcas
-	$("button[action='brand']").on("click",function(){
-		$("#formBrand").validate({
-			rules:
-			{
-				name: {
-					required: true,
-					minlength: 2,
-					maxlength: 191
-				},
 
-				quality: {
-					required: true,
-					min: 1,
-					max: 5
-				}
-			},
-			messages:
-			{
-				name: {
-					minlength: 'Escribe mínimo {0} caracteres.',
-					maxlength: 'Escribe máximo {0} caracteres.'
-				},
 
-				quality: {
-					min: 'Escribe un valor mayor o igual a {0}.',
-					max: 'Escribe un valor menor o igual a {0}.'
-				}
-			}
-		});
-	});
 
 
 	//Categorias
@@ -260,6 +222,41 @@ $(document).ready(function(){
 		});
 	});
 
+	//Categorias
+	$("button[action='sale']").on("click",function(){
+		$("#formSale").validate({
+			rules:
+			{
+				store_id: {
+					required: true
+				},
+
+				address: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				distance_id: {
+					required: true
+				}
+			},
+			messages:
+			{
+				address: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+				store_id: {
+					required: 'Seleccione una opción.'
+				},
+				distance_id: {
+					required: 'Seleccione una opción.'
+				}
+			}
+		});
+	});
+
 	//Productos
 	$("button[action='store']").on("click",function(){
 		$("#formStore").validate({
@@ -271,17 +268,13 @@ $(document).ready(function(){
 					maxlength: 191
 				},
 
-				district_id: {
-					required: true
-				},
-
 				address: {
 					required: true,
 					minlength: 2,
 					maxlength: 191
 				},
 
-				phone: {
+				phone_one: {
 					required: true,
 					minlength: 2,
 					maxlength: 15
@@ -294,16 +287,12 @@ $(document).ready(function(){
 					maxlength: 'Escribe máximo {0} caracteres.'
 				},
 
-				district_id: {
-					required: 'Seleccione una opción.'
-				},
-
 				address: {
 					minlength: 'Escribe mínimo {0} caracteres.',
 					maxlength: 'Escribe máximo {0} caracteres.'
 				},
 
-				phone: {
+				phone_two: {
 					minlength: 'Escribe mínimo {0} caracteres.',
 					maxlength: 'Escribe máximo {0} caracteres.'
 				}
@@ -320,36 +309,17 @@ $(document).ready(function(){
 					required: true
 				},
 
-				brand_id: {
-					required: true
-				},
-
-				subcategory_id: {
-					required: true
-				},
-
 				name: {
 					required: true,
 					minlength: 2,
 					maxlength: 191
 				},
 
-				qty: {
-					required: true,
-					min: 0,
-					max: 10000
-				},
 
-				price: { 
+				price_unique: { 
 					required: true,
 					min: 0,
 					max: 10000000
-				},
-
-				ofert: { 
-					required: true,
-					min: 0,
-					max: 100
 				},
 
 				description: { 
@@ -364,30 +334,12 @@ $(document).ready(function(){
 					required: 'Seleccione una opción.'
 				},
 
-				brand_id: {
-					required: 'Seleccione una opción.'
-				},
-
-				subcategory_id: {
-					required: 'Seleccione una opción.'
-				},
-
 				name: {
 					minlength: 'Escribe mínimo {0} caracteres.',
 					maxlength: 'Escribe máximo {0} caracteres.'
 				},
 
-				qty: { 
-					min: 'Escribe un valor mayor o igual a {0}.',
-					max: 'Escribe un valor menor o igual a {0}.'
-				},
-
-				price: {
-					min: 'Escribe un valor mayor o igual a {0}.',
-					max: 'Escribe un valor menor o igual a {0}.'
-				},
-
-				ofert: {
+				price_unique: {
 					min: 'Escribe un valor mayor o igual a {0}.',
 					max: 'Escribe un valor menor o igual a {0}.'
 				},
@@ -400,32 +352,5 @@ $(document).ready(function(){
 		});
 	});
 
-	//SubCategorias
-	$("button[action='subcategory']").on("click",function(){
-		$("#formSubCategory").validate({
-			rules:
-			{
-				category: { 
-					required: true
-				},
 
-				name: {
-					required: true,
-					minlength: 2,
-					maxlength: 191
-				}
-			},
-			messages:
-			{
-				category: {
-					required: 'Seleccione una opción.'
-				},
-
-				name: {
-					minlength: 'Escribe mínimo {0} caracteres.',
-					maxlength: 'Escribe máximo {0} caracteres.'
-				}
-			}
-		});
-	});
 });

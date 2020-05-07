@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/mis-compras/{slug}', 'WebController@orderProduct')->name('pago.order');
 
 	///// //////////////////////////////////ADMIN ///////////////////////////////////////////////////
+
 	Route::group(['middleware' => ['not.client']], function () {
 		// Inicio
 		Route::get('/maesma', 'AdminController@index')->name('admin');
@@ -80,7 +81,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/maesma/usuarios', 'UserController@store')->name('usuario.store');
 		Route::get('/maesma/usuarios/{slug}', 'UserController@show')->name('usuario.show');
 		Route::get('/maesma/usuarios/{slug}/editar', 'UserController@edit')->name('usuario.edit');
-		Route::put('/maesma/usuarios/inactivos', 'UserController@inactive')->name('usuario.inactivos');
+		Route::put('/maesma/inactivos', 'UserController@inactive')->name('usuario.inactivos');
 		Route::put('/maesma/usuarios/{slug}', 'UserController@update')->name('usuario.update');
 		Route::put('/maesma/usuarios/activar/{slug}', 'UserController@activate')->name('usuario.activate');
 		Route::put('/maesma/usuarios/desactivar/{slug}', 'UserController@deactivate')->name('usuario.deactivate');

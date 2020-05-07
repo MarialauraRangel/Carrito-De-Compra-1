@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Category;
 use App\Sale;
 use App\Product;
 use App\Store;
 use App\User;
+
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
