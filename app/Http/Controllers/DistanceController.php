@@ -109,9 +109,9 @@ class DistanceController extends Controller
         $distance->delete();
 
         if ($distance) {
-            return redirect()->route('distancias.index')->with(['type' => 'success', 'title' => 'Modificación exitosa', 'msg' => 'La distancia ha sido eliminada exitosamente.']);
+            return redirect()->route('distancias.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La distancia ha sido eliminada exitosamente.']);
         } else {
-            return redirect()->route('distancias.index')->with(['type' => 'error', 'title' => 'Modificación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('distancias.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

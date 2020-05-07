@@ -12,15 +12,9 @@ class Distance extends Model
 		'slug',
 		'km',
 		'price',
-		'casher_id',
-		'distance_id', 
-		'delivery_man_id',
-		'state',
-		'time',
-		'address'
 	];
 
-	public function sale() {
-		return $this->hasOne(Sale::class, 'id');
+	public function sales() {
+		return $this->hasMany(Sale::class);
 	}
 }

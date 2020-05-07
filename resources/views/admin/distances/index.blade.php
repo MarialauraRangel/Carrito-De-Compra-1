@@ -23,20 +23,34 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Nombre</th>
+								<th>Kilometros</th>
+								<th>Precio</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($categories as $category)
+							@foreach($distances as $distance)
 							<tr>
 								<td>{{ $num++ }}</td>
-								<td>{{ $category->name }}</td>
-								<td class="d-flex">
-									<a class="btn btn-info btn-circle btn-sm" href="{{ route('categorias.edit', ['slug' => $category->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-									@if(count($category->products)==0)
-									<button class="btn btn-danger btn-circle btn-sm" onclick="deleteCategory('{{ $category->slug }}')"><i class="fa fa-trash"></i></button>
+								<td>
+									@if($distance->km>0)
+									{{ number_format($distance->km, 1, ",", ".")." kilometros" }}
+									@else
+									Local
 									@endif
+								</td>
+								<td>
+									@if($distance->price>0)
+									{{ number_format($distance->price, 2, ",", ".")." Bs" }}
+									@else
+									Gratis
+									@endif
+								</td>
+								<td class="d-flex">
+									<a class="btn btn-info btn-circle btn-sm" href="{{ route('distancias.edit', ['slug' => $distance->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+									{{-- @if(count($distance->products)==0) --}}
+									<button class="btn btn-danger btn-circle btn-sm" onclick="deleteDistance('{{ $distance->slug }}')"><i class="fa fa-trash"></i></button>
+									{{-- @endif --}}
 								</td>
 							</tr>
 							@endforeach
@@ -48,17 +62,17 @@
 	</div>
 </div>
 
-<div class="modal fade" id="deleteCategory" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="deleteDistance" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres eliminar esta categoría?</h5>
+				<h5 class="modal-title">¿Estás seguro de que quieres eliminar esta distancia?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<form action="#" method="POST" id="formDeleteCategory">
+				<form action="#" method="POST" id="formDeleteDistance">
 					@csrf
 					@method('DELETE')
 					<button type="submit" class="btn btn-primary">Eliminar</button>

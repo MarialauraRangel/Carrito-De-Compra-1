@@ -109,9 +109,9 @@ class CategoryController extends Controller
         $category->delete();
 
         if ($category) {
-            return redirect()->route('categorias.index')->with(['type' => 'success', 'title' => 'Modificación exitosa', 'msg' => 'La Categoría ha sido eliminada exitosamente.']);
+            return redirect()->route('categorias.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La Categoría ha sido eliminada exitosamente.']);
         } else {
-            return redirect()->route('categorias.index')->with(['type' => 'error', 'title' => 'Modificación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('categorias.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

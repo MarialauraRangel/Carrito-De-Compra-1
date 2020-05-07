@@ -2,11 +2,6 @@
 
 @section('title', 'Comprar')
 
-@section('links')
-<link rel="stylesheet" href="{{ asset('/web/vendors/select2/select2.css') }}">
-<link rel="stylesheet" href="{{ asset('/web/vendors/select2/select2-bootstrap.css') }}">
-@endsection
-
 @section('content')
 
 <section class="ftco-section">
@@ -169,8 +164,7 @@
 									<option value="{{ $s->slug }}">{{ $s->name }}</option>
 									@endforeach
 								</select>
-								<input type="hidden" name="total" value="{{ number_format($total, 2, ",", ".") }}">
-								<input type="hidden" class="form-control" value="{{ Auth::user()->slug }}" name="user">
+								<input type="hidden" name="total" value="{{ $total }}">
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -179,7 +173,7 @@
 								<select class="form-control" required name="distance_id">
 									<option>Seleccione</option>
 									@foreach($distance as $d)
-									<option value="{{ $d->slug }}">{{ $d->km }} km = {{ $d->price }} bs</option>
+									<option value="{{ $d->slug }}" price="{{ $d->price }}">@if($d->km>0) {{ number_format($d->km, 1, ",", ".")." kilometros" }} @else Local @endif - @if($d->price>0) {{ number_format($d->price, 2, ",", ".")." Bs" }} @else (Gratis) @endif</option>
 									@endforeach
 								</select>
 							</div>

@@ -24,8 +24,8 @@ class DistanceStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'km' => 'required|number|min:0|max:10000000',
-            'price' => 'required|number|min:0|max:10000000'
+            'km' => 'required|min:0|max:10000000',
+            'price' => 'required|min:0|max:10000000'
         ];
     }
 }

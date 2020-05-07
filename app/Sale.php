@@ -13,11 +13,10 @@ class Sale extends Model
 		'slug',
 		'user_id',
 		'store_id',
-		'casher_id',
-		'distance_id', 
-		'delivery_man_id',
+		'distance_id',
 		'state',
 		'time',
+		'total',
 		'address'
 	];
 
@@ -25,16 +24,8 @@ class Sale extends Model
 		return $this->belongsTo(Store::class);
 	}
 
-	public function customer() {
-		return $this->belongsTo(User::class);
-	}
-
-	public function casher() {
-		return $this->belongsTo(User::class, 'casher_id', 'id');
-	}
-
-	public function delivery() {
-		return $this->belongsTo(User::class, 'delivery_man_id', 'id');
+	public function users() {
+		return $this->belongsToMany(User::class)->withPivot('rol')->withTimestamps();
 	}
 
 	public function distance() {

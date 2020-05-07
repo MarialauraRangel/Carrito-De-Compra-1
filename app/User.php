@@ -51,14 +51,6 @@ class User extends Authenticatable
     }
 
     public function sales() {
-        return $this->hasMany(Sale::class);
-    }
-
-    public function sales2() {
-        return $this->hasMany(Sale::class);
-    }
-
-    public function sales3() {
-        return $this->hasMany(Sale::class);
+        return $this->belongsToMany(Sale::class)->withPivot('rol')->withTimestamps();
     }
 }
