@@ -26,20 +26,47 @@
                 </li>
                 @endif
                 @if(Auth::user()->type==1 || Auth::user()->type==2 || Auth::user()->type==3)
-                <li><a class="waves-effect waves-dark" href="{{ route('venta.index') }}"><i class="fa fa-money"></i><span class="hide-menu">Ventas</span></a></li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-money"></i><span class="hide-menu">Ventas</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('venta.index') }}">Lista</a></li>
+                    </ul>
+                </li>
                 @endif
                 @if(Auth::user()->type==1)
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa  fa-sort-alpha-asc"></i><span class="hide-menu">Categorias</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-sort-alpha-asc"></i><span class="hide-menu">Categorias</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('categorias.create') }}">Registrar</a></li>
                         <li><a href="{{ route('categorias.index') }}">Lista</a></li>
                     </ul>
                 </li>
-                <li><a class="waves-effect waves-dark" href="{{ route('tienda.index') }}"><i class="fa fa-building"></i><span class="hide-menu">Tiendas</span></a></li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa  fa-map"></i><span class="hide-menu">Distancias</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-building"></i><span class="hide-menu">Tiendas</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('tienda.create') }}">Registrar</a></li>
+                        <li><a href="{{ route('tienda.index') }}">Lista</a></li>
+                    </ul>
+                </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-map"></i><span class="hide-menu">Distancias</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('distancias.create') }}">Registrar</a></li>
                         <li><a href="{{ route('distancias.index') }}">Lista</a></li>
+                    </ul>
+                </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-file"></i><span class="hide-menu">Páginas</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('paginas.create') }}">Registrar</a></li>
+                        <li><a href="{{ route('paginas.index') }}">Lista</a></li>
+                    </ul>
+                </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-square"></i><span class="hide-menu">Sliders</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('sliders.create') }}">Registrar</a></li>
+                        <li><a href="{{ route('sliders.index') }}">Lista</a></li>
+                    </ul>
+                </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-camera"></i><span class="hide-menu">Galería</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('galeria.create') }}">Registrar</a></li>
+                        <li><a href="{{ route('galeria.index') }}">Lista</a></li>
                     </ul>
                 </li>
                 @endif

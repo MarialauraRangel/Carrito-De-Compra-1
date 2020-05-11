@@ -1,7 +1,7 @@
 <?php
 
-function userState($state) {
-	if ($state==0) {
+function state($state) {
+	if ($state==2) {
 		return '<span class="badge badge-danger">Inactivo</span>';
 	} elseif ($state==1) {
 		return '<span class="badge badge-success">Activo</span>';

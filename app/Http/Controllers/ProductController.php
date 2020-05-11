@@ -71,7 +71,7 @@ class ProductController extends Controller
         // Mover imagen a carpeta products y extraer nombre
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $image = time()."_".$slug;
+            $image = time()."_".$file->getClientOriginalName();
             $file->move(public_path().'/admins/img/products/', $image);
             $data['image'] = $image;
         }
@@ -135,7 +135,7 @@ class ProductController extends Controller
         // Mover imagen a carpeta products y extraer nombre
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $image = time()."_".$slug;
+            $image = time()."_".$file->getClientOriginalName();
             $file->move(public_path().'/admins/img/products/', $image);
             $data['image'] = $image;
         }

@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('sale_id')->unsigned()->nullable();
             $table->bigInteger('product_id')->unsigned()->nullable();
             $table->bigInteger('size_id')->unsigned()->nullable();
-            $table->bigInteger('store_id')->unsigned()->nullable();
             $table->float('price', 10, 2)->default(0.00);
             $table->integer('qty')->default(1);
             $table->timestamps();
@@ -27,7 +26,6 @@ class CreateOrdersTable extends Migration
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('size_id')->references('id')->on('sizes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

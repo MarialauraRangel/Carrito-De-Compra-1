@@ -21,7 +21,15 @@
 						<a class="mr-2 text-dark">Categoría: <span>{{ $product->category->name }}</span></a>
 					</p>
 				</div>
-				<div class="row mt-4">
+				<div class="row">
+					<div class="col-12">
+						<p class="text-dark">Disponible En: 
+						@foreach($product->stores as $store)
+						@if($loop->index>0) / @endif {{ $store->name }}
+						@endforeach
+						</p>
+					</div>
+
 					<div class="col-lg-6 col-md-6 col-12">
 						<div class="form-group">
 							<label class="col-form-label">Tamaño</label>
@@ -39,20 +47,12 @@
 							<input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="product-qty" price="{{ $product->sizes[0]->pivot->price }}">
 						</div>
 					</div>
-
-					<div class="col-12">
-						<div class="form-group">
-							<label class="col-form-label">Tienda</label>
-							<select id="select-product-store-cart" class="form-control">
-								@foreach($product->stores as $store)
-								<option value="{{ $store->slug }}">{{ $store->name }}</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
 				</div>
 				<p>{{ $product->description }}</p>
-				<p><a class="btn btn-black text-white py-3 px-5" id="btn-add-product-cart" slug="{{ $product->slug }}"><span id="price-product-add-cart">{{ number_format($product->sizes[0]->pivot->price, 2, ",", ".")." Bs" }}</span> Agregar al carrito</a></p>
+				<p>
+					<a class="btn btn-black text-white py-3 px-3 mr-3" id="btn-add-product-cart" slug="{{ $product->slug }}"><span id="price-product-add-cart">{{ number_format($product->sizes[0]->pivot->price, 2, ",", ".")." Bs" }}</span> Agregar al carrito</a>
+					<a href="{{ route('menu') }}" class="btn btn-black text-white py-3 px-3">Seguir Comprando</a>
+				</p>
 			</div>
 		</div>
 	</div>
@@ -94,45 +94,43 @@
 </section>
 
 <div class="modal fade" id="modal-cart" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="title-cart"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-12">
-						<img src="" class="w-100 img-fluid" id="img-cart">
-					</div>
-					<div class="col-12">
-						<p id="description-cart"></p>
-					</div>
-					<div class="form-group col-12">
-						<label class="col-form-label">Tienda</label>
-						<select class="form-control" name="store" id="select-store-cart">
-							<option value="">Seleccione</option>
-						</select>
-					</div>
-					<div class="form-group col-lg-6 col-md-6 col-12">
-						<label class="col-form-label">Tamaño</label>
-						<select class="form-control" name="size" id="select-size-cart">
-							<option value="">Seleccione</option>
-						</select>
-					</div>
-					<div class="form-group col-lg-6 col-md-6 col-12">
-						<label class="col-form-label">Cantidad</label>
-						<input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="modal-qty" price="">
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="btn-add-cart" slug=""><b id="price-add-cart"></b> Agregar Al Carrito</button>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title-cart"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <img src="" class="w-100 img-fluid" id="img-cart">
+                    </div>
+                    <div class="col-12">
+                        <p id="description-cart"></p>
+                    </div>
+                    <div class="form-group col-12" id="stores-product-cart">
+                        <label class="col-form-label">Disponible En:</label>
+                        <p></p>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-12">
+                        <label class="col-form-label">Tamaño</label>
+                        <select class="form-control" name="size" id="select-size-cart">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-12">
+                        <label class="col-form-label">Cantidad</label>
+                        <input type="text" class="form-control number" name="qty" placeholder="Introduzca una cantidad" min="1" value="1" id="modal-qty" price="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-add-cart" slug=""><b id="price-add-cart"></b> Agregar Al Carrito</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection

@@ -11,7 +11,10 @@
 		<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Inicio</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Nosotros</a></li>
 				<li class="nav-item"><a href="{{ route('menu') }}" class="nav-link">Menú</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Galeria</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Ubicación</a></li>
 				<li class="nav-item cta cta-colored"><a href="{{ route('carrito.index') }}" class="nav-link"><span class="icon-shopping_cart"></span>[<span class="count-cart">{{ $cart }}</span>]</a></li>
 				@guest
 				<li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Ingresar</a></li>

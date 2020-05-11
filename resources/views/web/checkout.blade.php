@@ -152,8 +152,8 @@
 								<label for="phone">Seleccione la tienda a solicitar los productos</label>
 								<select class="form-control" required name="store_id">
 									<option value="">Seleccione</option>
-									@foreach($store as $s)
-									<option value="{{ $s['slug'] }}">{{ $s['name'] }}</option>
+									@foreach($stores as $s)
+									<option value="{{ $s->slug }}">{{ $s->name }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -177,7 +177,10 @@
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<p><button type="submit" action="sale" class="btn btn-primary py-3 px-4">Finalizar Compra</button></p>
+								<p>
+									<button type="submit" action="sale" class="btn btn-primary py-3 px-4">Finalizar Compra</button>
+									<a href="{{ route('menu') }}" class="btn btn-primary py-3 px-4">Seguir Comprando</a>
+								</p>
 							</div>
 						</div> 
 					</div>

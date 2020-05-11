@@ -65,11 +65,9 @@
                     <div class="col-12">
                         <p id="description-cart"></p>
                     </div>
-                    <div class="form-group col-12">
-                        <label class="col-form-label">Tienda</label>
-                        <select class="form-control" name="store" id="select-store-cart">
-                            <option value="">Seleccione</option>
-                        </select>
+                    <div class="form-group col-12" id="stores-product-cart">
+                        <label class="col-form-label">Disponible En:</label>
+                        <p></p>
                     </div>
                     <div class="form-group col-lg-6 col-md-6 col-12">
                         <label class="col-form-label">Tamaño</label>

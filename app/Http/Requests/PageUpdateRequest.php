@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-class StoreStoreRequest extends FormRequest
+class PageUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +26,12 @@ class StoreStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:191',
-            'address' => 'required|min:2|max:191',
-            'phone_one' => 'required|min:2|max:15',
-            'phone_two' => 'nullable|min:2|max:15'
+            'title' => 'required|string|min:2|max:191',
+            'image' => 'required|string|min:2|max:191',
+            'description' => 'required|string|min:10|max:64000',
+            'image' => 'file',
+            'link' => 'required|url|min:3|max:191',
+            'state' => 'required|'.Rule::in([1, 2])
         ];
     }
 }

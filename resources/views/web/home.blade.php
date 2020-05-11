@@ -10,6 +10,50 @@
 
 <section id="home-section" class="hero">
     <div class="home-slider owl-carousel">
+        @if(count($sliders)>1)
+        <div id="carouselCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @foreach($sliders as $slider)
+                <li data-target="#carouselCaptions" data-slide-to="{{ $loop->index }}" @if($loop->index==0) class="active" @endif></li>
+                @endforeach
+            </ol>
+            <div class="carousel-inner" style="height: 500px;">
+                @foreach($sliders as $slider)
+                <div class="carousel-item @if($loop->index==0) active @endif">
+                    <img src="{{ asset('/admins/img/sliders/'.$slider->image) }}" class="w-100" style="height: 500px;" alt="{{ $slider->title }}">
+                    <div class="carousel-caption slider-text mb-5 pb-5">
+                        <h1 class="mb-2">{{ $slider->title }}</h1>
+                        <h2 class="subheading mb-4">{{ $slider->description }}</h2>
+                        <p><a href="{{ $slider->link }}" class="btn btn-primary">Ver Más</a></p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <a class="carousel-control-prev" href="#carouselCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        @elseif(count($sliders)==1)
+        <div class="slider-item" style="background-image: url('/admins/img/sliders/{{ $sliders[0]->image }}');">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+                    <div class="col-md-12 ftco-animate text-center">
+                        <h1 class="mb-2">{{ $sliders[0]->title }}</h1>
+                        <h2 class="subheading mb-4">{{ $sliders[0]->description }}</h2>
+                        <p><a href="{{ $sliders[0]->link }}" class="btn btn-primary">Ver Más</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @else
         <div class="slider-item" style="background-image: url(web/images/bg_2.jpg);">
             <div class="overlay"></div>
             <div class="container">
@@ -24,6 +68,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 </section>
 
@@ -145,11 +190,9 @@
                     <div class="col-12">
                         <p id="description-cart"></p>
                     </div>
-                    <div class="form-group col-12">
-                        <label class="col-form-label">Tienda</label>
-                        <select class="form-control" name="store" id="select-store-cart">
-                            <option value="">Seleccione</option>
-                        </select>
+                    <div class="form-group col-12" id="stores-product-cart">
+                        <label class="col-form-label">Disponible En:</label>
+                        <p></p>
                     </div>
                     <div class="form-group col-lg-6 col-md-6 col-12">
                         <label class="col-form-label">Tamaño</label>

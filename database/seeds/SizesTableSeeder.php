@@ -18,8 +18,9 @@ class SizesTableSeeder extends Seeder
     		['id' => 4, 'name' => 'Grande', 'slug' => 'grande'],
     		['id' => 5, 'name' => 'Familiar', 'slug' => 'familiar'],
             ['id' => 6, 'name' => 'Super', 'slug' => 'super'],
-            ['id' => 7, 'name' => 'Gigante', 'slug' => 'gigante'],
-            ['id' => 8, 'name' => 'Super Gigante', 'slug' => 'super-gigante']
+            ['id' => 7, 'name' => 'Mega Pizza', 'slug' => 'mega-pizza'],
+            ['id' => 8, 'name' => 'Gigante', 'slug' => 'gigante'],
+            ['id' => 9, 'name' => 'Super Gigante', 'slug' => 'super-gigante']
     	];
     	DB::table('sizes')->insert($sizes);
     }

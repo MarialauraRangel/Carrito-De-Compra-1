@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/maesma/productos/{slug}', 'ProductController@update')->name('productos.update');
 		Route::delete('/maesma/productos/eliminar/{slug}', 'ProductController@destroy')->name('productos.delete');
 
-		//Distancias
+		//Categorías
 		Route::get('/maesma/categorias', 'CategoryController@index')->name('categorias.index');
 		Route::get('/maesma/categorias/registrar', 'CategoryController@create')->name('categorias.create');
 		Route::post('/maesma/categorias', 'CategoryController@store')->name('categorias.store');
@@ -70,6 +70,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//Tiendas
 		Route::get('/maesma/tiendas', 'StoreController@index')->name('tienda.index');
+		Route::get('/maesma/tiendas/registrar', 'StoreController@create')->name('tienda.create');
+		Route::post('/maesma/tiendas', 'StoreController@store')->name('tienda.store');
 		Route::get('/maesma/tiendas/{slug}/editar', 'StoreController@edit')->name('tienda.edit');
 		Route::put('/maesma/tiendas/{slug}', 'StoreController@update')->name('tienda.update');
 		Route::put('/maesma/tiendas/activar/{slug}', 'StoreController@activate')->name('tienda.activate');
@@ -93,6 +95,27 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/maesma/distancias/{slug}/editar', 'DistanceController@edit')->name('distancias.edit');
 		Route::put('/maesma/distancias/{slug}', 'DistanceController@update')->name('distancias.update');
 		Route::delete('/maesma/distancias/eliminar/{slug}', 'DistanceController@destroy')->name('distancias.delete');
+
+		//Páginas
+		Route::get('/maesma/paginas', 'PageController@index')->name('paginas.index');
+		Route::get('/maesma/paginas/registrar', 'PageController@create')->name('paginas.create');
+		Route::post('/maesma/paginas', 'PageController@store')->name('paginas.store');
+		Route::get('/maesma/paginas/{slug}/editar', 'PageController@edit')->name('paginas.edit');
+		Route::put('/maesma/paginas/{slug}', 'PageController@update')->name('paginas.update');
+
+		//Sliders
+		Route::get('/maesma/sliders', 'SliderController@index')->name('sliders.index');
+		Route::get('/maesma/sliders/registrar', 'SliderController@create')->name('sliders.create');
+		Route::post('/maesma/sliders', 'SliderController@store')->name('sliders.store');
+		Route::get('/maesma/sliders/{slug}/editar', 'SliderController@edit')->name('sliders.edit');
+		Route::put('/maesma/sliders/{slug}', 'SliderController@update')->name('sliders.update');
+
+		//Galeria
+		Route::get('/maesma/galeria', 'GalleryController@index')->name('galeria.index');
+		Route::get('/maesma/galeria/registrar', 'GalleryController@create')->name('galeria.create');
+		Route::post('/maesma/galeria', 'GalleryController@store')->name('galeria.store');
+		Route::get('/maesma/galeria/{slug}/editar', 'GalleryController@edit')->name('galeria.edit');
+		Route::put('/maesma/galeria/{slug}', 'GalleryController@update')->name('galeria.update');
 	});
 
 	Route::group(['middleware' => ['not.client']], function () {

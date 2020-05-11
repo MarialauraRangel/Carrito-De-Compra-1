@@ -10,10 +10,12 @@ use App\Distance;
 use App\Sale;
 use App\Order;
 use App\User;
+use App\Slider;
 use App\Http\Requests\SaleStoreRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\OrderNotification;
 
 class WebController extends Controller
 {
@@ -24,8 +26,9 @@ class WebController extends Controller
      */
     public function index(Request $request) {
     	$products=Product::all();
+        $sliders=Slider::where('state', 1)->get();
     	$cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
-    	return view('web.home', compact('products', 'cart'));
+    	return view('web.home', compact('products', 'sliders', 'cart'));
     }
 
     public function menu(Request $request) {
@@ -52,20 +55,18 @@ class WebController extends Controller
             $num=0;
             foreach ($cart as $cartProduct) {
                 $size=Size::where('slug', $cartProduct['size_slug'])->first();
-                $store=Store::where('slug', $cartProduct['store_slug'])->first();
                 $product=Product::join('product_size', 'products.id', '=', 'product_size.product_id')->where('products.slug', $cartProduct['product_slug'])->where('product_size.size_id', $size->id)->first();
 
                 $products[$num]['product']=$product;
                 $products[$num]['size']=$size;
-                $products[$num]['store']=$store;
                 $products[$num]['qty']=$cartProduct['qty'];
                 $products[$num]['code']=$cartProduct['code'];
                 $total+=$product->price*$cartProduct['qty'];
 
                 if ($num==0) {
-                    $request->session()->put('cart', array(0 => ['name' => $product->name, 'qty' => $cartProduct['qty'], 'price' => $product->price, 'subtotal' => number_format($product->price*$cartProduct['qty'], 2, ',', '.'), 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $cartProduct['code']]));
+                    $request->session()->put('cart', array(0 => ['name' => $product->name, 'qty' => $cartProduct['qty'], 'price' => $product->price, 'subtotal' => number_format($product->price*$cartProduct['qty'], 2, ',', '.'), 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'code' => $cartProduct['code']]));
                 } else {
-                    $request->session()->push('cart', array('name' => $product->name, 'qty' => $cartProduct['qty'], 'price' => $product->price, 'subtotal' => number_format($product->price*$cartProduct['qty'], 2, ',', '.'), 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $cartProduct['code']));
+                    $request->session()->push('cart', array('name' => $product->name, 'qty' => $cartProduct['qty'], 'price' => $product->price, 'subtotal' => number_format($product->price*$cartProduct['qty'], 2, ',', '.'), 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'code' => $cartProduct['code']));
                 }
                 $num++;  
             }
@@ -86,14 +87,13 @@ class WebController extends Controller
     }
 
     public function addCart(Request $request) {
-    	if (request('qty')>0 && !empty(request('store')) && !empty(request('size'))) {
+    	if (request('qty')>0 && !empty(request('size'))) {
     		$exists=Product::where('slug', request('slug'))->exists();
 
     		if ($exists) {
                 $size=Size::where('slug', request('size'))->first();
-                $store=Store::where('slug', request('store'))->first();
                 $product=Product::join('product_size', 'products.id', '=', 'product_size.product_id')->where('products.slug', request('slug'))->where('product_size.size_id', $size->id)->first();
-                $code=$product->id.$size->id.$store->id;
+                $code=$product->id.$size->id;
 
                 if ($request->session()->has('cart')) {
                     $cart=session('cart');
@@ -111,13 +111,13 @@ class WebController extends Controller
 
                     } else {
                         $subtotal=$product->price*request('qty');
-                        $request->session()->push('cart', array('name' => $product->name, 'qty' => request('qty'), 'price' => $product->price, 'subtotal' => number_format($subtotal, 2, ',', '.'), 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $code));
+                        $request->session()->push('cart', array('name' => $product->name, 'qty' => request('qty'), 'price' => $product->price, 'subtotal' => number_format($subtotal, 2, ',', '.'), 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'code' => $code));
 
                         return response()->json(['status' => true, 'cart' => session('cart')]);
                     }
                 } else {
                     $subtotal=$product->price*request('qty');
-                    $request->session()->push('cart', array('name' => $product->name, 'qty' => request('qty'), 'price' => $product->price, 'subtotal' => number_format($subtotal, 2, ',', '.'), 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'store' => $store->name, 'store_slug' => $store->slug, 'code' => $code));
+                    $request->session()->push('cart', array('name' => $product->name, 'qty' => request('qty'), 'price' => $product->price, 'subtotal' => number_format($subtotal, 2, ',', '.'), 'product_slug' => $product->slug, 'size_slug' => $size->slug, 'size' => $size->name, 'code' => $code));
 
                     return response()->json(['status' => true, 'cart' => session('cart')]);
                 }
@@ -138,9 +138,9 @@ class WebController extends Controller
                 foreach ($cart as $product) {
                     if (request('code')!=$product['code']) {
                         if ($num==0) {
-                            $request->session()->put('cart', array(0 => ['name' => $product['name'], 'qty' => $product['qty'], 'price' => $product['price'], 'subtotal' => $product['subtotal'], 'product_slug' => $product['product_slug'], 'size_slug' => $product['size_slug'], 'size' => $product['size'], 'store' => $product['store'], 'store_slug' => $product['store_slug'], 'code' => $product['code']]));
+                            $request->session()->put('cart', array(0 => ['name' => $product['name'], 'qty' => $product['qty'], 'price' => $product['price'], 'subtotal' => $product['subtotal'], 'product_slug' => $product['product_slug'], 'size_slug' => $product['size_slug'], 'size' => $product['size'], 'code' => $product['code']]));
                         } else {
-                            $request->session()->push('cart', array('name' => $product['name'], 'qty' => $product['qty'], 'price' => $product['price'], 'subtotal' => $product['subtotal'], 'product_slug' => $product['product_slug'], 'size_slug' => $product['size_slug'], 'size' => $product['size'], 'store' => $product['store'], 'store_slug' => $product['store_slug'], 'code' => $product['code']));
+                            $request->session()->push('cart', array('name' => $product['name'], 'qty' => $product['qty'], 'price' => $product['price'], 'subtotal' => $product['subtotal'], 'product_slug' => $product['product_slug'], 'size_slug' => $product['size_slug'], 'size' => $product['size'], 'code' => $product['code']));
                         }
                         $num++;
                     }
@@ -183,19 +183,15 @@ class WebController extends Controller
         $total=0;
         if ($request->session()->has('cart')) {
             $cart=session('cart');
-            $store=[];
-            $num=0;
             foreach ($cart as $cartProduct) {
                 $total+=$cartProduct['price']*$cartProduct['qty'];
-                if (array_search($cartProduct['store_slug'], array_column($store, 'slug'))===false) {
-                    $store[$num]=['slug' => $cartProduct['store_slug'], 'name' => $cartProduct['store']];
-                }
             }
 
             $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
             $distance = Distance::all();
+            $stores = Store::all();
 
-            return view('web.checkout', compact('cart', 'total', 'store', 'distance'));
+            return view('web.checkout', compact('cart', 'total', 'stores', 'distance'));
         }
 
         return redirect()->route('web.cart');
@@ -247,15 +243,20 @@ class WebController extends Controller
 
         $cart=session('cart');
         foreach ($cart as $order) {
-            $store = Store::where('slug', $order['store_slug'])->firstOrFail();
             $product = Product::where('slug', $order['product_slug'])->firstOrFail();
             $size = Size::where('slug', $order['size_slug'])->firstOrFail();
 
-            $data = array('sale_id' => $sale->id, 'product_id' => $product->id, 'size_id' => $size->id, 'store_id' => $store->id, 'price' => $order['price'], 'qty' => $order['qty']);
+            $data = array('sale_id' => $sale->id, 'product_id' => $product->id, 'size_id' => $size->id, 'price' => $order['price'], 'qty' => $order['qty']);
             Order::create($data)->save();
         }
 
         if ($sale) {
+            // $client_data = User::find(Auth::user()->id);
+            // $client_data->email = 'otters.c.01@gmail.com';
+            // $client_data->email_customer = Auth::user()->email;
+            // $client_data->phone_customer = request('phone');
+            // $client_data->notify(new OrderNotification());
+
             $request->session()->forget('cart');
             return redirect()->route('pago.index')->with(['type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'La compra ha sido registrada exitosamente.']);
         } else {

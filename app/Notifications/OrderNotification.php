@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ContactWorkshopsNotification extends Notification
+class OrderNotification extends Notification
 {
     use Queueable;
 
@@ -41,11 +41,13 @@ class ContactWorkshopsNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Contacto de taller')
+                    ->subject('Pedido Realizado')
                     ->greeting('Hola')
-                    ->line('Alguien quiere ponerse en contacto con '.$notifiable->owner)
-                    ->line('Teléfono del cliente: '.$notifiable->phone_cliente)
-                    ->line('Contacte a '.$notifiable->owner.' para comunicarselo.');
+                    ->line('Ha sido realizado un nuevo pedido de '.$notifiable->name)
+                    ->line('Por favor, comuníquese con el cliente a través de la información de contacto subministrada:')
+                    ->line('Nombre: '.$notifiable->name.' '.$notifiable->lastname)
+                    ->line('Teléfono: '.$notifiable->phone_customer)
+                    ->line('Email: '.$notifiable->email_customer);
     }
 
     /**

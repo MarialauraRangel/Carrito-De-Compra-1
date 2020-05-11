@@ -26,6 +26,7 @@
 								<th>Nombre</th>
 								<th>Télefono</th>
 								<th>Dirección</th>
+								<th>Estado</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -36,6 +37,7 @@
 								<td>{{ $store->name }}</td>
 								<td>{{ $store->phone_one }} @if($store->phone_two!=NULL)<br>{{ $store->phone_two }} @endif</td>
 								<td>{{ $store->address }}</td>
+								<td>{!! state($store->state) !!}</td>
 								<td class="d-flex">
 									<a class="btn btn-info btn-circle btn-sm" href="{{ route('tienda.edit', ['slug' => $store->slug]) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 									@if($store->state==1)

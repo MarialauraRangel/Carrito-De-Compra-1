@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 2525),
+    'port' => env('MAIL_PORT', 587),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'info@misterfix.com'),
-        'name' => env('MAIL_FROM_NAME', 'Mister Fix'),
+        'address' => env('MAIL_FROM_ADDRESS', 'pedidosmaesma@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Pizzería Maesma'),
     ],
 
     /*
