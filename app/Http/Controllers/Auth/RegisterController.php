@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Notifications\UserRegister;
+use App\Notifications\NewUserRegister;
 
 class RegisterController extends Controller
 {
@@ -86,12 +88,29 @@ class RegisterController extends Controller
             }
         }
 
-        return User::create([
+        $user=User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'slug' => $slug,
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
+
+        // if ($user) {
+        //     $client_data=new User;
+        //     $client_data->name = $data['name'];
+        //     $client_data->lastname = $data['lastname'];
+        //     $client_data->email = $data['email'];
+        //     $client_data->password_customer = $data['password'];
+        //     $client_data->notify(new UserRegister());
+
+        //     $client_data=new User;
+        //     $client_data->name = $data['name'];
+        //     $client_data->lastname = $data['lastname'];
+        //     $client_data->email = 'pedidosmaesma@gmail.com';
+        //     $client_data->notify(new NewUserRegister());
+        // }
+
+        return $user;
     }
 }

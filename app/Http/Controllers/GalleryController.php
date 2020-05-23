@@ -114,4 +114,16 @@ class GalleryController extends Controller
             return redirect()->route('galeria.edit', ['slug' => $slug])->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
+
+    public function destroy($slug)
+    {
+        $gallery=Gallery::where('slug', $slug)->firstOrFail();
+        $gallery->delete();
+
+        if ($gallery) {
+            return redirect()->route('paginas.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La galeria ha sido eliminada exitosamente.']);
+        } else {
+            return redirect()->route('paginas.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
+    }
 }

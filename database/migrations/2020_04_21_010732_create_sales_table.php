@@ -26,6 +26,8 @@ class CreateSalesTable extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('store_id')->unsigned()->nullable();
             $table->bigInteger('distance_id')->unsigned()->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
             $table->enum('state', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])->default(1);
             $table->timestamps();
 

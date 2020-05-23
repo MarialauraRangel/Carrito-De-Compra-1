@@ -41,13 +41,8 @@ class OrderNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Pedido Realizado')
-                    ->greeting('Hola')
-                    ->line('Ha sido realizado un nuevo pedido de '.$notifiable->name)
-                    ->line('Por favor, comuníquese con el cliente a través de la información de contacto subministrada:')
-                    ->line('Nombre: '.$notifiable->name.' '.$notifiable->lastname)
-                    ->line('Teléfono: '.$notifiable->phone_customer)
-                    ->line('Email: '.$notifiable->email_customer);
+        ->subject('Pedido Realizado')
+        ->markdown('emails.orders', ['user' => $notifiable->user, 'num' => 1, 'sale' => $notifiable->sale, 'type' => $notifiable->type]);
     }
 
     /**

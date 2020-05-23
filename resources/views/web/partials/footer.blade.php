@@ -19,7 +19,11 @@
 					<h2 class="ftco-heading-2">Menú</h2>
 					<ul class="list-unstyled">
 						<li><a href="{{ route('home') }}" class="py-2 d-block">Inicio</a></li>
+						<li><a href="{{ route('about') }}" class="py-2 d-block">Nosotros</a></li>
+						<li><a href="{{ route('services') }}" class="py-2 d-block">Servicios</a></li>
 						<li><a href="{{ route('menu') }}" class="py-2 d-block">Menú</a></li>
+						<li><a href="{{ route('gallery') }}" class="py-2 d-block">Galería</a></li>
+						<li><a href="{{ route('location') }}" class="py-2 d-block">Ubicación</a></li>
 						<li><a href="{{ route('carrito.index') }}" class="py-2 d-block">Carrito</a></li>
 						@guest
 						<li><a href="{{ route('login') }}" class="py-2 d-block"></a>Ingresar</li>
@@ -69,7 +73,7 @@
 		<div class="row">
 			<div class="col-md-12 text-center">
 				<p>
-					Maesma Pizzería &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Realizada por <a href="https://www.otterscompany.com" target="_blank">Otter Company</a>
+					Maesma Pizzería &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados | Realizada por <a href="https://www.otterscompany.com" target="_blank">Otters Company</a>
 				</p>
 			</div>
 		</div>

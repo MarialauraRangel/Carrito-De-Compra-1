@@ -11,6 +11,9 @@ use App\Sale;
 use App\Order;
 use App\User;
 use App\Slider;
+use App\Gallery;
+use App\Page;
+use App\Service;
 use App\Http\Requests\SaleStoreRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -25,10 +28,23 @@ class WebController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request) {
-    	$products=Product::all();
+    	$products=Product::limit(8)->get();
         $sliders=Slider::where('state', 1)->get();
     	$cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
     	return view('web.home', compact('products', 'sliders', 'cart'));
+    }
+
+    public function about(Request $request) {
+        $pages=Page::where('state', 1)->get();
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        return view('web.about', compact('pages', 'cart'));
+    }
+
+    public function services(Request $request) {
+        $services=Service::where('state', 1)->get();
+        $num=1;
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        return view('web.services', compact('services', 'num', 'cart'));
     }
 
     public function menu(Request $request) {
@@ -36,6 +52,18 @@ class WebController extends Controller
         $products=Product::orderBy('category_id', 'ASC')->get();
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
         return view('web.menu', compact('categories', 'products', 'cart'));
+    }
+
+    public function gallery(Request $request) {
+        $galleries=Gallery::where('state', 1)->get();
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        return view('web.gallery', compact('galleries', 'cart'));
+    }
+
+    public function location(Request $request) {
+        $stores=Store::where('state', 1)->get();
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        return view('web.location', compact('stores', 'cart'));
     }
 
     public function product(Request $request, $slug) {
@@ -222,17 +250,21 @@ class WebController extends Controller
                 $total=$subtotal+$distance->price;
                 $data = array('slug' => $slug, 'user_id' => Auth::user()->id, 'phone' => request('phone'), 'address' => request('address'), 'subtotal' => $subtotal, 'delivery' => $distance->price, 'total' => $total, 'user_id' => Auth::user()->id, 'store_id' => $store->id,  'distance_id' => $distance->id); 
                 
+                if (request('distance_id')!="local-gratis") {
+                    $data['lat']=request('lat');
+                    $data['lng']=request('lng');
+                }
 
                 if (Auth::user()->phone==NULL) {
                     $user = User::find(Auth::user()->id);
-                    $data = array('phone' => $request->phone);
-                    $user->fill($data)->save();  
+                    $dataUser = array('phone' => $request->phone);
+                    $user->fill($dataUser)->save();  
                 }
 
                 if (Auth::user()->dni==NULL) {
                     $user = User::find(Auth::user()->id);
-                    $data = array('dni' => $request->dni);
-                    $user->fill($data)->save();
+                    $dataUser = array('dni' => $request->dni);
+                    $user->fill($dataUser)->save();
                 }
                 break;
             }
@@ -251,10 +283,22 @@ class WebController extends Controller
         }
 
         if ($sale) {
-            // $client_data = User::find(Auth::user()->id);
+            // $client_data =new User;
             // $client_data->email = 'otters.c.01@gmail.com';
-            // $client_data->email_customer = Auth::user()->email;
-            // $client_data->phone_customer = request('phone');
+            // $client_data->user = User::find(Auth::user()->id);
+            // $client_data->user->phone_customer = request('phone');
+            // $client_data->user->address = request('address');
+            // $client_data->sale = Sale::find($sale->id);
+            // $client_data->type = 1;
+            // $client_data->notify(new OrderNotification());
+
+            // $client_data =new User;
+            // $client_data->email = Auth::user()->email;
+            // $client_data->user = User::find(Auth::user()->id);
+            // $client_data->user->phone_customer = request('phone');
+            // $client_data->user->address = request('address');
+            // $client_data->sale = Sale::find($sale->id);
+            // $client_data->type = 0;
             // $client_data->notify(new OrderNotification());
 
             $request->session()->forget('cart');

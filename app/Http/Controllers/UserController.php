@@ -9,7 +9,7 @@ use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-
+use App\Notifications\UserRegister;
 
 class UserController extends Controller
 {
@@ -82,6 +82,12 @@ class UserController extends Controller
         $user=User::create($data);
 
         if ($user) {
+            // $client_data=new User;
+            // $client_data->name = request('name');
+            // $client_data->lastname = request('lastname');
+            // $client_data->email = request('email');
+            // $client_data->password_customer = request('password');
+            // $client_data->notify(new UserRegister());
             return redirect()->route('usuario.index')->with(['type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El usuario ha sido registrado exitosamente.']);
         } else {
             return redirect()->route('usuario.index')->with(['type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);

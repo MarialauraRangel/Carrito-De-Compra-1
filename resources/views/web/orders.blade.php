@@ -8,6 +8,7 @@
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
 			<div class="col-md-9 ftco-animate text-center">
+				<p class="breadcrumbs"><span class="mr-2"><a href="{{ route('home') }}">Inicio</a></span> <span>Compras</span></p>
 				<h1 class="mb-0 bread">Compras Realizadas</h1>
 			</div>
 		</div>
@@ -31,7 +32,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($sales as $s)
+							@forelse($sales as $s)
 							<tr>
 								<td>{{ $num++ }}</td>
 								<td>{{ $s->store->name }}</td>
@@ -42,7 +43,11 @@
 									<a href="{{ route('pago.order', ['slug' => $s->slug]) }}" class="btn btn-primary"><i class="icon-eye"></i></a>
 								</td>
 							</tr>
-							@endforeach
+							@empty
+							<tr class="text-center">
+								<td colspan="6">No se ha realizado ninguna compra.</td>
+							</tr>
+							@endforelse
 						</tbody>
 					</table>
 				</div>

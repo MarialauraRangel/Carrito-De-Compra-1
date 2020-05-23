@@ -3128,7 +3128,7 @@
   .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     z-index: 1000;
     display: none;
     float: left;
@@ -6570,6 +6570,39 @@
 
   .border-white {
     border-color: #fff !important; 
+  }
+  
+  @media (max-width: 576px) {
+    .border-sm-bottom {
+      border-bottom: 1px solid #dee2e6 !important; 
+    }
+  }
+
+  @media (min-width: 577px) and (max-width: 768px) {
+    .border-md-right {
+      border-right: 1px solid #dee2e6 !important; 
+    }
+    .border-md-bottom {
+      border-bottom: 1px solid #dee2e6 !important; 
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1190px) {
+    .border-lg-right {
+      border-right: 1px solid #dee2e6 !important; 
+    }
+    .border-lg-bottom {
+      border-bottom: 1px solid #dee2e6 !important; 
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .border-xl-right {
+      border-right: 1px solid #dee2e6 !important; 
+    }
+    .border-xl-bottom {
+      border-bottom: 1px solid #dee2e6 !important; 
+    }
   }
 
   .rounded {
@@ -10224,7 +10257,7 @@
     }
   }
   .ftco-navbar-light .navbar-nav > .nav-item.active > a {
-    color: #000000;
+    color: #e10f21;
   }
   @media (max-width: 991.98px) {
     .ftco-navbar-light .navbar-nav > .nav-item.active > a {
@@ -12611,7 +12644,7 @@
   }
 
   .product .img-prod img {
-    height: 180px;
+    height: 140px;
     width: 100%;
   }
 
@@ -12636,4 +12669,74 @@
   .btn-primary:hover, .btn-primary:active {
     color: #e10f21 !important;
     background: #fff !important;
+  }
+
+  .banner-height {
+    height: 500px !important;
+  }
+
+  .carousel-item.slider-item.banner-height {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  @media (max-width: 991px) {
+    .banner-height {
+      height: 400px !important;
+    }
+
+    .product .img-prod img {
+      height: 165px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .product .img-prod img {
+      height: 220px;
+    }
+
+    #home-section .carousel-control-prev, #home-section .carousel-control-next {
+      width: 10%;
+    }
+  }
+
+  @media (max-width: 690px) {
+    .banner-height {
+      height: 350px !important;
+    }
+
+    #home-section .carousel-caption {
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  @media (max-width: 550px) {
+    .banner-height {
+      height: 320px !important;
+    }
+
+    .navbar-brand img {
+      width: 100px;
+    }
+  }
+
+  @media (max-width: 450px) {
+    #home-section .owl-carousel.home-slider .slider-item .slider-text h1 {
+      font-size: 30px;
+    }
+
+    #home-section .owl-carousel.home-slider .slider-item .slider-text .subheading {
+      font-size: 8px;
+    }
+
+    #home-section .carousel-control-prev, #home-section .carousel-control-next {
+      width: 15%;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .product .img-prod img {
+      height: 160px;
+    }
   }

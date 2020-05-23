@@ -27,7 +27,6 @@ class GalleryStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:2|max:191',
-            'image' => 'required|string|min:2|max:191',
             'description' => 'required|string|min:10|max:64000',
             'image' => 'required|file',
             'link' => 'required|url|min:3|max:191',

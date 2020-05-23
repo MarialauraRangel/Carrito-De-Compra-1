@@ -9,7 +9,7 @@
 @section('content')
 
 <section id="home-section" class="hero">
-    <div class="home-slider owl-carousel">
+    <div class="home-slider owl-carousel banner-height">
         @if(count($sliders)>1)
         <div id="carouselCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -17,14 +17,16 @@
                 <li data-target="#carouselCaptions" data-slide-to="{{ $loop->index }}" @if($loop->index==0) class="active" @endif></li>
                 @endforeach
             </ol>
-            <div class="carousel-inner" style="height: 500px;">
+            <div class="carousel-inner banner-height">
                 @foreach($sliders as $slider)
-                <div class="carousel-item @if($loop->index==0) active @endif">
-                    <img src="{{ asset('/admins/img/sliders/'.$slider->image) }}" class="w-100" style="height: 500px;" alt="{{ $slider->title }}">
-                    <div class="carousel-caption slider-text mb-5 pb-5">
-                        <h1 class="mb-2">{{ $slider->title }}</h1>
-                        <h2 class="subheading mb-4">{{ $slider->description }}</h2>
-                        <p><a href="{{ $slider->link }}" class="btn btn-primary">Ver Más</a></p>
+                <div class="carousel-item slider-item banner-height @if($loop->index==0) active @endif" style="background-image: url('/admins/img/sliders/{{ $sliders[0]->image }}');">
+                    <div class="overlay"></div>
+                    <div class="carousel-caption row slider-text justify-content-center align-items-center banner-height">
+                        <div class="col-md-12 ftco-animate text-center">
+                            <h1 class="mb-2">{{ $slider->title }}</h1>
+                            <h2 class="subheading mb-4">{{ $slider->description }}</h2>
+                            <p><a href="{{ $slider->link }}" class="btn btn-primary">Ver Más</a></p>
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -39,10 +41,10 @@
             </a>
         </div>
         @elseif(count($sliders)==1)
-        <div class="slider-item" style="background-image: url('/admins/img/sliders/{{ $sliders[0]->image }}');">
+        <div class="slider-item banner-height" style="background-image: url('/admins/img/sliders/{{ $sliders[0]->image }}');">
             <div class="overlay"></div>
             <div class="container">
-                <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+                <div class="row slider-text justify-content-center align-items-center banner-height" data-scrollax-parent="true">
 
                     <div class="col-md-12 ftco-animate text-center">
                         <h1 class="mb-2">{{ $sliders[0]->title }}</h1>
@@ -54,10 +56,10 @@
             </div>
         </div>
         @else
-        <div class="slider-item" style="background-image: url(web/images/bg_2.jpg);">
+        <div class="slider-item banner-height" style="background-image: url(web/images/bg_2.jpg);">
             <div class="overlay"></div>
             <div class="container">
-                <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+                <div class="row slider-text justify-content-center align-items-center banner-height" data-scrollax-parent="true">
 
                     <div class="col-md-12 ftco-animate text-center">
                         <h1 class="mb-2">Las Mejores Pizzas</h1>
@@ -75,7 +77,7 @@
 <section class="ftco-section ftco-no-pb">
     <div class="container">
         <div class="row no-gutters ftco-services">
-            <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="col-lg-3 col-md-3 col-6 text-center d-flex align-self-stretch ftco-animate">
                 <div class="media block-6 services mb-md-0 mb-4">
                     <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
                         <span class="flaticon-shipped"></span>
@@ -86,7 +88,7 @@
                     </div>
                 </div>      
             </div>
-            <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="col-lg-3 col-md-3 col-6 text-center d-flex align-self-stretch ftco-animate">
                 <div class="media block-6 services mb-md-0 mb-4">
                     <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
                         <span class="flaticon-diet"></span>
@@ -97,7 +99,7 @@
                     </div>
                 </div>    
             </div>
-            <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="col-lg-3 col-md-3 col-6 text-center d-flex align-self-stretch ftco-animate">
                 <div class="media block-6 services mb-md-0 mb-4">
                     <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
                         <span class="flaticon-award"></span>
@@ -108,7 +110,7 @@
                     </div>
                 </div>      
             </div>
-            <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="col-lg-3 col-md-3 col-6 text-center d-flex align-self-stretch ftco-animate">
                 <div class="media block-6 services mb-md-0 mb-4">
                     <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
                         <span class="flaticon-customer-service"></span>

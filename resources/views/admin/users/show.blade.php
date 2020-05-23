@@ -47,10 +47,12 @@
 									<label class="col-form-label">Tipo</label>
 									<input class="form-control" disabled name="type" type="text" @if($user->type==1) value="Super Administrador" @elseif($user->type==2) value="Cajero" @elseif($user->type==3) value="Repartidor" @else value="Cliente" @endif  >
 								</div>
-								<div class="form-group col-lg-12 col-md-12 col-12 @if($user->type!=2 && $user->type!=3) d-none @endif" id="storeField">
+								@if($user->type==2 || $user->type==3)
+								<div class="form-group col-lg-12 col-md-12 col-12">
 									<label class="col-form-label">Tienda<b class="text-danger">*</b></label>
 									<input class="form-control" disabled type="text" value="{{ $user->store->name }}">
 								</div>
+								@endif
 							</div>
 						</div>
 						

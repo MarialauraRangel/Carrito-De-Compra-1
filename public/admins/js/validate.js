@@ -89,7 +89,7 @@ $(document).ready(function(){
 					email: 'Introduce una dirección de correo valida.',
 					minlength: 'Escribe mínimo {0} caracteres.',
 					maxlength: 'Escribe máximo {0} caracteres.',
-					remote: "Usted ya esta usando este correo."
+					remote: "Este correo ya esta en uso."
 				},
 
 				password: {
@@ -127,7 +127,11 @@ $(document).ready(function(){
 					required: true,
 					email: true,
 					minlength: 8,
-					maxlength: 191
+					maxlength: 191,
+					remote: {
+						url: "/registro/email",
+						type: "get"
+					}
 				},
 
 				phone: {
@@ -169,7 +173,8 @@ $(document).ready(function(){
 				email: {
 					email: 'Introduce una dirección de correo valida.',
 					minlength: 'Escribe mínimo {0} caracteres.',
-					maxlength: 'Escribe máximo {0} caracteres.'
+					maxlength: 'Escribe máximo {0} caracteres.',
+					remote: "Este correo ya esta en uso."
 				},
 
 				phone: {
@@ -196,11 +201,6 @@ $(document).ready(function(){
 		});
 	});
 
-
-
-
-
-
 	//Categorias
 	$("button[action='category']").on("click",function(){
 		$("#formCategory").validate({
@@ -222,7 +222,7 @@ $(document).ready(function(){
 		});
 	});
 
-	//Categorias
+	//Ventas
 	$("button[action='sale']").on("click",function(){
 		$("#formSale").validate({
 			rules:
@@ -352,5 +352,180 @@ $(document).ready(function(){
 		});
 	});
 
+	//Slider
+	$("button[action='slider']").on("click",function(){
+		$("#formSlider").validate({
+			rules:
+			{
+				title: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
 
+				description: {
+					required: true,
+					minlength: 10,
+					maxlength: 64000
+				},
+
+				link: {
+					required: true,
+					minlength: 3,
+					maxlength: 191
+				},
+
+				state: {
+					required: true
+				},
+
+				image: {
+					required: true
+				}
+			},
+			messages:
+			{
+				title: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				description: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				link: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				state: {
+					required: 'Seleccione una opción.'
+				},
+
+				image: {
+					required: 'Seleccione una opción.'
+				}
+			}
+		});
+	});
+
+	//Paginas
+	$("button[action='page']").on("click",function(){
+		$("#formPage").validate({
+			rules:
+			{
+				title: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				description: {
+					required: true,
+					minlength: 10,
+					maxlength: 64000
+				},
+
+				link: {
+					required: true,
+					minlength: 3,
+					maxlength: 191
+				},
+
+				state: {
+					required: true
+				},
+
+				image: {
+					required: true
+				}
+			},
+			messages:
+			{
+				title: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				description: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				link: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				state: {
+					required: 'Seleccione una opción.'
+				},
+
+				image: {
+					required: 'Seleccione una opción.'
+				}
+			}
+		});
+	});
+
+	//Galleria
+	$("button[action='gallery']").on("click",function(){
+		$("#formGallery").validate({
+			rules:
+			{
+				title: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				description: {
+					required: true,
+					minlength: 10,
+					maxlength: 64000
+				},
+
+				link: {
+					required: true,
+					minlength: 3,
+					maxlength: 191
+				},
+
+				state: {
+					required: true
+				},
+
+				image: {
+					required: true
+				}
+			},
+			messages:
+			{
+				title: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				description: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				link: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				state: {
+					required: 'Seleccione una opción.'
+				},
+
+				image: {
+					required: 'Seleccione una opción.'
+				}
+			}
+		});
+	});
 });

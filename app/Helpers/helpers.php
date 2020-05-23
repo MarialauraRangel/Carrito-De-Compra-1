@@ -91,3 +91,7 @@ function minutes($start, $end) {
 
 	return 30-$minutes;
 }
+
+function active($path) {
+	return request()->is($path) ? 'active' : '';
+}

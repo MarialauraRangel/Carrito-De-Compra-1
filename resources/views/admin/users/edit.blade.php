@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-
+{{ dd($user) }}
 <div class="row">
 	<div class="col-12">
 		<div class="card">

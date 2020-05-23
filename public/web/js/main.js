@@ -294,6 +294,44 @@ $(document).ready(function() {
 			});
 		});
 	}
+
+	//Mapa de leaflet
+	if ($('#lat').length && $('#lng').length && $('#map').length) {
+		if ($('#lat').val()=="" || $('#lng').val()=="") {
+			var map = L.map('map', {
+				center: [-17.3779267,-66.1455536],
+				zoom: 8
+			});
+
+			marker = L.marker([-17.3779267,-66.1455536]).addTo(map);
+		} else {
+			var mapLat=$('#lat').val();
+			var mapLng=$('#lng').val();
+			var map = L.map('map', {
+				center: [mapLat, mapLng],
+				zoom: 8
+			});
+
+			marker = L.marker([mapLat, mapLng]).addTo(map);
+		}
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+
+		map.on('click', function(e) {
+			if (marker) {
+				map.removeLayer(marker);
+			}
+
+			marker=L.marker(e.latlng).addTo(map);
+			$('#lat').val(e.latlng.lat);
+			$('#lng').val(e.latlng.lng);
+
+			lat=$('#lat').val(), 
+			lng=$('#lng').val();
+		});
+	}
 });
 
 //Abrir producto en el modal
@@ -324,10 +362,8 @@ $('.btn-cart-open').click(function(event) {
 				if (obj.product.stores.length-1>i) {
 					stores+=" / ";
 				}
-				console.log(obj.product.stores[i].name);
 				stores+=obj.product.stores[i].name;
 			}
-			console.log(stores);
 
 			$('#stores-product-cart p').text(stores);
 			$('#title-cart').text(obj.product.name);
@@ -341,6 +377,7 @@ $('.btn-cart-open').click(function(event) {
 			$('#modal-cart').modal();
 		} else {
 			Lobibox.notify('error', {
+				iconSource: 'icon',
 				title: 'Error',
 				sound: true,
 				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
@@ -390,12 +427,14 @@ $('#btn-add-cart').click(function(event) {
 			$(".count-cart").text(obj.cart.length);
 			$('#modal-cart').modal('hide');
 			Lobibox.notify('success', {
+				iconSource: 'icon',
 				title: 'Producto agregado',
 				sound: true,
 				msg: 'El producto a sido agregado al carrito exitosamente.'
 			});
 		} else {
 			Lobibox.notify('error', {
+				iconSource: 'icon',
 				title: 'Error',
 				sound: true,
 				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
@@ -422,12 +461,14 @@ $('.product-remove a').click(function() {
 			count=count-1;
 			$(".count-cart").text(count);
 			Lobibox.notify('success', {
+				iconSource: 'icon',
 				title: 'Producto eliminado',
 				sound: true,
 				msg: 'El producto a sido sacado del carrito exitosamente.'
 			});
 		} else {
 			Lobibox.notify('error', {
+				iconSource: 'icon',
 				title: 'Error',
 				sound: true,
 				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
@@ -462,6 +503,7 @@ $('.qty').change(function() {
 			$('#total-cart').text(total+" Bs");
 		} else {
 			Lobibox.notify('error', {
+				iconSource: 'icon',
 				title: 'Error',
 				sound: true,
 				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
@@ -495,6 +537,7 @@ $('.qty').keyup(function() {
 			$('#total-cart').text(total+" Bs");
 		} else {
 			Lobibox.notify('error', {
+				iconSource: 'icon',
 				title: 'Error',
 				sound: true,
 				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
@@ -508,13 +551,13 @@ $('.product-category a').click(function(event) {
 	$(this).addClass('active');
 	var filter=$(this).attr('category');
 	if (filter=="all") {
-		$('.menu-filter').show();
+		$('.menu-filter').removeClass('d-none');
 	} else {
 		$('.menu-filter').each(function(index, el) {
 			if ($(this).attr('category')==filter) {
-				$(this).show();
+				$(this).removeClass('d-none');
 			} else {
-				$(this).hide();
+				$(this).addClass('d-none');
 			}
 		});
 	}
@@ -561,12 +604,14 @@ $('#btn-add-product-cart').click(function(event) {
 			$(".count-cart").text(obj.cart.length);
 			$('#product-qty').val(1);
 			Lobibox.notify('success', {
+				iconSource: 'icon',
 				title: 'Producto agregado',
 				sound: true,
 				msg: 'El producto a sido agregado al carrito exitosamente.'
 			});
 		} else {
 			Lobibox.notify('error', {
+				iconSource: 'icon',
 				title: 'Error',
 				sound: true,
 				msg: 'Ha ocurrido un problema, intentelo nuevamente.'
@@ -578,12 +623,18 @@ $('#btn-add-product-cart').click(function(event) {
 $('#delivery').change(function(event) {
 	if ($(this).val()!="") {
 		var delivery=$('#delivery option:selected').attr('price'), total=$('#total').attr('total');
+		if ($(this).val()!="local-gratis") {
+			$('#deliveryMap').removeClass('d-none');
+		} else {
+			$('#deliveryMap').addClass('d-none');
+		}
 		var totalDelivery=new Intl.NumberFormat("de-DE").format(delivery);
 		total=parseFloat(total, 10)+parseFloat(delivery, 10);
 		total=new Intl.NumberFormat("de-DE").format(total);
 		$('#total-delivery').text(totalDelivery+' Bs');
 		$('#total').text(total+' Bs');
 	} else {
+		$('#deliveryMap').addClass('d-none');
 		var total=$('#total').attr('total');
 		total=new Intl.NumberFormat("de-DE").format(total);
 		$('#total-delivery').text('0,00 Bs');

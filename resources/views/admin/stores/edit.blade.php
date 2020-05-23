@@ -23,7 +23,7 @@
 				@include('admin.partials.errors')
 
 				<h6 class="card-subtitle">Campos obligatorios (<b class="text-danger">*</b>)</h6>
-				<form action="{{ route('tienda.update', ['slug' => $store->slug]) }}" method="POST" class="form" id="formStore">
+				<form action="{{ route('tienda.update', ['slug' => $store->slug]) }}" method="POST" class="form" id="formStore" enctype="multipart/form-data">
 					@method('PUT')
 					@csrf
 					<div class="row">

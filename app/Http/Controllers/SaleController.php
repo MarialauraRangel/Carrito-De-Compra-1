@@ -10,6 +10,7 @@ use App\DeliveryUser;
 use App\Http\Requests\SaleStoreRequest;
 use App\Http\Requests\SaleUpdateRequest;
 use Illuminate\Http\Request;
+use App\Notifications\SendOrderNotification;
 
 class SaleController extends Controller
 {
@@ -73,6 +74,13 @@ class SaleController extends Controller
         $sale->fill(['time_start' => date('Y-m-d H:i:s'), 'time_finish' => $newDate])->save();
 
         if ($sale) {
+            // $client_data =new User;
+            // $client_data->email = $sale->user->email;
+            // $client_data->customer = User::find($sale->user_id);
+            // $client_data->delivery = User::find($sale->deliveryUser->user_id);
+            // $client_data->sale = Sale::find($sale->id);
+            // $client_data->notify(new SendOrderNotification());
+
             return redirect()->route('venta.index')->with(['type' => 'success', 'title' => 'Asignación exitosa', 'msg' => 'Se ha iniciado el tiempo de entrega.']);
         } else {
             return redirect()->route('venta.index')->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);

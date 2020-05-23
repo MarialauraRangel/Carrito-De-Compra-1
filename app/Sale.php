@@ -18,6 +18,8 @@ class Sale extends Model
 		'delivery',
 		'total',
 		'phone',
+		'lat',
+		'lng',
 		'address'
 	];
 

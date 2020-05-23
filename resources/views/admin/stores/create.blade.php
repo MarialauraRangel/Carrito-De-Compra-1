@@ -23,7 +23,7 @@
 				@include('admin.partials.errors')
 
 				<h6 class="card-subtitle">Campos obligatorios (<b class="text-danger">*</b>)</h6>
-				<form action="{{ route('tienda.store') }}" method="POST" class="form" id="formStore">
+				<form action="{{ route('tienda.store') }}" method="POST" class="form" id="formStore" enctype="multipart/form-data">
 					@csrf
 					<div class="row">
 						<div class="form-group col-lg-6 col-md-6 col-12">
@@ -53,7 +53,7 @@
 
 						<div class="form-group col-12">
 							<div class="btn-group" role="group">
-								<button type="submit" class="btn btn-primary" action="store">Actualizar</button>
+								<button type="submit" class="btn btn-primary" action="store">Guardar</button>
 								<a href="{{ route('tienda.index') }}" class="btn btn-secondary">Volver</a>
 							</div>
 						</div>

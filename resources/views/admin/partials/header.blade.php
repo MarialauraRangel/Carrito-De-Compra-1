@@ -3,8 +3,8 @@
         <div class="navbar-header d-flex justify-content-center">
             <a class="navbar-brand" href="{{ route('admin') }}">
                 <b>
-                    <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="dark-logo" width="100" />
-                    <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="light-logo" width="100" />
+                    <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="dark-logo" width="70" />
+                    <img src="{{ asset('/admins/img/logo.png') }}" alt="icono" class="light-logo" width="70" />
                 </b>
             </a>
         </div>

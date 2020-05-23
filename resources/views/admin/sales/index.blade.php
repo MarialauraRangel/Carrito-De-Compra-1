@@ -46,7 +46,7 @@
 								</td>
 								<td>		
 									@if($s->time_start==NULL && $s->time_finish==NULL)
-									<button class="btn btn-success text-white" onclick="confirmTime('{{ $s->slug }}')">Empezar</button>
+									<button class="btn btn-success text-white" @if($s->casher==NULL && $s->deliveryUser==NULL) disabled @endif onclick="confirmTime('{{ $s->slug }}')">Empezar</button>
 									@elseif($s->time_finish>=date('Y-m-d H:i:s'))
 									<input type="hidden" id="minutes" value="{{ minutes($s->time_start, date('Y-m-d H:i:s')) }}">
 									<input type="hidden" id="seconds" value="00">

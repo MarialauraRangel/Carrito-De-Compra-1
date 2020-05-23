@@ -13,18 +13,18 @@
         <div class="row justify-content-center">
             <div class="col-md-10 mb-5 text-center">
                 <ul class="product-category">
-                    <li><a href="#" category="all" class="active">Todas</a></li>
                     @foreach($categories as $category)
                     @if(count($category->products)>0)
-                    <li><a href="#" category="{{ $category->name }}">{{ $category->name }}</a></li>
+                    <li><a href="#" category="{{ $category->name }}" @if($category->name=="Pizzas") class="active" @endif>{{ $category->name }}</a></li>
                     @endif
                     @endforeach
+                    <li><a href="#" category="all">Todas</a></li>
                 </ul>
             </div>
         </div>
         <div class="row">
             @foreach($products as $product)
-            <div class="col-md-6 col-lg-3 ftco-animate menu-filter" category="{{ $product->category->name }}">
+            <div class="col-md-6 col-lg-3 ftco-animate menu-filter @if($product->category->name!="Pizzas") d-none @endif" category="{{ $product->category->name }}">
                 <div class="product">
                     <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="img-prod">
                         <img class="img-fluid" src="{{ asset('/admins/img/products/'.$product->image) }}" alt="{{ $product->name }}">

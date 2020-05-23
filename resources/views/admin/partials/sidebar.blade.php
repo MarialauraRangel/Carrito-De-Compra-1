@@ -2,13 +2,6 @@
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="user-profile"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="{{ asset('/admins/img/users/'.Auth::user()->photo) }}" alt="Foto de perfil" /><span class="hide-menu">{{ Auth::user()->name." ".Auth::user()->lastname }} </span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="{{ route('home') }}">Volver a la Web</a></li>
-                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sección</a></li>
-                    </ul>
-                </li>
-                <li class="nav-devider"></li>
                 <li class="nav-small-cap">MÓDULOS</li>
                 <li><a class="waves-effect waves-dark" href="{{ route('admin') }}"><i class="fa fa-home"></i><span class="hide-menu">Inicio</span></a></li>
                 @if(Auth::user()->type==1)
@@ -55,6 +48,12 @@
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('paginas.create') }}">Registrar</a></li>
                         <li><a href="{{ route('paginas.index') }}">Lista</a></li>
+                    </ul>
+                </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="ti-shopping-cart"></i><span class="hide-menu">Servicios</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('servicios.create') }}">Registrar</a></li>
+                        <li><a href="{{ route('servicios.index') }}">Lista</a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-square"></i><span class="hide-menu">Sliders</span></a>

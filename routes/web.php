@@ -20,6 +20,10 @@ Route::get('/registro/email', 'UserController@emailVerify');
 
 // Inicio
 Route::get('/', 'WebController@index')->name('home');
+Route::get('/nosotros', 'WebController@about')->name('about');
+Route::get('/servicios', 'WebController@services')->name('services');
+Route::get('/galeria', 'WebController@gallery')->name('gallery');
+Route::get('/ubicacion', 'WebController@location')->name('location');
 
 //Tienda
 Route::get('/menu', 'WebController@menu')->name('menu');
@@ -54,7 +58,6 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/maesma/productos', 'ProductController@index')->name('productos.index');
 		Route::get('/maesma/productos/registrar', 'ProductController@create')->name('productos.create');
 		Route::post('/maesma/productos', 'ProductController@store')->name('productos.store');
-		Route::get('/maesma/productos/{slug}', 'ProductController@show')->name('productos.show');
 		Route::get('/maesma/productos/{slug}/editar', 'ProductController@edit')->name('productos.edit');
 		Route::put('/maesma/productos/{slug}', 'ProductController@update')->name('productos.update');
 		Route::delete('/maesma/productos/eliminar/{slug}', 'ProductController@destroy')->name('productos.delete');
@@ -96,12 +99,21 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/maesma/distancias/{slug}', 'DistanceController@update')->name('distancias.update');
 		Route::delete('/maesma/distancias/eliminar/{slug}', 'DistanceController@destroy')->name('distancias.delete');
 
-		//Páginas
+		//Pagina Nosotros
 		Route::get('/maesma/paginas', 'PageController@index')->name('paginas.index');
 		Route::get('/maesma/paginas/registrar', 'PageController@create')->name('paginas.create');
 		Route::post('/maesma/paginas', 'PageController@store')->name('paginas.store');
 		Route::get('/maesma/paginas/{slug}/editar', 'PageController@edit')->name('paginas.edit');
 		Route::put('/maesma/paginas/{slug}', 'PageController@update')->name('paginas.update');
+		Route::delete('/maesma/paginas/eliminar/{slug}', 'PageController@destroy')->name('paginas.delete');
+
+		//Servicios
+		Route::get('/maesma/servicios', 'ServiceController@index')->name('servicios.index');
+		Route::get('/maesma/servicios/registrar', 'ServiceController@create')->name('servicios.create');
+		Route::post('/maesma/servicios', 'ServiceController@store')->name('servicios.store');
+		Route::get('/maesma/servicios/{slug}/editar', 'ServiceController@edit')->name('servicios.edit');
+		Route::put('/maesma/servicios/{slug}', 'ServiceController@update')->name('servicios.update');
+		Route::delete('/maesma/servicios/eliminar/{slug}', 'ServiceController@destroy')->name('servicios.delete');
 
 		//Sliders
 		Route::get('/maesma/sliders', 'SliderController@index')->name('sliders.index');
@@ -116,6 +128,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/maesma/galeria', 'GalleryController@store')->name('galeria.store');
 		Route::get('/maesma/galeria/{slug}/editar', 'GalleryController@edit')->name('galeria.edit');
 		Route::put('/maesma/galeria/{slug}', 'GalleryController@update')->name('galeria.update');
+		Route::delete('/maesma/galeria/eliminar/{slug}', 'GalleryController@destroy')->name('galeria.delete');
 	});
 
 	Route::group(['middleware' => ['not.client']], function () {

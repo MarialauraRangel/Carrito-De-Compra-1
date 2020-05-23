@@ -114,4 +114,16 @@ class PageController extends Controller
             return redirect()->route('paginas.edit', ['slug' => $slug])->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
+
+    public function destroy($slug)
+    {
+        $page=Page::where('slug', $slug)->firstOrFail();
+        $page->delete();
+
+        if ($page) {
+            return redirect()->route('paginas.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La página ha sido eliminada exitosamente.']);
+        } else {
+            return redirect()->route('paginas.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
+    }
 }
