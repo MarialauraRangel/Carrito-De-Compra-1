@@ -126,4 +126,16 @@ class SliderController extends Controller
             return redirect()->route('sliders.edit', ['slug' => $slug])->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
+
+    public function destroy($slug)
+    {
+        $slider=Slider::where('slug', $slug)->firstOrFail();
+        $slider->delete();
+
+        if ($slider) {
+            return redirect()->route('sliders.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El slider ha sido eliminado exitosamente.']);
+        } else {
+            return redirect()->route('sliders.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        }
+    }
 }

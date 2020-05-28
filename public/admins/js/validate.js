@@ -528,4 +528,283 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	//Servicio
+	$("button[action='service']").on("click",function(){
+		$("#formService").validate({
+			rules:
+			{
+				title: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				description: {
+					required: true,
+					minlength: 10,
+					maxlength: 64000
+				},
+
+				link: {
+					required: true,
+					minlength: 3,
+					maxlength: 191
+				},
+
+				state: {
+					required: true
+				},
+
+				image: {
+					required: true
+				}
+			},
+			messages:
+			{
+				title: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				description: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				link: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				state: {
+					required: 'Seleccione una opción.'
+				},
+
+				image: {
+					required: 'Seleccione una opción.'
+				}
+			}
+		});
+	});
+
+	//Slider Edit
+	$("button[action='sliderEdit']").on("click",function(){
+		$("#formSliderEdit").validate({
+			rules:
+			{
+				title: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				description: {
+					required: true,
+					minlength: 10,
+					maxlength: 64000
+				},
+
+				link: {
+					required: true,
+					minlength: 3,
+					maxlength: 191
+				},
+
+				state: {
+					required: true
+				},
+
+				image: {
+					required: false
+				}
+			},
+			messages:
+			{
+				title: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				description: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				link: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				state: {
+					required: 'Seleccione una opción.'
+				}
+			}
+		});
+	});
+
+	//Paginas Edit
+	$("button[action='pageEdit']").on("click",function(){
+		$("#formPageEdit").validate({
+			rules:
+			{
+				title: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				description: {
+					required: true,
+					minlength: 10,
+					maxlength: 64000
+				},
+
+				link: {
+					required: true,
+					minlength: 3,
+					maxlength: 191
+				},
+
+				state: {
+					required: true
+				},
+
+				image: {
+					required: false
+				}
+			},
+			messages:
+			{
+				title: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				description: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				link: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				state: {
+					required: 'Seleccione una opción.'
+				}
+			}
+		});
+	});
+
+	//Galleria Edit
+	$("button[action='galleryEdit']").on("click",function(){
+		$("#formGalleryEdit").validate({
+			rules:
+			{
+				title: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				description: {
+					required: true,
+					minlength: 10,
+					maxlength: 64000
+				},
+
+				link: {
+					required: true,
+					minlength: 3,
+					maxlength: 191
+				},
+
+				state: {
+					required: true
+				},
+
+				image: {
+					required: false
+				}
+			},
+			messages:
+			{
+				title: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				description: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				link: {
+					minlength: 'Escribe mínimo {0} caracteres.',
+					maxlength: 'Escribe máximo {0} caracteres.'
+				},
+
+				state: {
+					required: 'Seleccione una opción.'
+				}
+			}
+		});
+
+		//Servicio
+		$("button[action='serviceEdit']").on("click",function(){
+			$("#formServiceEdit").validate({
+				rules:
+				{
+					title: {
+						required: true,
+						minlength: 2,
+						maxlength: 191
+					},
+
+					description: {
+						required: true,
+						minlength: 10,
+						maxlength: 64000
+					},
+
+					link: {
+						required: true,
+						minlength: 3,
+						maxlength: 191
+					},
+
+					state: {
+						required: true
+					},
+
+					image: {
+						required: false
+					}
+				},
+				messages:
+				{
+					title: {
+						minlength: 'Escribe mínimo {0} caracteres.',
+						maxlength: 'Escribe máximo {0} caracteres.'
+					},
+
+					description: {
+						minlength: 'Escribe mínimo {0} caracteres.',
+						maxlength: 'Escribe máximo {0} caracteres.'
+					},
+
+					link: {
+						minlength: 'Escribe mínimo {0} caracteres.',
+						maxlength: 'Escribe máximo {0} caracteres.'
+					},
+
+					state: {
+						required: 'Seleccione una opción.'
+					}
+				}
+			});
+		});
+	});
 });

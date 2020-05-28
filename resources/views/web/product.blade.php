@@ -48,7 +48,7 @@
 						</div>
 					</div>
 				</div>
-				<p>{{ $product->description }}</p>
+				<p>{!! $product->description !!}</p>
 				<p>
 					<a class="btn btn-black text-white py-3 px-3 mr-3" id="btn-add-product-cart" slug="{{ $product->slug }}"><span id="price-product-add-cart">{{ number_format($product->sizes[0]->pivot->price, 2, ",", ".")." Bs" }}</span> Agregar al carrito</a>
 					<a href="{{ route('menu') }}" class="btn btn-black text-white py-3 px-3">Seguir Comprando</a>

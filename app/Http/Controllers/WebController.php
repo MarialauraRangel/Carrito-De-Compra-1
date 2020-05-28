@@ -28,10 +28,11 @@ class WebController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request) {
-    	$products=Product::limit(8)->get();
+    	$products=Product::where('category_id', '!=', 3)->where('state', 1)->limit(8)->get();
+        $promotions=Product::where('category_id', 3)->where('state', 1)->limit(8)->get();
         $sliders=Slider::where('state', 1)->get();
     	$cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
-    	return view('web.home', compact('products', 'sliders', 'cart'));
+    	return view('web.home', compact('products', 'promotions', 'sliders', 'cart'));
     }
 
     public function about(Request $request) {
@@ -49,7 +50,7 @@ class WebController extends Controller
 
     public function menu(Request $request) {
         $categories=Category::all();
-        $products=Product::orderBy('category_id', 'ASC')->get();
+        $products=Product::where('state', 1)->orderBy('category_id', 'ASC')->get();
         $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
         return view('web.menu', compact('categories', 'products', 'cart'));
     }

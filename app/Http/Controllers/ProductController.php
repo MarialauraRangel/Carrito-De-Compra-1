@@ -63,7 +63,7 @@ class ProductController extends Controller
                 $num++;
             } else {
                 $category=Category::where('slug', request('category_id'))->firstOrFail();
-                $data=array('name' => request('name'), 'slug' => $slug, 'description' => request('description'), 'category_id' => $category->id);
+                $data=array('name' => request('name'), 'slug' => $slug, 'description' => nl2br(request('description')), 'category_id' => $category->id);
                 break;
             }
         }
@@ -130,7 +130,7 @@ class ProductController extends Controller
         $product=Product::where('slug', $slug)->firstOrFail();
 
         $category=Category::where('slug', request('category_id'))->firstOrFail();
-        $data=array('name' => request('name'), 'description' => request('description'), 'category_id' => $category->id);
+        $data=array('name' => request('name'), 'description' => nl2br(request('description')), 'state' => request('state'), 'category_id' => $category->id);
 
         // Mover imagen a carpeta products y extraer nombre
         if ($request->hasFile('image')) {

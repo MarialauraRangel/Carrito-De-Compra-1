@@ -15,10 +15,10 @@
                 <ul class="product-category">
                     @foreach($categories as $category)
                     @if(count($category->products)>0)
-                    <li><a href="#" category="{{ $category->name }}" @if($category->name=="Pizzas") class="active" @endif>{{ $category->name }}</a></li>
+                    <li><a category="{{ $category->name }}" @if($category->name=="Pizzas") class="active text-white" @endif>{{ $category->name }}</a></li>
                     @endif
                     @endforeach
-                    <li><a href="#" category="all">Todas</a></li>
+                    <li><a category="all">Todas</a></li>
                 </ul>
             </div>
         </div>
@@ -33,6 +33,11 @@
                     <div class="text py-3 pb-4 px-3 text-center">
                         <h3><a href="{{ route('producto', ['slug' => $product->slug]) }}">{{ $product->name }}</a></h3>
                         <div class="row d-flex justify-content-center">
+                            @if($product->category->slug=="promociones")
+                            <div class="col-12">
+                                <p>{!! $product->description !!}<br></p>
+                            </div>
+                            @endif
                             <a href="{{ route('producto', ['slug' => $product->slug]) }}" class="btn btn-primary">
                                 <span><i class="ion-ios-menu"></i></span>
                             </a>
@@ -42,7 +47,7 @@
                         </div> 
                     </div>
                 </div>
-            </div>
+            </div>  
             @endforeach
         </div>
     </div>

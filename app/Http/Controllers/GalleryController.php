@@ -121,9 +121,9 @@ class GalleryController extends Controller
         $gallery->delete();
 
         if ($gallery) {
-            return redirect()->route('paginas.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La galeria ha sido eliminada exitosamente.']);
+            return redirect()->route('galeria.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La galeria ha sido eliminada exitosamente.']);
         } else {
-            return redirect()->route('paginas.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('galeria.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

@@ -23,7 +23,7 @@
 				@include('admin.partials.errors')
 
 				<h6 class="card-subtitle">Campos obligatorios (<b class="text-danger">*</b>)</h6>
-				<form action="{{ route('servicios.update', ['slug' => $service->slug]) }}" method="POST" class="form" id="formService" enctype="multipart/form-data">
+				<form action="{{ route('servicios.update', ['slug' => $service->slug]) }}" method="POST" class="form" id="formServiceEdit" enctype="multipart/form-data">
 					@method('PUT')
 					@csrf
 					<div class="row">
@@ -52,7 +52,7 @@
 
 						<div class="form-group col-12">
 							<div class="btn-group" role="group">
-								<button type="submit" class="btn btn-primary" action="service">Actualizar</button>
+								<button type="submit" class="btn btn-primary" action="serviceEdit">Actualizar</button>
 								<a href="{{ route('servicios.index') }}" class="btn btn-secondary">Volver</a>
 							</div>
 						</div>

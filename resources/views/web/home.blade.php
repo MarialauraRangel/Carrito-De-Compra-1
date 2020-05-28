@@ -3,13 +3,14 @@
 @section('title', 'Inicio')
 
 @section('links')
+<link href="{{ asset('/admins/vendors/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.css') }}">
 @endsection
 
 @section('content')
 
 <section id="home-section" class="hero">
-    <div class="home-slider owl-carousel banner-height">
+    <div class="home-slider owl-carousel-banner banner-height">
         @if(count($sliders)>1)
         <div id="carouselCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -162,6 +163,64 @@
     </div>
 </section>
 
+@if(count($promotions)>0)
+<section id="promos" class="ftco-section ftco-no-pt">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="section-title" data-aos="fade-right">
+                    <h2>Promociones</h2>
+                    <p>¡No se pierda de las novedades y promociones que tenemos preparadas para usted días a días!.</p>
+                </div>
+                <div class="promo" data-aos="fade-right">
+                    <h3>Delivery Prado</h3>
+                    <p>Lunes a domingo: de 10:00h a 21:30h.<br>
+                        <i class="icofont-phone">4527616</i><br>
+                        <i class="icofont-brand-whatsapp"><a href="https://api.whatsapp.com/send?phone=59169533025"> +591 69533025</a></i>  
+                    </p><br>
+                    <h3>Delivery Circunvalación</h3>
+                    <p>Lunes a domingo: de 15:00h a 21:30h.<br>
+                        <i class="icofont-phone">4225088</i><br>
+                        <i class="icofont-brand-whatsapp"><a href="https://api.whatsapp.com/send?phone=59169533025"> +591 69533080</a></i>  
+                    </p>
+                </div>
+
+            </div>
+            <div class="col-lg-8">
+                <div class="owl-carousel promos-carousel">
+                
+                    @foreach($promotions as $promotion)
+                    <div class="product">
+                        <a href="{{ route('producto', ['slug' => $promotion->slug]) }}" class="img-prod">
+                            <img class="img-fluid" src="{{ asset('/admins/img/products/'.$promotion->image) }}" alt="{{ $promotion->name }}">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="{{ route('producto', ['slug' => $promotion->slug]) }}">{{ $promotion->name }}</a></h3>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-12">
+                                    <p>{!! $promotion->description !!}<br></p>
+                                </div>
+                                <a href="{{ route('producto', ['slug' => $promotion->slug]) }}" class="btn btn-primary">
+                                    <span><i class="ion-ios-menu"></i></span>
+                                </a>
+                                <a class="btn btn-primary btn-cart-open mx-1" slug="{{ $promotion->slug }}" image="{{ asset('/admins/img/products/'.$promotion->image) }}">
+                                    <span><i class="ion-ios-cart"></i></span>
+                                </a>
+                            </div> 
+                        </div>
+                    </div>
+                    @endforeach
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+@endif
+
 <section class="ftco-section img" style="background-image: url(web/images/bg_3.jpg);">
     <div class="container">
         <div class="row justify-content-end">
@@ -218,5 +277,6 @@
 @endsection
 
 @section('script')
+<script src="{{ asset('/admins/vendors/owl.carousel/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('/admins/vendors/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
 @endsection

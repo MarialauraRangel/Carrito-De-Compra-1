@@ -202,6 +202,25 @@
 	};
 	goHere();
 
+	if ($(".promos-carousel").length) {
+		$(".promos-carousel").owlCarousel({
+			autoplay: true,
+			dots: true,
+			loop: true,
+			responsive: {
+				0: {
+					items: 1
+				},
+				768: {
+					items: 1
+				},
+				900: {
+					items: 2
+				}
+			}
+		});
+	}
+
 })(jQuery);
 
 $(document).ready(function() {
@@ -367,7 +386,7 @@ $('.btn-cart-open').click(function(event) {
 
 			$('#stores-product-cart p').text(stores);
 			$('#title-cart').text(obj.product.name);
-			$('#description-cart').text(obj.product.description);
+			$('#description-cart').html(obj.product.description);
 			$('#img-cart').attr('src', img);
 			var price=new Intl.NumberFormat("de-DE").format($('#select-size-cart option:selected').attr('price'));
 			$('#price-add-cart').text(price+" Bs");
@@ -548,7 +567,9 @@ $('.qty').keyup(function() {
 
 $('.product-category a').click(function(event) {
 	$('.product-category a').removeClass('active');
+	$('.product-category a').removeClass('text-white');
 	$(this).addClass('active');
+	$(this).addClass('text-white');
 	var filter=$(this).attr('category');
 	if (filter=="all") {
 		$('.menu-filter').removeClass('d-none');

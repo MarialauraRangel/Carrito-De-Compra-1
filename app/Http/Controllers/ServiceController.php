@@ -121,9 +121,9 @@ class ServiceController extends Controller
         $service->delete();
 
         if ($service) {
-            return redirect()->route('paginas.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El servicio ha sido eliminada exitosamente.']);
+            return redirect()->route('servicios.index')->with(['type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El servicio ha sido eliminado exitosamente.']);
         } else {
-            return redirect()->route('paginas.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('servicios.index')->with(['type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

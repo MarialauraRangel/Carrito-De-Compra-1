@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->mediumText('description');
+            $table->integer('state')->default(1);
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->timestamps();
 

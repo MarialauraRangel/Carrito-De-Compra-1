@@ -121,6 +121,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/maesma/sliders', 'SliderController@store')->name('sliders.store');
 		Route::get('/maesma/sliders/{slug}/editar', 'SliderController@edit')->name('sliders.edit');
 		Route::put('/maesma/sliders/{slug}', 'SliderController@update')->name('sliders.update');
+		Route::delete('/maesma/sliders/eliminar/{slug}', 'SliderController@destroy')->name('sliders.delete');
 
 		//Galeria
 		Route::get('/maesma/galeria', 'GalleryController@index')->name('galeria.index');
