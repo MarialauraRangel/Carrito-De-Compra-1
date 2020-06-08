@@ -60,7 +60,9 @@
 	<script src="{{ asset('/admins/vendors/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 	<script src="{{ asset('/admins/js/waves.js') }}"></script>
 	<script src="{{ asset('/admins/js/sidebarmenu.js') }}"></script>
+	<script src="{{ asset('/admins/vendors/moment/moment.js') }}"></script>
 	@yield('script')
+	<script src="{{ asset('/admins/vendors/fullcalendar/es.js') }}"></script>
 	<script src="{{ asset('/admins/js/custom.min.js') }}"></script>
 	@include('admin.partials.notifications')
 </body>

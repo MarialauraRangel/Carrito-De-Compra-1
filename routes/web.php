@@ -139,5 +139,9 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/maesma/ventas/tiempo/{slug}', 'SaleController@time')->name('venta.time');
 		Route::put('/maesma/ventas/estado/{slug}', 'SaleController@state')->name('venta.state');
 		Route::get('/maesma/ventas/{slug}', 'SaleController@show')->name('venta.show');
+
+		//Notificaciones
+		Route::post('/notificaciones/agregar', 'AdminController@addNotifications')->name('notificaciones.add');
+		Route::post('/notificaciones/abrir', 'AdminController@openNotifications')->name('notificaciones.open');
 	});
 });

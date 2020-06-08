@@ -14,11 +14,13 @@ use App\Slider;
 use App\Gallery;
 use App\Page;
 use App\Service;
+use App\Notification;
 use App\Http\Requests\SaleStoreRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\OrderNotification;
+use Twilio\Rest\Client;
 
 class WebController extends Controller
 {
@@ -31,8 +33,8 @@ class WebController extends Controller
     	$products=Product::where('category_id', '!=', 3)->where('state', 1)->limit(8)->get();
         $promotions=Product::where('category_id', 3)->where('state', 1)->limit(8)->get();
         $sliders=Slider::where('state', 1)->get();
-    	$cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
-    	return view('web.home', compact('products', 'promotions', 'sliders', 'cart'));
+        $cart=($request->session()->has('cart')) ? count(session('cart')) : 0 ;
+        return view('web.home', compact('products', 'promotions', 'sliders', 'cart'));
     }
 
     public function about(Request $request) {
@@ -301,6 +303,25 @@ class WebController extends Controller
             // $client_data->sale = Sale::find($sale->id);
             // $client_data->type = 0;
             // $client_data->notify(new OrderNotification());
+
+            $account_sid = 'ACc4c85e83d34bf3e7869c968832f76af4';
+            $auth_token = 'd02f18c3c10e9c3f9bba9f292b28008c';
+            $twilio_number = "+12486483589";
+
+            $client = new Client($account_sid, $auth_token);
+            $client->messages->create(
+                '+584124431725',
+                array(
+                    'from' => $twilio_number,
+                    'body' => 'Ha sido realizado un nuevo pedido.'
+                )
+            );
+
+            $users=User::where('type', '1')->where('state', 1)->get();
+            foreach ($users as $user) {
+                $data=array('title' => "Nuevo Pedido", 'description' => "Ha sido realizado un nuevo pedido", 'type' => 1, 'user_id' => $user->id);
+                Notification::create($data)->save();
+            }
 
             $request->session()->forget('cart');
             return redirect()->route('pago.index')->with(['type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'La compra ha sido registrada exitosamente.']);

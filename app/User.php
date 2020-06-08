@@ -61,4 +61,8 @@ class User extends Authenticatable
     public function deliveries() {
         return $this->hasMany(DeliveryUser::class);
     }
+
+    public function notifications() {
+        return $this->hasMany(Notification::class);
+    }
 }
