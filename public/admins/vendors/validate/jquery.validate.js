@@ -463,11 +463,17 @@ $.extend( $.validator, {
 		},
 
 		checkForm: function() {
-			this.prepareForm();
-			for ( var i = 0, elements = ( this.currentElements = this.elements() ); elements[ i ]; i++ ) {
-				this.check( elements[ i ] );
-			}
-			return this.valid();
+		    this.prepareForm();
+		    for (var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++) {
+		        if (this.findByName(elements[i].name).length != undefined && this.findByName(elements[i].name).length > 1) {
+		            for (var cnt = 0; cnt < this.findByName(elements[i].name).length; cnt++) {
+		                this.check(this.findByName(elements[i].name)[cnt]);
+		            }
+		        } else {
+		            this.check(elements[i]);
+		        }
+		    }
+		    return this.valid();
 		},
 
 		// https://jqueryvalidation.org/Validator.element/
@@ -1413,7 +1419,7 @@ $.extend( $.validator, {
 			// Retrieved 2014-01-14
 			// If you have a problem with this implementation, report a bug against the above spec
 			// Or use custom methods to implement your own email validation
-			return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test( value );
+			return this.optional( element ) || /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test( value );
 		},
 
 		// https://jqueryvalidation.org/url-method/
